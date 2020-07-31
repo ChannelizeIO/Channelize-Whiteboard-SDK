@@ -29,7 +29,7 @@ In Small Classroom and Large Hall:
 - Full Screen mode
         * Both teacher and student can use full screen mode independently.
 - Uploading file
-        * Teachers can upload PPT,WORD,PDF,JPG,PNG files which will be broadcasted to the attendees / Students. 
+        * Teachers can upload PDF,JPG,PNG files which will be broadcasted to the attendees / Students. 
 - Students raising hands
         * In a lecture hall, students can "raise their hands" to apply for interacting  with the teacher. The teacher can approve or decline the application.
 
