@@ -33,15 +33,15 @@ In Small Classroom and Large Hall:
 - Full Screen mode: Both teacher and students can use full screen mode independently.
 - Uploading file: Teachers can upload PDF, JPG and PNG files which will be broadcasted to the attendees / Students. Teachers can then annotate these files. 
 - Bonus features:
-        -  Announcements: Teacher can do announcements in text and image forms.
-        -  Polls: Teachers can raise a poll (question) with four options and students can choose one of the four options as an answer.
+        1. Announcements: Teacher can do announcements in text and image forms.
+        2. Polls: Teachers can raise a poll (question) with four options and students can choose one of the four options as an answer.
 
 ### Some Upcoming Features
      
-     - Multiple annotators.
-     - Downloading annotated files.
-     - Support for other pub/sub services.
-     - Improvement in annotations in Mobile & Tablet browsers.
+  1. Multiple annotators.
+  2. Downloading annotated files.
+  3. Support for other pub/sub services.
+  4. Improvement in annotations in Mobile & Tablet browsers.
 
 
 ### Compatibility
