@@ -1,8 +1,6 @@
 ﻿## About the project
 
-
- Channelize Whiteboard is a project to provide developers in the education industry, to build  
-Whiteboard annotation with the help of Agora services. It demonstrates how to use  **Agora RTM SDK** and third party pdfJs and pdfAnnotateJs for Whiteboard solution in web platforms .
+Channelize Whiteboard is a project to provide developers building solutions for the online education and collaboration space, an interactive open-source whiteboard with real-time annotations.
 
 
 ### Applicable scenarios
@@ -24,21 +22,31 @@ In Small Classroom and Large Hall:
 ### Functions (Only works in Web)
 
 
-- Interactive Whiteboard 
-        * Using pfdJs for whiteboard annotations and Agora RTM SDK to reflect white board annotations changes to students end.
-- Full Screen mode
-        * Both teacher and student can use full screen mode independently.
-- Uploading file
-        * Teachers can upload PDF,JPG,PNG files which will be broadcasted to the attendees / Students. 
-- Students raising hands
-        * In a lecture hall, students can "raise their hands" to apply for interacting  with the teacher. The teacher can approve or decline the application.
+- Interactive Whiteboard: Using PDF.js for whiteboard annotations and Agora RTM SDK to reflect white board annotations changes to students. Whiteboard currently provides the following tools:
+    1. Pencil
+    2. Shapes: Circle, Square, Rectangle, Oval, Line
+    3. Text Annotations
+    4. Eraser
+    5. Clear all
+    6. Settings for Annotations: Thickness, Color
+
+- Full Screen mode: Both teacher and students can use full screen mode independently.
+- Uploading file: Teachers can upload PDF, JPG and PNG files which will be broadcasted to the attendees / Students. Teachers can then annotate these files. 
+- Bonus features:
+    1. Announcements: Teacher can do announcements in text and image forms.
+    2. Polls: Teachers can raise a poll (question) with four options and students can choose one of the four options as an answer.
+
+### Some Upcoming Features
+     
+  1. Multiple annotators.
+  2. Downloading annotated files.
+  3. Support for other pub/sub services.
+  4. Improvement in annotations in Mobile & Tablet browsers.
 
 
 ### Compatibility
 
-
-Channelize Whiteboard supports the following platforms and versions:
-- It will work on all Web browsers but not on Mobile/Tablet browsers.
+Channelize Whiteboard will work on all Desktop & Laptop browsers. On Mobile & Tablet browsers, currently the UI of annotations is not coming fine.
 
 
 ## Get started
