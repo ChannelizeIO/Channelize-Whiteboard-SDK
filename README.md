@@ -120,14 +120,11 @@ REACT_APP_AWS_BUCKET_KEY=your_bucket_key
 
 ## Run the project
 1. Install npm
-   ```
    npm install
-   ```
+
 2. Locally run the Web demo
-   ```
    npm run dev
-   ```
+
 3. to build the project
-   ```
    npm run build
    ```
