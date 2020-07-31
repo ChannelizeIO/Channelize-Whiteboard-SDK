@@ -1,0 +1,141 @@
+{
+  "name": "agora-edu-web",
+  "version": "5.1.1",
+  "private": true,
+  "homepage": ".",
+  "main": "./src/index.tsx",
+  "dmg": {
+    "compression": "store",
+    "npmRebuild": false,
+    "title": "agora_edu",
+    "contents": [
+      {
+        "x": 130,
+        "y": 220
+      },
+      {
+        "x": 410,
+        "y": 220,
+        "type": "link",
+        "path": "/Applications"
+      }
+    ]
+  },
+  "build": {
+    "extraMetadata": {
+      "main": "build/index.js"
+    },
+    "productName": "AgoraEducation",
+    "appId": "io.agora.education",
+    "files": [
+      "build/**/*"
+    ],
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "icon": "icons/favicon.png",
+      "entitlements": "entitlements.mac.plist",
+      "category": "io.agora.Education",
+      "hardenedRuntime": true,
+      "extendInfo": {
+        "NSMicrophoneUsageDescription": "AgoraEdu Classroom acquire your microphone permission",
+        "NSCameraUsageDescription": "AgoraEdu Classroom acquire your camera permission"
+      }
+    },
+    "win": {
+      "icon": "icons/favicon.png",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "ia32"
+          ]
+        }
+      ]
+    },
+    "linux": {
+      "icon": "icons/favicon.png",
+      "target": [
+        "deb",
+        "rpm",
+        "snap",
+        "AppImage"
+      ],
+      "category": "Development"
+    },
+    "directories": {
+      "buildResources": "assets",
+      "output": "release"
+    }
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.5.1",
+    "@material-ui/icons": "^4.5.1",
+    "agora-rtm-sdk": "1.2.2",
+    "aws-sdk": "^2.694.0",
+    "concurrently": "^5.0.0",
+    "cross-env": "^6.0.3",
+    "immutable": "^4.0.0-rc.12",
+    "jquery": "^3.5.1",
+    "js-md5": "^0.7.3",
+    "lodash": "^4.17.15",
+    "moment": "^2.24.0",
+    "node-sass": "^4.14.1",
+    "pdf-lib": "^1.7.0",
+    "pdfjs-dist": "^2.3.200",
+    "react": "^16.10.2",
+    "react-color": "2.17.3",
+    "react-dom": "^16.10.2",
+    "react-draggable": "^4.2.0",
+    "react-file-base64": "^1.0.3",
+    "react-polls": "^1.2.0",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.2.0",
+    "rxjs": "^6.5.3",
+    "typescript": "^3.6.4"
+  },
+  "scripts": {
+    "dev": "cross-env REACT_APP_RUNTIME_PLATFORM=web react-app-rewired start",
+    "build": "cross-env ENV=production REACT_APP_RUNTIME_PLATFORM=web react-app-rewired build",
+    "test": "react-app-rewired test --env=jsdom",
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-optional-chaining": "^7.7.5",
+    "@types/jest": "^24.0.19",
+    "@types/lodash": "^4.14.145",
+    "@types/node": "^12.12.22",
+    "@types/pdfjs-dist": "^2.1.4",
+    "@types/react": "^16.9.9",
+    "@types/react-color": "^3.0.1",
+    "@types/react-dom": "^16.9.2",
+    "@types/react-router-dom": "^5.1.0",
+    "@types/uuid": "^3.4.6",
+    "babel-plugin-import": "^1.13.0",
+    "cpx": "^1.5.0",
+    "customize-cra": "^0.8.0",
+    "devtron": "^1.4.0",
+    "react-app-rewired": "^2.1.4",
+    "react-use": "^13.24.0",
+    "source-map-support": "^0.5.16",
+    "wait-on": "^3.3.0"
+  }
+}

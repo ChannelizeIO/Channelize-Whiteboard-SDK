@@ -1,0 +1,1 @@
+export const platform = process.env.REACT_APP_RUNTIME_PLATFORM as string;

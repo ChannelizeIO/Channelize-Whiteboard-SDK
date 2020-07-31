@@ -1,0 +1,62 @@
+div.poll-card_1 {
+    max-width:500px; min-width:500px;
+}
+.poll-card_1 .MuiFormControl-root,
+.poll-card_1 .flex-item.card,
+.show_poll_card_sec .MuiFormControl-root,
+.show_poll_card_sec .flex-item.card { 
+    max-width:100%; 
+    min-width:100%
+}
+.poll-card_1 .MuiInputBase-input {
+    height:1.85em
+}
+.poll-card_1 .position-content {
+    max-width:100%; 
+    align-items:flex-start; 
+    height:330px;
+}
+.poll-card_1 .poll-options { 
+    width:100%; 
+    position:relative; 
+}
+
+.poll-card_1 .poll-options > button{
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background:transparent;
+    border:0;
+    cursor:pointer;
+}
+
+.poll-card_1 button.add-option {
+    background: #fff;
+    color: #44A2FC;
+    border: 0;
+    padding: 7px 12px;
+    border-radius: 15px;
+    display: flex;
+    border:1px solid #44A2FC;
+    align-self:flex-end;
+    cursor:pointer;
+    margin-top:10px;
+    outline:none;
+    &:hover{
+    background: #44A2FC;
+    color:#fff
+    }
+
+}
+
+.poll-card_1 .position-content .MuiButtonBase-root.custom-button{
+    width:100%
+}
+
+.icon-btn { 
+    position:absolute; 
+    top:15px; 
+    right:15px; 
+    z-index:9
+}

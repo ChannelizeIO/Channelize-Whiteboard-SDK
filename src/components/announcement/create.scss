@@ -1,0 +1,40 @@
+.ann-title{
+    margin-left:100px;
+    
+}
+
+#standard-multiline-flexible-helper-text, #uploadImg
+{
+    
+    color:red !important
+}
+.classroom .MuiButton-outlinedPrimary {
+    border-width: 0 !important;
+    padding: 5px !important;
+    min-width: auto !important;
+    position: absolute;
+    right: 200px;
+    top: -40px;
+}
+.classroom.big-class .MuiButton-outlinedPrimary {
+    top: -40px;
+}
+.classroom .MuiButton-outlinedPrimary span.MuiButton-label {
+	display: none;
+}
+.classroom .MuiButton-outlinedPrimary::before {
+    width: 24px;
+    height: 24px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    content: ' ';
+    background-image: url('../../assets/shout.svg');
+}
+.MuiDialog-container .MuiDialog-paper .MuiDialogActions-spacing button {
+    border: 1px solid #DBE2E5;
+    background-color: #DBE2E5;
+}
+.MuiDialog-container .MuiDialog-paper .MuiDialogActions-spacing button .MuiButton-label {
+    text-transform: capitalize;
+}
