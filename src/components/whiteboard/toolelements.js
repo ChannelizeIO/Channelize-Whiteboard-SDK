@@ -82,7 +82,7 @@ const Toolelements = () => {
           if (checkFileSize(size)) {
             let filePath = "my-first-bucket-path/" + fileName;
             let fileType = file.type;
-            console.log(fileType)
+
             fileType == "application/pdf"
               ? uploadToAws(file, filePath)
               : convertToPdf(file, fileType);
@@ -130,10 +130,8 @@ const Toolelements = () => {
       },
       function (err, data) {
         if (err) {
-          alert('something went wrong !!!!');
+          alert('Failed to upload !!!!');
         }
-        alert("File has been uploaded successfully!");
-
         hideLoader();
         fileState.fileDispatch({ type: "upload-file", fileId: data.Location });
       }
@@ -173,16 +171,16 @@ const Toolelements = () => {
       return;
     }
   };
+
   async function callApiCovertorForPPTDocx(file) {
     const formData = new FormData();
     formData.append("sampleFile", file);
-    fetch("https://agoraapi.primemessenger.com/upload", {
+    fetch('https://agoraapi.primemessenger.com/upload', {
       method: "POST",
       body: formData,
     })
       .then((resp) => resp.json())
       .then((data) => {
-        alert("File has been successfully uploaded");
         if (data.error) {
           alert(data.error);
           hideLoader();

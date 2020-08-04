@@ -44,7 +44,7 @@ const en = {
     'add_page': 'New canvas added!',
     'remove_page': 'Current canvas removed!',
     'toggle_page': 'Canvas changed!',
-    'upload_file': 'New file Added!'
+    'upload_file': 'File has been uploaded successfully!'
   },
   'notice': {
     'student_interactive_apply': `"{reason}" wants to interact with you`
