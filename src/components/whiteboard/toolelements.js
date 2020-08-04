@@ -311,7 +311,7 @@ const Toolelements = () => {
           </div>
           <div onClick={displayColorPicker}>
             <i
-              title="Pen Color & Thinkness"
+              title="Pen Color & Thickness"
               data-annotation-type="color"
               className="icon items color_pick"
             />
