@@ -121,11 +121,12 @@ You can look and change according to your requirements into toolelements.js file
 
   # your AWS S3 endpoint
   REACT_APP_AWS_IdentityPoolId=IdentityPoolId
-
+  ```
 
 - Install Node.js LTS
 
 ## Run the project
+ ```bash
 1. Install npm
    npm install
 
@@ -134,4 +135,4 @@ You can look and change according to your requirements into toolelements.js file
 
 3. to build the project
    npm run build
-   ```
+  ```
