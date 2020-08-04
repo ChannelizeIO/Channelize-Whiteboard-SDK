@@ -315,17 +315,17 @@ body {
   }
 }
 
-@media screen and (max-width: 780px) {
-  .home-cover-web {
-    min-width: 780px;
-  }
-}
+// @media screen and (max-width: 780px) {
+//   .home-cover-web {
+//     min-width: 780px;
+//   }
+// }
 
-@media screen and (max-height: 768px) {
-  .home-cover-web {
-    min-height: 768px;
-  }
-}
+// @media screen and (max-height: 768px) {
+//   .home-cover-web {
+//     min-height: 768px;
+//   }
+// }
 
 .flex-item.cover {
   display: flex;
