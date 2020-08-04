@@ -76,6 +76,7 @@
     "agora-rtm-sdk": "1.2.2",
     "aws-sdk": "^2.694.0",
     "concurrently": "^5.0.0",
+    "create-stylesheet": "^0.3.0",
     "cross-env": "^6.0.3",
     "immutable": "^4.0.0-rc.12",
     "jquery": "^3.5.1",

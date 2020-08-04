@@ -338,13 +338,13 @@ const Whiteboard = () => {
       {
         roomStore._state.me.role === "teacher" ?
         <span className='PageDetail'>
-        <h3>{currentPage}/{totalPage}</h3>
+        <h3>Page {currentPage}/{totalPage}</h3>
         </span> : null
       }
       {
         !fullScreen ?
-        <span  onClick={handleFullScreen} className='FullScreen'/>
-        : <span onClick = {handleFullScreen} className='NormalScreen'/>
+        <span title = 'Full Screen' onClick={handleFullScreen} className='FullScreen'/>
+        : <span title = 'Exit Full Screen' onClick = {handleFullScreen} className='NormalScreen'/>
       }
     </>
   );
