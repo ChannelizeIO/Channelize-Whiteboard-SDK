@@ -1,0 +1,61 @@
+{
+  "name": "node-api-convertor",
+  "version": "1.0.1",
+  "description": "Node.js wrapper for converting Office files to PDF",
+  "main": "dist/index.js",
+  "engines": {
+    "node": ">=v8.11.1"
+  },
+  "scripts": {
+    "build": "babel lib --out-dir dist",
+    "lint": "eslint '{lib,tests}/**/*.js'",
+    "precommit": "npm run prettify && npm run lint",
+    "prettify": "prettier --write --single-quote --trailing-comma all --loglevel silent '{lib,tests}/**/*.js'",
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.0.0",
+    "aws-sdk": "^2.701.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.1.7-alpha.3",
+    "lodash": "^4.17.11",
+    "pdf-parse": "^1.0.8",
+    "randomstring": "^1.1.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zxhaaa6/awesome-unoconv.git"
+  },
+  "keywords": [
+    "office",
+    "pdf",
+    "convert",
+    "converter",
+    "word",
+    "excel",
+    "ppt",
+    "doc2pdf",
+    "xls2pdf",
+    "ppt2pdf",
+    "office2pdf"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.1.2",
+    "@babel/core": "^7.1.2",
+    "@babel/node": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
+    "concurrently": "^4.0.1",
+    "eslint": "^5.6.0",
+    "eslint-config-prettier": "^3.0.1",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-prettier": "^2.6.2",
+    "husky": "^0.14.3",
+    "jest": "^23.6.0",
+    "nodemon": "^2.0.4",
+    "prettier": "^1.14.3",
+    "standard-version": "^4.4.0"
+  },
+}
