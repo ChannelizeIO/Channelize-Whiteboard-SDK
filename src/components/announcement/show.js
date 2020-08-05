@@ -13,7 +13,7 @@ const AnnouncementShow=()=>{
      {type=="announcement_image"?<img src ={announcement} alt=''/>:null}
      {type=="announcement_text"?<h3>{announcement}</h3>:null}
      {announcement?
-     <div class="text-box">
+     <div className="text-box">
         Announcement
      </div>:null}
     </div>

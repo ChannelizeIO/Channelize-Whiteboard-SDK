@@ -1,6 +1,5 @@
 import React, { useState, useContext } from "react";
 import AWS from "aws-sdk";
-import { PDFDocument } from "pdf-lib";
 import { fileContext } from "../mediaboard";
 import PDFJSAnnotate from "../../utils/PdfAnnotate/PDFJSAnnotate";
 
@@ -106,19 +105,7 @@ const Toolelements = () => {
     }
     return 1;
   };
-  const checkMimeType = (mime) => {
-    if (
-      mime ===
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ||
-      mime === "application/msword" ||
-      mime === "application/vnd.ms-powerpoint" ||
-      mime ===
-      "application/vnd.openxmlformats-officedocument.presentationml.presentation"
-    ) {
-      return 1;
-    }
-    return 0;
-  };
+
   const uploadToAws = (file, filepath) => {
     const name = Date.now();
     s3.upload(
@@ -142,29 +129,7 @@ const Toolelements = () => {
   };
   const convertToPdf = async (file, fileType) => {
     try {
-      if (
-        fileType != "image/jpeg" &&
-        fileType != "image/jpg" &&
-        fileType != "image/png"
-      ) {
-        if (checkMimeType(fileType)) {
-          callApiCovertorForPPTDocx(file);
-        } else {
-          alert("File format is not valid");
-          hideLoader();
-          return;
-        }
-      }
-      file.arrayBuffer().then((buffer) => buffer);
-      var buffer = await file.arrayBuffer();
-      const imageBytes = buffer;
-      if (fileType == "image/png") {
-        convertPngToPdf(imageBytes);
-      }
-
-      if (fileType == "image/jpg" || fileType == "image/jpeg") {
-        convertJpgToPdf(imageBytes);
-      }
+      callApiCovertorForPPTDocx(file);
     }catch(err) {
       alert("Something went wrong !!");
       hideLoader();
@@ -175,7 +140,7 @@ const Toolelements = () => {
   async function callApiCovertorForPPTDocx(file) {
     const formData = new FormData();
     formData.append("sampleFile", file);
-    fetch('https://agoraapi.primemessenger.com/upload', {
+    fetch(process.env.REACT_APP_LIBRA_BACKEND_URL, {
       method: "POST",
       body: formData,
     })
@@ -195,44 +160,6 @@ const Toolelements = () => {
       });
   }
 
-  async function convertJpgToPdf(imageBytes) {
-    const pdfDoc = await PDFDocument.create();
-    const page = pdfDoc.addPage();
-    const jpgImage = await pdfDoc.embedJpg(imageBytes);
-    const jpgDims = jpgImage.scale(0.6);
-    page.drawImage(jpgImage, {
-      x: page.getWidth() / 2 - jpgDims.width / 2,
-      y: page.getHeight() / 2 - jpgDims.height / 2,
-      width: jpgDims.width,
-      height: jpgDims.height,
-    });
-    const pdfBytes = await pdfDoc.save();
-    saveByteArray(pdfBytes);
-  }
-  async function convertPngToPdf(imageBytes) {
-    try {
-      const pdfDoc = await PDFDocument.create();
-      const page = pdfDoc.addPage();
-      const pngImage = await pdfDoc.embedPng(imageBytes);
-      const pngDims = pngImage.scale(0.6);
-      page.drawImage(pngImage, {
-        x: page.getWidth() / 2 - pngDims.width / 2,
-        y: page.getHeight() / 2 - pngDims.height,
-        width: pngDims.width,
-        height: pngDims.height,
-      });
-      const pdfBytes = await pdfDoc.save();
-      saveByteArray(pdfBytes);
-    } catch (e) {
-      convertJpgToPdf(imageBytes);
-    }
-  }
-
-  function saveByteArray(byte) {
-    var blob = new Blob([byte], { type: "application/pdf" });
-    
-    uploadToAws(blob);
-  }
   return (
     <>
       <div className="menu">
