@@ -18,9 +18,9 @@ In Small Classroom and Large Hall:
 - Teacher can do the announcements in text and image form. 
 - Teacher can raise a poll (Question) with four options and students can choose one of the four options.
 
+### To explore more see [Whiteboard demo](https://whiteboard-demo.channelize.io/).
 
 ### Functions (Only works in Web)
-
 
 - Interactive Whiteboard: Using PDF.js for whiteboard annotations and Agora RTM SDK to reflect white board annotations changes to students. Whiteboard currently provides the following tools:
     1. Pencil
@@ -29,6 +29,7 @@ In Small Classroom and Large Hall:
     4. Eraser
     5. Clear all
     6. Settings for Annotations: Thickness, Color
+    7. Highlighter (Teacher can highlight text in uploaded .pdf file)
 
 - Full Screen mode: Both teacher and students can use full screen mode independently.
 - Uploading file: Teachers can upload PDF, JPG and PNG files which will be broadcasted to the attendees / Students. Teachers can then annotate these files. 
@@ -37,7 +38,7 @@ In Small Classroom and Large Hall:
     2. Polls: Teachers can raise a poll (question) with four options and students can choose one of the four options as an answer.
 
 ### Some Upcoming Features
-     
+
   1. Multiple annotators.
   2. Downloading annotated files.
   3. Support for other pub/sub services.
@@ -107,26 +108,25 @@ You can look and change according to your requirements into toolelements.js file
   REACT_APP_AWS_BUCKET_NAME=your_aws_bucket_name
   # your AWS S3 bucket region
   REACT_APP_AWS_BUCKET_REGION=your_bucket_region
- 
-  -- Can use one of them 
- # your AWS S3 access key
-REACT_APP_AWS_BUCKET_KEY=your_bucket_key
 
+  -- Can use one of them
 
-# your AWS S3 access secret key  REACT_APP_AWS_BUCKET_SECRET=your_bucket_sk
+  # your AWS S3 access key
+  REACT_APP_AWS_BUCKET_KEY=your_bucket_key
 
+  # your AWS S3 access secret key
+  REACT_APP_AWS_BUCKET_SECRET=your_bucket_sk
 
-   OR 
-
+   OR
 
   # your AWS S3 endpoint
- REACT_APP_AWS_IdentityPoolId=IdentityPoolId
-
+  REACT_APP_AWS_IdentityPoolId=IdentityPoolId
+  ```
 
 - Install Node.js LTS
 
-
 ## Run the project
+ ```bash
 1. Install npm
    npm install
 
@@ -135,4 +135,4 @@ REACT_APP_AWS_BUCKET_KEY=your_bucket_key
 
 3. to build the project
    npm run build
-   ```
+  ```

@@ -553,6 +553,9 @@ div.media-board{
   border: 1px solid #ddd;
   background: #fafafa;
 }
+.sub-menu.nav-colopiker.nav-pen .rangeslider-box label {
+  font-size: 14px;
+}
 
 // .classroom.big-class .room-container .sub-menu.nav-colopiker.nav-pen {
 //   bottom: auto;
@@ -639,10 +642,10 @@ div.media-board{
 }
 
 .pdfViewer .page {
-  width: 88%!important;
+  width: 95%!important;
   height: auto!important;
   box-sizing: border-box;
-  margin:1px auto 20px auto;
+  margin:0 0 0 auto;
 }
 .media-board .layer{
 position: fixed;
@@ -789,22 +792,22 @@ div#remove_page:after{
 
 .big-class .PageDetail {
   position: fixed;
-  right: 35px;
+  right: 30px;
   top: 60px;
-  width: 40px;
-  height: 40px;
+  width: 80px;
+  height: 30px;
   border-radius: 5px;
   background: #ddd;
-  padding: 0;
+  padding: 5px;
   text-align: center;
-  line-height: 40px;
+  line-height: 30px;
 }
 
 .small-class .PageDetail {
   position: fixed;
   right: 35px;
   top: 60px;
-  width: 40px;
+  width: 100px;
   height: 40px;
   border-radius: 5px;
   background: #ddd;
@@ -815,39 +818,42 @@ div#remove_page:after{
 
 .one-to-one .PageDetail {
   position: fixed;
-  right: 35px;
+  right: 30px;
   top: 60px;
-  width: 40px;
-  height: 40px;
+  width: 80px;
+  height: 30px;
   border-radius: 5px;
   background: #ddd;
-  padding: 0;
+  padding: 5px;
   text-align: center;
-  line-height: 40px;
+  line-height: 30px;
 }
 
 .PageDetail h3 {
   margin: 0;
-  font-size: 17px;
+  font-size: 14px;
 }
 
 .FullScreen {
   position: fixed;
   bottom: 20px;
-  left: 5px;
-  width: 70px;
-  height: 70px;
+  right: 30px;
+  width: 21px;
+  height: 21px;
   background-image: url('../assets/full_screen_icon.png');
+  background-size: 21px;
+  cursor: pointer;
 }
 
 .NormalScreen {
   position: fixed;
   bottom: 20px;
-  left: 5px;
-  width: 60px;
-  height: 60px;
+  right: 30px;
+  width: 21px;
+  height: 21px;
   background-image: url('../assets/minimize_screen.png');
-
+  background-size: 21px;
+  cursor: pointer;
 }
 
 
@@ -858,13 +864,9 @@ div#remove_page:after{
   }
 
   .PageDetail {
-    right: 35px;
+    top: 15px;
   }
-
-  .controls-container {
-    right: 35px;
-  }
-  background-color: #302e2e;
+  background-color: #fff;
 }
 
 #Board:-webkit-full-screen {
@@ -874,13 +876,9 @@ div#remove_page:after{
   }
 
   .PageDetail {
-    right: 35px;
+    top: 15px;
   }
-
-  .controls-container {
-    right: 35px;
-  }
-  background-color: #302e2e;
+  background-color: #fff;
 }
 
 .teacherScreenOnShare {

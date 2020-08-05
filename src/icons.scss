@@ -305,63 +305,63 @@
 
 .media-board {
   .selector::after {
-    width: 100%;
-    height: 100%;
+    width: 16px;
+    height: 16px;
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
     content: ' ';
-    background-image: url('./assets/Rectangle-6@2x.png');
+    background-image: url('./assets/tools-icon/cursor.png');
   }
 
   .pencil::after {
-    width: 100%;
-    height: 100%;
+    width: 16px;
+    height: 16px;
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
     content: ' ';
-    background-image: url('./assets/Rectangle-6-Copy@2x.png');
+    background-image: url('./assets/tools-icon/pensil.png');
   }
 
   .rectangle::after {
-    width: 100%;
-    height: 100%;
+    width: 16px;
+    height: 16px;
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
     content: ' ';
-    background-image: url('./assets/tool-square@2x.png');
+    background-image: url('./assets/tools-icon/Rectangle.png');
   }
 
   .ellipse::after {
-    width: 100%;
-    height: 100%;
+    width: 16px;
+    height: 16px;
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
     content: ' ';
-    background-image: url('./assets/tool-circle@2x.png');
+    background-image: url('./assets/tools-icon/circle.png');
   }
 
   .text::after {
-    width: 100%;
-    height: 100%;
+    width: 16px;
+    height: 16px;
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
     content: ' ';
-    background-image: url('./assets/Rectangle-6-Copy-6@2x.png');
+    background-image: url('./assets/tools-icon/add-text.png');
   }
 
   .eraser::after {
-    width: 100%;
-    height: 100%;
+    width: 16px;
+    height: 16px;
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
     content: ' ';
-    background-image: url('./assets/Rectangle-6-Copy-7@2x.png');
+    background-image: url('./assets/tools-icon/eraser.png');
   }
 
   .color_picker::after {
@@ -395,13 +395,13 @@
   }
 
   .upload::after {
-    width: 100%;
-    height: 100%;
+    width: 16px;
+    height: 16px;
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
     content: ' ';
-    background-image: url('./assets/icon-upload-file@2x.png');
+    background-image: url('./assets/tools-icon/outbox.png');
   }
 
   .hand_tool::after {
@@ -425,13 +425,13 @@
   }
 
   .line::after {
-    width: 75%;
-    height: 100%;
+    width: 16px;
+    height: 16px;
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
     content: ' ';
-    background-image: url('./assets/minus.svg');
+    background-image: url('./assets/tools-icon/line.png');
   }
 
   .highlight {
@@ -439,23 +439,23 @@
   }
 
   .highlight::after {
-    width: 100%;
-    height: 100%;
+    width: 16px;
+    height: 16px;
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
     content: ' ';
-    background-image: url('./assets/text-2.png');
+    background-image: url('./assets/tools-icon/font.png');
   }
 
   .color_pick:after {
-    width: 24px;
-    height: 24px;
+    width: 16px;
+    height: 16px;
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
     content: ' ';
-    background-image: url('./assets/picker.svg');
+    background-image: url('./assets/tools-icon/highlight.png');
   }
 
   .clear-icon {
@@ -463,13 +463,13 @@
   }
 
   .clear-icon::after {
-    width: 100%;
-    height: 100%;
+    width: 16px;
+    height: 16px;
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
     content: ' ';
-    background-image: url('./assets/delete.svg');
+    background-image: url('./assets/tools-icon/delete.png');
   }
 
   // .folder::after {
