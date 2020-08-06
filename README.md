@@ -39,6 +39,7 @@ In Small Classroom and Large Hall:
 
 *** Note ***
    -  For File uploading, we need to setup back-end API server which converts the WORD,PDF,JPG,PNG to PDF format using Unoconv and LibreOffice and upload it to AWS S3.
+
    ###### for File-Convert Setup  [Click here](https://github.com/ChannelizeIO/Channelize-Whiteboard-SDK/tree/Node-File-Convertor-API) .
 
 
@@ -102,7 +103,7 @@ Channelize Whiteboard will work on all Desktop & Laptop browsers. On Mobile & Ta
   REACT_APP_AGORA_APP_ID=agora appId
   REACT_APP_AGORA_LOG=true
   ```
- - **File converter API url**
+ - **File converter api url**
   ```bash
   REACT_APP_LIBRE_BACKEND_URL=file_converter_api_url
   ```
