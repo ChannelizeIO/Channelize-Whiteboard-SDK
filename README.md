@@ -32,10 +32,16 @@ In Small Classroom and Large Hall:
     7. Highlighter (Teacher can highlight text in uploaded .pdf file)
 
 - Full Screen mode: Both teacher and students can use full screen mode independently.
-- Uploading file: Teachers can upload PDF, JPG and PNG files which will be broadcasted to the attendees / Students. Teachers can then annotate these files. 
+- Uploading file: Teachers can upload PPT,WORD,PDF,JPG,PNG files which will be broadcasted to   the attendees / Students. Teachers can then annotate these files.
 - Bonus features:
     1. Announcements: Teacher can do announcements in text and image forms.
     2. Polls: Teachers can raise a poll (question) with four options and students can choose one of the four options as an answer.
+
+*** Note ***
+   -  For File uploading, we need to setup back-end API server which converts the WORD,PDF,JPG,PNG to PDF format using Unoconv and LibreOffice and upload it to AWS S3.
+
+   ###### for File-Converter  Setup  [Click here](https://github.com/ChannelizeIO/Channelize-Whiteboard-SDK/tree/Node-File-Convertor-API) .
+
 
 ### Some Upcoming Features
 
@@ -91,18 +97,20 @@ Channelize Whiteboard will work on all Desktop & Laptop browsers. On Mobile & Ta
 
  - Rename `.env.example` to `.env.local` and configure the following parameters:
 
-
   - **(Required) Agora App ID** 
   ```bash
   # Agora App ID
   REACT_APP_AGORA_APP_ID=agora appId
   REACT_APP_AGORA_LOG=true
   ```
+ - **File converter API url**
+   ```bash
+   REACT_APP_LIBRE_BACKEND_URL
+   ```
 
+ - **AWS S3 configurations for whiteboard courseware**
+   **You can look and change according to your requirements into toolelements.js file in location src/components/whiteboard/toolelements.js**
 
- - **AWS S3 configurations for whiteboard   courseware.
-You can look and change according to your requirements into toolelements.js file in location src/components/whiteboard/toolelements.js 
-**
   ```bash
   # your AWS S3 bucket name
   REACT_APP_AWS_BUCKET_NAME=your_aws_bucket_name

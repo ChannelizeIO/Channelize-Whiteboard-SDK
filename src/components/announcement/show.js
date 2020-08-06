@@ -10,8 +10,8 @@ const AnnouncementShow=()=>{
     return (
       <>
    <div className="announcement-show">
-     {type=="announcement_image"?<img src ={announcement} alt=''/>:null}
-     {type=="announcement_text"?<h3>{announcement}</h3>:null}
+     {type==="announcement_image"?<img src ={announcement} alt=''/> : null}
+     {type==="announcement_text"?<h3>{announcement}</h3>:null}
      {announcement?
      <div className="text-box">
         Announcement

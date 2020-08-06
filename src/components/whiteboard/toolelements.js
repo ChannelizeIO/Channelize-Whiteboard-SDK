@@ -140,7 +140,7 @@ const Toolelements = () => {
   async function callApiCovertorForPPTDocx(file) {
     const formData = new FormData();
     formData.append("sampleFile", file);
-    fetch(process.env.REACT_APP_LIBRA_BACKEND_URL, {
+    fetch(process.env.REACT_APP_LIBRE_BACKEND_URL, {
       method: "POST",
       body: formData,
     })
