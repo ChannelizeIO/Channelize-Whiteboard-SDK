@@ -38,6 +38,7 @@ In Small Classroom and Large Hall:
     2. Polls: Teachers can raise a poll (question) with four options and students can choose one of the four options as an answer.
 
 *** Note ***
+
    -  For File uploading, we need to setup back-end API server which converts the WORD,PDF,JPG,PNG to PDF format using Unoconv and LibreOffice and upload it to AWS S3.
 
    ###### for File-Convert Setup  [Click here](https://github.com/ChannelizeIO/Channelize-Whiteboard-SDK/tree/Node-File-Convertor-API) .
