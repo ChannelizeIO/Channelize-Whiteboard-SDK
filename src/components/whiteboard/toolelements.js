@@ -178,62 +178,6 @@ const Toolelements = () => {
               className="icon items pencil"
             />
           </div>
-          <div>
-            <i
-              title="Rectangle"
-              data-annotation-type="area"
-              className="icon items rectangle"
-            />
-          </div>
-          <div>
-            <i
-              title="Ellipse"
-              data-annotation-type="ellipse"
-              className="icon items ellipse"
-            />
-          </div>
-          <div>
-            <i
-              title="Text"
-              data-annotation-type="text"
-              className="icon items text"
-            />
-          </div>
-          <div>
-            <i
-              title="Eraser"
-              data-annotation-type="eraser"
-              className="icon items eraser"
-            />
-          </div>
-          <div>
-            <i
-              title="Line"
-              data-annotation-type="line"
-              className="icon items line"
-            />
-          </div>
-
-          <div onClick={handleClearClick}>
-            <i
-              title="Clear All"
-              data-annotation-type="clear"
-              className="icon items clear-icon"
-            />
-          </div>
-          <div>
-            <i
-              title="Highlight Text"
-              data-annotation-type="highlight"
-              className="icon items highlight"
-            />
-          </div>
-
-          <div>
-            <i title="Upload" className="icon items upload">
-              <input type="file" id="fileUpload" onChange={handleUpload} />
-            </i>
-          </div>
           <div onClick={displayColorPicker}>
             <i
               title="Pen Color & Thickness"
@@ -417,6 +361,62 @@ const Toolelements = () => {
               </div>{" "}
               <span id="penThickness" className="text-size slider-val"></span>
             </div>
+          </div>
+
+          <div>
+            <i
+              title="Line"
+              data-annotation-type="line"
+              className="icon items line"
+            />
+          </div>
+          <div>
+            <i
+              title="Rectangle"
+              data-annotation-type="area"
+              className="icon items rectangle"
+            />
+          </div>
+          <div>
+            <i
+              title="Ellipse"
+              data-annotation-type="ellipse"
+              className="icon items ellipse"
+            />
+          </div>
+          <div>
+            <i
+              title="Text"
+              data-annotation-type="text"
+              className="icon items text"
+            />
+          </div>
+          <div>
+            <i
+              title="Eraser"
+              data-annotation-type="eraser"
+              className="icon items eraser"
+            />
+          </div>
+          <div onClick={handleClearClick}>
+            <i
+              title="Clear All"
+              data-annotation-type="clear"
+              className="icon items clear-icon"
+            />
+          </div>
+          <div>
+            <i
+              title="Highlight Text"
+              data-annotation-type="highlight"
+              className="icon items highlight"
+            />
+          </div>
+
+          <div>
+            <i title="Upload" className="icon items upload">
+              <input type="file" id="fileUpload" onChange={handleUpload} />
+            </i>
           </div>
         </div>
       </div>
