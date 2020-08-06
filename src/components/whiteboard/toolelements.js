@@ -223,7 +223,7 @@ const Toolelements = () => {
           </div>
           <div>
             <i
-              title="Highlight"
+              title="Highlight Text"
               data-annotation-type="highlight"
               className="icon items highlight"
             />

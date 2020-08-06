@@ -1,11 +1,13 @@
 .announcement-show{
-    width: 280px;
-    box-shadow: 0 4px 8px 0 grey;
-    text-align: center;
-    margin-left:66%;
-    margin-top:-15px;
-    max-height: 125px;
-    overflow-y:scroll;
+  height: auto;
+  max-height: 125px;
+  width: 280px;
+  position: absolute;
+  right: 30px;
+  top: 15px;
+  z-index: 9;
+  box-shadow: 0 4px 8px 0 grey;
+  text-align: center
   }
   
   .text-box {

@@ -9,7 +9,7 @@ export default function SmallClass() {
   return (
     <div className="room-container">
       <div className="container">
-        <AnnouncementCard role={roomState.me.role} />
+      <AnnouncementCard role={roomState.me.role} />
         <MediaBoard />
       </div>
     </div>
