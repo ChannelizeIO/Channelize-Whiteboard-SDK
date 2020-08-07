@@ -249,8 +249,12 @@ export default function Control({
               {
                 fileState.pdfFiles.length > 1 ?
                 <div className="icons items remove_page" 
-                id="remove_page" title="Remove Canvas"  
-                onClick={() => fileState.fileDispatch({type: 'remove-page'})} 
+                id="remove_page" title="Remove Canvas"
+                onClick={() => {
+                  if(window.confirm('Are you sure you want to delete canvas?'))
+                  fileState.fileDispatch({type: 'remove-page'})
+                }
+                }
                 ></div> : null
               }
 

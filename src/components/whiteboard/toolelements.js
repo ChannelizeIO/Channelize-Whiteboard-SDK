@@ -1,10 +1,11 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import AWS from "aws-sdk";
 import { fileContext } from "../mediaboard";
 import PDFJSAnnotate from "../../utils/PdfAnnotate/PDFJSAnnotate";
 
 const Toolelements = () => {
   const [value, setValue] = useState(1);
+  const [isPdf, showHighLight] = useState(false);
 
   const handleClearClick = (e) => {
     if (
@@ -57,6 +58,15 @@ const Toolelements = () => {
   const bucketName = process.env.REACT_APP_AWS_BUCKET_NAME;
   const bucketRegion = process.env.REACT_APP_AWS_BUCKET_REGION;
   const IdentityPoolId = process.env.REACT_APP_AWS_IdentityPoolId;
+
+  useEffect(() => {
+    const element = document.getElementsByClassName("pdfViewer active")[0].id
+    if(element.length > 17) {
+      showHighLight(true);
+    } else {
+      showHighLight(false);
+    }
+  },[fileState]);
 
   AWS.config.update({
     region: bucketRegion,
@@ -405,14 +415,13 @@ const Toolelements = () => {
               className="icon items clear-icon"
             />
           </div>
-          <div>
-            <i
-              title="Highlight Text"
-              data-annotation-type="highlight"
-              className="icon items highlight"
-            />
-          </div>
-
+          {
+            isPdf && <i
+            title="Highlight Text"
+            data-annotation-type="highlight"
+            className="icon items highlight"
+          />
+          }
           <div>
             <i title="Upload" className="icon items upload">
               <input type="file" id="fileUpload" onChange={handleUpload} />
