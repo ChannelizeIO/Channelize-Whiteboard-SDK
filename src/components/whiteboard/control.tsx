@@ -8,6 +8,13 @@ import { globalStore } from '../../stores/global';
 import { t } from '../../i18n';
 import { sendToRemote } from '../whiteboard';
 import { fileContext } from '../mediaboard';
+import FirstPageIcon from '@material-ui/icons/FirstPage';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import LastPageIcon from '@material-ui/icons/LastPage';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import RemoveCircleOutlineOutlinedIcon from '@material-ui/icons/RemoveCircleOutlineOutlined';
+import { Tooltip } from '@material-ui/core';
 
 interface ControlItemProps {
   name: string
@@ -226,36 +233,40 @@ export default function Control({
       <div className="controls">
         { role === 'teacher' ?
           <>
-            <span title="First Page">
-            <ControlItem name={`first_page`}
-              onClick={() => toggleFirstLast('first', setCanvasNumber, fileState.pdfFiles,  fileState.setTotalPages)} />
-              </span>
-              <span title="Prev Page">
-            <ControlItem name={`prev_page`}
-              onClick={() => togglePrev(setCanvasNumber, fileState.pdfFiles, fileState.setTotalPages)} />
-              </span>
+             <Tooltip title="First Canvas">
+              <FirstPageIcon onClick={() => toggleFirstLast('first', setCanvasNumber, fileState.pdfFiles,  fileState.setTotalPages)}>
+              </FirstPageIcon>
+              </Tooltip>
+              <Tooltip  title="Prev Canvas" >
+              <ArrowBackIosIcon  onClick={() => togglePrev(setCanvasNumber, fileState.pdfFiles, fileState.setTotalPages)}/>
+              </Tooltip>
             <div className="current_page">
               <span>{currentCanvasNumber}/{totalCanvas}</span>
             </div>
-            <span title="Next Page">
-            <ControlItem name={`next_page`}
-              onClick={() => toggleNext(setCanvasNumber, fileState.pdfFiles, fileState.setTotalPages)} />
-              </span>
-              <span title="Last Page">
-            <ControlItem name={`last_page`}
-              onClick={() => toggleFirstLast('last', setCanvasNumber, fileState.pdfFiles, fileState.setTotalPages)} />
-              </span>
-              <div className="icons items add_page" id="add_page" title="Add Canvas" onClick={() => fileState.fileDispatch({type: 'add-page'})}></div>
-              {
+            <Tooltip title="Next Canvas">
+              <ArrowForwardIosIcon  onClick={() => toggleNext(setCanvasNumber, fileState.pdfFiles, fileState.setTotalPages)} />
+            </Tooltip >
+
+            <Tooltip title="Last Canvas">
+              <LastPageIcon  onClick={() => toggleFirstLast('last', setCanvasNumber, fileState.pdfFiles, fileState.setTotalPages)}/>
+            </Tooltip>
+
+            <Tooltip title="Add Canvas">
+              <AddCircleOutlineIcon id="add_page"  onClick={() => fileState.fileDispatch({type: 'add-page'})}/>
+            </Tooltip>
+            {
                 fileState.pdfFiles.length > 1 ?
-                <div className="icons items remove_page" 
-                id="remove_page" title="Remove Canvas"
-                onClick={() => {
-                  if(window.confirm('Are you sure you want to delete canvas?'))
-                  fileState.fileDispatch({type: 'remove-page'})
-                }
-                }
-                ></div> : null
+                <Tooltip title="Remove Canvas">
+                  <RemoveCircleOutlineOutlinedIcon 
+                  id="remove_page" 
+                  onClick={
+                    () => {
+                    if(window.confirm('Are you sure you want to delete canvas?'))
+                    fileState.fileDispatch({type: 'remove-page'})
+                  }
+                  }
+                  />
+                </Tooltip> : null
               }
 
             <div className="menu-split" style={{ marginLeft: '7px', marginRight: '7px' }}></div>

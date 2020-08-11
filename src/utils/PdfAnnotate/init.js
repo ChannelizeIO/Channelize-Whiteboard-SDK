@@ -340,12 +340,7 @@ function init(PDFJSAnnotate) {
 		}
 
 		function handleToolbarClick(e) {
-			var button = e.target,
-				i = 1;
-			while (button && button.nodeName !== 'I' && i < 20) {
-				button = button.parentNode;
-				i++;
-			}
+			var button = e.currentTarget;
 			if (button && button.getAttribute('data-annotation-type')) {
 				setActiveToolbarItem(button.getAttribute('data-annotation-type'), button);
 			}

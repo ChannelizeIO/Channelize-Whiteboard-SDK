@@ -6,6 +6,11 @@ import "./whiteboard.scss";
 import { roomStore } from "../stores/room";
 import { fileContext } from "./mediaboard";
 import { toggleNext, togglePrev, toggleFirstLast } from "./whiteboard/control";
+import FullscreenOutlinedIcon from '@material-ui/icons/FullscreenOutlined';
+import FullscreenExitOutlinedIcon from '@material-ui/icons/FullscreenExitOutlined';
+import { t } from '../i18n';
+import { Tooltip } from "@material-ui/core";
+
 (typeof window !== "undefined"
   ? window
   : {}
@@ -50,8 +55,12 @@ const Whiteboard = () => {
       ></div>
     );
   });
-
-
+  const hideLoader = () => {
+    let elem = document.querySelector(".room-container .bar2");
+    try {
+      elem.parentNode.removeChild(elem);
+    } catch (e) { }
+  };
   useEffect(() => {
     if (
       !document
@@ -68,10 +77,12 @@ const Whiteboard = () => {
     let VIEWER;
     let data;
     let elementId;
+    let check = false;
     if (!custom) {
       if (parseInt(pages, 10)) {
         data = require(`../assets/whiteboard/whiteboard-${pages}.pdf`);
       } else {
+        check = true;
         data = pages;
       }
       VIEWER = document.getElementById(`viewerContainer${pages}`);
@@ -100,9 +111,17 @@ const Whiteboard = () => {
     };
     PDFJS.getDocument(RENDER_OPTIONS.documentId).promise
       .then((pdf) => {
+        if(check) {
+          alert(t('toast.upload_file'));
+         // globalStore.showToast({
+         //   message: t('toast.upload_file'),
+         //   type: 'notice'
+         // });
+         hideLoader();
+       }
         fileState.setTotalPages(pdf.numPages)
         RENDER_OPTIONS.pdfDocument = pdf;
-        for (var i = 1; i <= pdf.numPages; i++) {
+        for (let i = 1; i <= pdf.numPages; i++) {
           VIEWER.appendChild(UI.createPage(i));
           UI.renderPage(i, RENDER_OPTIONS);
         }
@@ -343,8 +362,13 @@ const Whiteboard = () => {
       }
       {
         !fullScreen ?
-        <span title = 'Full Screen' onClick={handleFullScreen} className='FullScreen'/>
-        : <span title = 'Exit Full Screen' onClick = {handleFullScreen} className='NormalScreen'/>
+        <Tooltip title = 'Full Screen'>
+          <FullscreenOutlinedIcon onClick={handleFullScreen} className='FullScreen'/>
+        </Tooltip>
+        :
+        <Tooltip title = 'Exit Full Screen'>
+          <FullscreenExitOutlinedIcon onClick = {handleFullScreen} className='NormalScreen'/>
+        </Tooltip>
       }
     </>
   );

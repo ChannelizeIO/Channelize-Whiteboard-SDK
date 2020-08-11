@@ -53,7 +53,6 @@ const fileReducer = (state: any, action: any) => {
       return state;
     case 'upload-file':
       sendToRemote("", action.fileId, "add-page", "");
-      alert(t('toast.upload_file'));
       return [...state, action.fileId];
     case 'remote-add-page':
       return [...state, action.fileId];

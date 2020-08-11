@@ -1,8 +1,18 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import AWS from "aws-sdk";
 import { fileContext } from "../mediaboard";
 import PDFJSAnnotate from "../../utils/PdfAnnotate/PDFJSAnnotate";
-
+import NearMeIcon from '@material-ui/icons/NearMe';
+import CreateIcon from '@material-ui/icons/Create';
+import ColorizeIcon from '@material-ui/icons/Colorize';
+import CropDinIcon from '@material-ui/icons/CropDin';
+import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
+import TextFieldsIcon from '@material-ui/icons/TextFields';
+import ClearAllIcon from '@material-ui/icons/ClearAll';
+import DeleteIcon from '@material-ui/icons/Delete';
+import FormatColorTextIcon from '@material-ui/icons/FormatColorText';
+import PublishIcon from '@material-ui/icons/Publish';
+import { Tooltip } from "@material-ui/core";
 const Toolelements = () => {
   const [value, setValue] = useState(1);
   const [isPdf, showHighLight] = useState(false);
@@ -170,30 +180,39 @@ const Toolelements = () => {
       });
   }
 
+  const inputFileRef = useRef(null);
+
+  const handleFileUpload = () => {
+    /*Collecting node-element and performing click*/
+    inputFileRef.current.click();
+  }
   return (
     <>
       <div className="menu">
         <div className="nav annotation-toolbar">
-          <div>
-            <i
-              title="Cursor"
-              data-annotation-type="cursor"
-              className="icon items selector"
+        <div>
+            <Tooltip title="Cursor">
+            <NearMeIcon
+            data-annotation-type="cursor"
+            className="icon items"
             />
+            </Tooltip>
           </div>
           <div>
-            <i
-              title="Pencil"
+            <Tooltip title='Pencil' >
+              <CreateIcon
               data-annotation-type="draw"
-              className="icon items pencil"
-            />
+              className="icon items"
+              />
+            </Tooltip>
           </div>
           <div onClick={displayColorPicker}>
-            <i
-              title="Pen Color & Thickness"
+            <Tooltip title="Pencil Color & Thickness" >
+            <ColorizeIcon
               data-annotation-type="color"
               className="icon items color_pick"
             />
+            </Tooltip>
           </div>
           <div
             className="sub-menu nav-colopiker nav-pen"
@@ -381,25 +400,28 @@ const Toolelements = () => {
             />
           </div>
           <div>
-            <i
-              title="Rectangle"
-              data-annotation-type="area"
-              className="icon items rectangle"
-            />
+            <Tooltip  title="Rectangle">
+              <CropDinIcon
+               data-annotation-type="area"
+               className="icon items"
+              />
+            </Tooltip>
           </div>
           <div>
-            <i
-              title="Ellipse"
-              data-annotation-type="ellipse"
-              className="icon items ellipse"
-            />
+          <Tooltip title="Ellipse">
+              <RadioButtonUncheckedIcon 
+               data-annotation-type="ellipse"
+               className="icon items"
+              />
+            </Tooltip>
           </div>
           <div>
-            <i
-              title="Text"
-              data-annotation-type="text"
-              className="icon items text"
-            />
+          <Tooltip  title="Text">
+              <TextFieldsIcon
+               data-annotation-type="text"
+               className="icon items"
+              />
+            </Tooltip>
           </div>
           <div>
             <i
@@ -409,23 +431,38 @@ const Toolelements = () => {
             />
           </div>
           <div onClick={handleClearClick}>
-            <i
-              title="Clear All"
-              data-annotation-type="clear"
-              className="icon items clear-icon"
-            />
+          <Tooltip title="Clear All">
+              <DeleteIcon
+               data-annotation-type="clear"
+               className="icon items"
+              />
+            </Tooltip>
           </div>
           {
-            isPdf && <i
-            title="Highlight Text"
-            data-annotation-type="highlight"
-            className="icon items highlight"
-          />
+            isPdf ? <Tooltip title="Highlight Text">
+              <FormatColorTextIcon
+                data-annotation-type="highlight"
+                className="icon items"
+                style = {{display: 'block'}}
+              />
+            </Tooltip> :
+             <Tooltip title="Highlight Text">
+             <FormatColorTextIcon
+               data-annotation-type="highlight"
+               className="icon items"
+               style = {{display: 'none'}}
+             />
+           </Tooltip>
+
           }
           <div>
-            <i title="Upload" className="icon items upload">
-              <input type="file" id="fileUpload" onChange={handleUpload} />
-            </i>
+            <Tooltip title="Upload">
+              <PublishIcon onClick = {handleFileUpload} className="icon items upload"
+               />
+            </Tooltip>
+            <input type="file" id="fileUpload" ref={inputFileRef} onChange={handleUpload}
+            style={{display: 'none'}}
+            />
           </div>
         </div>
       </div>
