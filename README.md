@@ -6,7 +6,7 @@
 <sub>Channelize Whiteboard is a leading open source whiteboard solution that powers innovation in Tele-education by adding engagement in online learning. It is rich in features, compatible with diverse frameworks, and easy to integrate and extend. </sub>
 </div>
 
-# This Whiteboard Solution has been co-developed by Channelize.io & Agora.io
+### This Whiteboard Solution has been co-developed by Channelize.io & Agora.io
 
 <table align="center">
 <td align="center">
