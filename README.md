@@ -30,7 +30,7 @@ In Small Classroom and Large Hall:
 - Teacher can do the announcements in text and image form. 
 - Teacher can raise a poll (Question) with four options and students can choose one of the four options.
 
-### To explore more, [Click here](https://whiteboard-demo.channelize.io/).
+### To explore more about demo, [Click here](https://whiteboard-demo.channelize.io/).
 
 ### Functions (Only works in Web)
 
