@@ -8,7 +8,7 @@
 
 ### This Whiteboard Solution has been co-developed by Channelize.io & Agora.io
 
-<table align="center">
+<table align="center" style="border-collapse: collapse;">
 <td align="center">
  <a href='https://channelize.io/' target="_blank" rel="noopener noreferrer">
     <img src='src/assets/Logo-Channelize.png' width="300"/>
