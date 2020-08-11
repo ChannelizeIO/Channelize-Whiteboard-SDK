@@ -45,7 +45,7 @@ In Small Classroom and Large Hall:
 
 ### Functions (Only works in Web)
 
-- Interactive Whiteboard: Using PDF.js For Whiteboard annotations and Agora RTM SDK to reflect white board annotations changes to students. Whiteboard currently provides the following tools:
+- Interactive Whiteboard: Using PDF.js for Whiteboard annotations and Agora RTM SDK to reflect white board annotations changes to students. Whiteboard currently provides the following tools:
     1. Pencil
     2. Shapes: Circle, Square, Rectangle, Oval, Line
     3. Text Annotations
@@ -141,14 +141,12 @@ Channelize Whiteboard will work on all Desktop & Laptop browsers. On Mobile & Ta
    - agora-rtm-sdk (agora rtm web sdk)
    - aws-sdk (amazon web services - S3)
 
-
    ### Frontend tech utilities
    - Typescript
    - React
    - Javascript
 
-
-   ### for Whiteboard annotation 
+   ### For Whiteboard Annotation
    - pdfJs
 
 
