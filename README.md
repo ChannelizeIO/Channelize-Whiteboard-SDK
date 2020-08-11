@@ -1,10 +1,10 @@
 ﻿
-<p align="center">
+<div align="center">
 <img src='src/assets/Channelize-logo.png' height="400"/>
-<h1 style="text-align:center">Channelize Whiteboard Demo</h1>
+<h1>Channelize Whiteboard Demo</h1>
 <h2 style="text-align:center">Modern JavaScript based Whiteboard for Collaboration in Online Education<h2>
-<p align="center">Channelize Whiteboard is a leading open source whiteboard solution that powers innovation in Tele-education by adding engagement in online learning. It is rich in features, compatible with diverse frameworks, and easy to integrate and extend. </p>
-</p>
+<sub>Channelize Whiteboard is a leading open source whiteboard solution that powers innovation in Tele-education by adding engagement in online learning. It is rich in features, compatible with diverse frameworks, and easy to integrate and extend. </sub>
+</div>
 
 # This Whiteboard Solution has been co-developed by Channelize.io & Agora.io
 
@@ -13,7 +13,7 @@
  <a href='https://channelize.io/' target="_blank" rel="noopener noreferrer">
     <img src='src/assets/Logo-Channelize.png' width="300"/>
 </td>
-<td align="center">
+<td align="center" >
  <a href='https://www.agora.io/' target="_blank" rel="noopener noreferrer" >
     <img src='src/assets/agoralightblue-1.png' width="300"/>
 </td>
