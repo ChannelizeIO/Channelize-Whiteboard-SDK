@@ -110,8 +110,8 @@ Channelize Whiteboard will work on all Desktop & Laptop browsers. On Mobile & Ta
    REACT_APP_LIBRE_BACKEND_URL=file_converter_api_url
    ```
 
-   - **AWS S3 configurations for Whiteboard.**
-   - Please make changes in the toolelements.js file at:&nbsp; src/components/whiteboard/toolelements.js
+   - **AWS S3 configurations for Whiteboard.**&nbsp; 
+      **Please make changes in the toolelements.js file at:&nbsp; src/components/whiteboard/toolelements.js**
 
    ```bash
    # your AWS S3 bucket name
