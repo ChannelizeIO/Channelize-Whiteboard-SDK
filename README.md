@@ -2,7 +2,7 @@
 <div align="center">
 <img src='src/assets/Channelize-logo.png' height="400"/>
 <h1>Channelize Whiteboard Demo</h1>
-<h2 style="text-align:center">Modern JavaScript based Whiteboard for Collaboration in Online Education<h2>
+<p><b>Modern JavaScript based Whiteboard for Collaboration in Online Education.</b></p>
 <sub>Channelize Whiteboard is a leading open source whiteboard solution that powers innovation in Tele-education by adding engagement in online learning. It is rich in features, compatible with diverse frameworks, and easy to integrate and extend. </sub>
 </div>
 
