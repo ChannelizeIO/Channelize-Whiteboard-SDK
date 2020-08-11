@@ -1,14 +1,16 @@
 ﻿# Co-Developed by
 
+<div style="text-align:center">
 <a href='https://channelize.io/'>
-<img src='src/assets/Logo-Channelize.png' width='400' />
+<img src='src/assets/Logo-Channelize.png' width='400' left='50'/>
 </a>
-<br>
+</div>
 <h1></h1>
-<br>
+<div style="text-align:center">
 <a href='https://www.agora.io/'>
 <img src='src/assets/agoralightblue-1.png' width='400'/>
 </a>
+</div>
 
 # About the project
 
