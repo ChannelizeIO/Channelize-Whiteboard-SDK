@@ -1,4 +1,14 @@
-﻿## About the project
+﻿# Co-Developed by
+
+<a href='https://channelize.io/'>
+<img src='src/assets/Logo-Channelize.png' width='800'>
+</a>
+
+<a href='https://www.agora.io/'>
+<img src='src/assets/agoralightblue-1.png' width='800'>
+</a>
+
+# About the project
 
 Channelize Whiteboard is a project to provide developers building solutions for the online education and collaboration space, an interactive open-source whiteboard with real-time annotations.
 
@@ -18,7 +28,7 @@ In Small Classroom and Large Hall:
 - Teacher can do the announcements in text and image form. 
 - Teacher can raise a poll (Question) with four options and students can choose one of the four options.
 
-### To explore more see [Whiteboard demo](https://whiteboard-demo.channelize.io/).
+### To explore more, [Click here](https://whiteboard-demo.channelize.io/).
 
 ### Functions (Only works in Web)
 
@@ -37,11 +47,6 @@ In Small Classroom and Large Hall:
     1. Announcements: Teacher can do announcements in text and image forms.
     2. Polls: Teachers can raise a poll (question) with four options and students can choose one of the four options as an answer.
 
-***Note***
-   -  For File uploading, we need to setup back-end API server which converts the WORD,PDF,JPG,PNG to PDF format using Unoconv and LibreOffice and upload it to AWS S3.
-
-   ###### for File-Convert Setup  [Click here](https://github.com/ChannelizeIO/Channelize-Whiteboard-SDK/tree/Node-File-Convertor-API) .
-
 
 ### Some Upcoming Features
 
@@ -56,91 +61,92 @@ In Small Classroom and Large Hall:
 Channelize Whiteboard will work on all Desktop & Laptop browsers. On Mobile & Tablet browsers, currently the UI of annotations is not coming fine.
 
 
-## Get started
+
+# Get started
 
 
-### Prerequisites 
+   ## Prerequisites
+
+   Make sure you make the following preparations before compiling and running the sample project.
+
+   #### Get an Agora App ID
+   Follow these steps to get an Agora App ID:
+   1. Create an account in [Agora Console](https://sso.agora.io/v2/signup).
+   2. Log in to Agora Console and create a project. Select **"App ID only"** as your authentication mechanism when creating the project. Make  sure that you disable the [App Certificate](https://docs.agora.io/en/Agora%20Platform/token?platform=All%20Platforms#appcertificate) of  this project or can use security according to your needs.
+   3. Get the App ID of this project in **Project Management** page.
 
 
- Make sure you make the following preparations before compiling and running the sample project.
+   #### Set up File Converter API 
+   For File uploading, we need to setup back-end API server which converts the WORD,PDF,JPG,PNG to PDF format using Unoconv and LibreOffice and upload it to AWS S3.
+   for File-Convert Setup  [Click here](https://github.com/ChannelizeIO/Channelize-Whiteboard-SDK/tree/Node-File-Convertor-API) .
+
+   ## Preparations
+   - Set up your AWS S3 bucket . For details, see [S3 setup](https://docs.aws.amazon.com/quickstarts/latest/s3backup/step-1-create-bucket.html).
 
 
- #### Get an Agora App ID
- Follow these steps to get an Agora App ID:
-  1. Create an account in [Agora Console](https://sso.agora.io/v2/signup).
-  2. Log in to Agora Console and create a project. Select **"App ID only"** as your authentication mechanism when creating the project. Make  sure that you disable the [App Certificate](https://docs.agora.io/en/Agora%20Platform/token?platform=All%20Platforms#appcertificate) of  this project or can use security according to your needs.
-  3. Get the App ID of this project in **Project Management** page.
+   - Rename `.env.example` to `.env.local` and configure the following parameters:
+
+   - **(Required) Agora App ID** 
+   ```bash
+   # Agora App ID
+   REACT_APP_AGORA_APP_ID=agora appId
+   REACT_APP_AGORA_LOG=true
+   ```
+   - **File converter api url**
+   ```bash
+   REACT_APP_LIBRE_BACKEND_URL=file_converter_api_url
+   ```
+
+   - **AWS S3 configurations for whiteboard courseware**
+      **You can look and change according to your requirements into toolelements.js file in location src/components/whiteboard/toolelements.js**
+
+   ```bash
+   # your AWS S3 bucket name
+   REACT_APP_AWS_BUCKET_NAME=your_aws_bucket_name
+   # your AWS S3 bucket region
+   REACT_APP_AWS_BUCKET_REGION=your_bucket_region
+
+   -- Can use one of them
+
+   # your AWS S3 access key
+   REACT_APP_AWS_BUCKET_KEY=your_bucket_key
+
+   # your AWS S3 access secret key
+   REACT_APP_AWS_BUCKET_SECRET=your_bucket_sk
+
+      OR
+
+   # your AWS S3 endpoint
+   REACT_APP_AWS_IdentityPoolId=IdentityPoolId
+   ```
+
+   ## Tech Stack
+   * [npm][node],[JavaScript][js] — core platform and dev tools
+   * Install Node.js LTS
+
+   ### Core SDKs
+   - agora-rtm-sdk (agora rtm web sdk)
+   - aws-sdk (amazon web services - S3)
 
 
- ## Tech Stack
- *[npm][node],[JavaScript][js] — core platform and dev tools
+   ### Frontend tech utilities
+   - typescript
+   - react 
+   - Javascript
 
 
-### Core SDKs
- - agora-rtm-sdk (agora rtm web sdk)
- - aws-sdk (amazon web services - S3)
+   ### for Whiteboard annotation 
+   - pdfJs
 
 
-### Frontend tech utilities
- - typescript
- - react 
- - Javascript
+   ## Run the project
+   ```bash
+   1. Install npm
+      npm install
 
+   2. Locally run the Web demo
+      npm run dev
 
-### for Whiteboard annotation 
- - pdfJs
-
-
-## Preparations
- - Set up your AWS S3 bucket . For details, see [S3 setup](https://docs.aws.amazon.com/quickstarts/latest/s3backup/step-1-create-bucket.html).
-
-
- - Rename `.env.example` to `.env.local` and configure the following parameters:
-
-  - **(Required) Agora App ID** 
-  ```bash
-  # Agora App ID
-  REACT_APP_AGORA_APP_ID=agora appId
-  REACT_APP_AGORA_LOG=true
-  ```
- - **File converter api url**
-  ```bash
-  REACT_APP_LIBRE_BACKEND_URL=file_converter_api_url
-  ```
-
- - **AWS S3 configurations for whiteboard courseware**
-   **You can look and change according to your requirements into toolelements.js file in location src/components/whiteboard/toolelements.js**
-
-  ```bash
-  # your AWS S3 bucket name
-  REACT_APP_AWS_BUCKET_NAME=your_aws_bucket_name
-  # your AWS S3 bucket region
-  REACT_APP_AWS_BUCKET_REGION=your_bucket_region
-
-  -- Can use one of them
-
-  # your AWS S3 access key
-  REACT_APP_AWS_BUCKET_KEY=your_bucket_key
-
-  # your AWS S3 access secret key
-  REACT_APP_AWS_BUCKET_SECRET=your_bucket_sk
-
-   OR
-
-  # your AWS S3 endpoint
-  REACT_APP_AWS_IdentityPoolId=IdentityPoolId
-  ```
-
-- Install Node.js LTS
-
-## Run the project
- ```bash
-1. Install npm
-   npm install
-
-2. Locally run the Web demo
-   npm run dev
-
-3. to build the project
-   npm run build
-  ```
+   3. to build the project
+      npm run build
+   ```
