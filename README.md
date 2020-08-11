@@ -1,16 +1,24 @@
-﻿# Co-Developed by
+﻿
+<p align="center">
+<img src='src/assets/Channelize-logo.png' height="400"/>
+<h1 style="text-align:center">Channelize Whiteboard Demo</h1>
+<h2 style="text-align:center">Modern JavaScript based Whiteboard for Collaboration in Online Education<h2>
+<p align="center">Channelize Whiteboard is a leading open source whiteboard solution that powers innovation in Tele-education by adding engagement in online learning. It is rich in features, compatible with diverse frameworks, and easy to integrate and extend. </p>
+</p>
 
-<p align="center">
-<a href='https://channelize.io/'>
-<img src='src/assets/Logo-Channelize.png' width='400' left='50'/>
-</a>
-</p>
-<h1></h1>
-<p align="center">
-<a href='https://www.agora.io/'>
-<img src='src/assets/agoralightblue-1.png' width='400'/>
-</a>
-</p>
+# This Whiteboard Solution has been co-developed by Channelize.io & Agora.io
+
+<table align="center">
+<td align="center">
+ <a href='https://channelize.io/' target="_blank" rel="noopener noreferrer">
+    <img src='src/assets/Logo-Channelize.png' width="300"/>
+</td>
+<td align="center">
+ <a href='https://www.agora.io/' target="_blank" rel="noopener noreferrer" >
+    <img src='src/assets/agoralightblue-1.png' width="300"/>
+</td>
+</table>
+
 
 # About the project
 
@@ -33,7 +41,7 @@ In Small Classroom and Large Hall:
 - Teacher can raise a poll (Question) with four options and students can choose one of the four options.
 
 ### Demo
-   - To explore more about demo, [Click here](https://whiteboard-demo.channelize.io/).
+   - To check demo, [Click here](https://whiteboard-demo.channelize.io/).
 
 ### Functions (Only works in Web)
 
@@ -97,13 +105,13 @@ Channelize Whiteboard will work on all Desktop & Laptop browsers. On Mobile & Ta
    REACT_APP_AGORA_APP_ID=agora appId
    REACT_APP_AGORA_LOG=true
    ```
-   - **File converter api url**
+   - **File converter API URL**
    ```bash
    REACT_APP_LIBRE_BACKEND_URL=file_converter_api_url
    ```
 
-   - **AWS S3 configurations for whiteboard courseware**
-      **You can look and change according to your requirements into toolelements.js file in location src/components/whiteboard/toolelements.js**
+   - **AWS S3 configurations for Whiteboard.**
+   - Please make changes in the toolelements.js file at:&nbsp; src/components/whiteboard/toolelements.js
 
    ```bash
    # your AWS S3 bucket name
@@ -126,7 +134,7 @@ Channelize Whiteboard will work on all Desktop & Laptop browsers. On Mobile & Ta
    ```
 
    ## Tech Stack
-   * [npm][node],[JavaScript][js] — core platform and dev tools
+   * [npm][node],&nbsp; [JavaScript][js] — core platform and dev tools
    * Install Node.js LTS
 
    ### Core SDKs
@@ -135,8 +143,8 @@ Channelize Whiteboard will work on all Desktop & Laptop browsers. On Mobile & Ta
 
 
    ### Frontend tech utilities
-   - typescript
-   - react 
+   - Typescript
+   - React
    - Javascript
 
 
@@ -152,6 +160,6 @@ Channelize Whiteboard will work on all Desktop & Laptop browsers. On Mobile & Ta
    2. Locally run the Web demo
       npm run dev
 
-   3. to build the project
+   3. To build the project
       npm run build
    ```
