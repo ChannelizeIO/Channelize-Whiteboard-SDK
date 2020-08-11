@@ -2,8 +2,8 @@
 <div align="center">
 <img src='src/assets/Channelize-logo.png' height="400"/>
 <h1>Channelize Whiteboard Demo</h1>
-<p><b>Modern JavaScript based Whiteboard for Collaboration in Online Education.</b></p>
-<sub>Channelize Whiteboard is a leading open source whiteboard solution that powers innovation in Tele-education by adding engagement in online learning. It is rich in features, compatible with diverse frameworks, and easy to integrate and extend. </sub>
+<p>Modern JavaScript based Whiteboard for Collaboration in Online Education.</p>
+<p>Channelize Whiteboard is a leading open source whiteboard solution that powers innovation in Tele-education by adding engagement in online learning. It is rich in features, compatible with diverse frameworks, and easy to integrate and extend.</p>
 </div>
 
 ### This Whiteboard Solution has been co-developed by Channelize.io & Agora.io
@@ -55,7 +55,8 @@ In Small Classroom and Large Hall:
     7. Highlighter (Teacher can highlight text in uploaded .pdf file)
 
 - Full Screen mode: Both teacher and students can use full screen mode independently.
-- Uploading file: Teachers can upload PPT,WORD,PDF,JPG,PNG files which will be broadcasted to   the attendees / Students. Teachers can then annotate these files.
+- Uploading file: Teachers can upload PPT, WORD, PDF, JPG, PNG files which will be broadcasted to the attendees / Students. Teachers can then annotate these files.
+
 - Bonus features:
     1. Announcements: Teacher can do announcements in text and image forms.
     2. Polls: Teachers can raise a poll (question) with four options and students can choose one of the four options as an answer.
@@ -90,14 +91,14 @@ Channelize Whiteboard will work on all Desktop & Laptop browsers. On Mobile & Ta
 
 
    #### Set up File Converter API 
-   For File uploading, we need to setup back-end API server which converts the WORD,PDF,JPG,PNG to PDF format using Unoconv and LibreOffice and upload it to AWS S3.
+   For File uploading, we need to set up back-end API server which converts the WORD, PDF, JPG, PNG to PDF format using Unoconv and LibreOffice and upload it to AWS S3.
    for File-Convert Setup  [Click here](https://github.com/ChannelizeIO/Channelize-Whiteboard-SDK/tree/Node-File-Convertor-API) .
 
    ## Preparations
-   - Set up your AWS S3 bucket . For details, see [S3 setup](https://docs.aws.amazon.com/quickstarts/latest/s3backup/step-1-create-bucket.html).
+   - **Set up your AWS S3 bucket . For details, see [S3 setup](https://docs.aws.amazon.com/quickstarts/latest/s3backup/step-1-create-bucket.html).**
 
 
-   - Rename `.env.example` to `.env.local` and configure the following parameters:
+   - **Rename `.env.example` to `.env.local` and configure the following parameters:**
 
    - **(Required) Agora App ID** 
    ```bash
@@ -110,8 +111,8 @@ Channelize Whiteboard will work on all Desktop & Laptop browsers. On Mobile & Ta
    REACT_APP_LIBRE_BACKEND_URL=file_converter_api_url
    ```
 
-   - **AWS S3 configurations for Whiteboard.**&nbsp; 
-      **Please make changes in the toolelements.js file at:&nbsp; src/components/whiteboard/toolelements.js**
+   - **AWS S3 configurations for Whiteboard.**&nbsp;
+     Please make changes in the toolelements.js file at:&nbsp; src/components/whiteboard/toolelements.js
 
    ```bash
    # your AWS S3 bucket name
