@@ -1,13 +1,13 @@
 ﻿# Co-Developed by
 
 <a href='https://channelize.io/'>
-<img src='src/assets/Logo-Channelize.png' width='800'>
+<img src='src/assets/Logo-Channelize.png' width='400' />
 </a>
 <br>
 <h1></h1>
 <br>
 <a href='https://www.agora.io/'>
-<img src='src/assets/agoralightblue-1.png' width='800'>
+<img src='src/assets/agoralightblue-1.png' width='400'/>
 </a>
 
 # About the project
@@ -34,7 +34,7 @@ In Small Classroom and Large Hall:
 
 ### Functions (Only works in Web)
 
-- Interactive Whiteboard: Using PDF.js for whiteboard annotations and Agora RTM SDK to reflect white board annotations changes to students. Whiteboard currently provides the following tools:
+- Interactive Whiteboard: Using PDF.js For Whiteboard annotations and Agora RTM SDK to reflect white board annotations changes to students. Whiteboard currently provides the following tools:
     1. Pencil
     2. Shapes: Circle, Square, Rectangle, Oval, Line
     3. Text Annotations
