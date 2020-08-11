@@ -9,11 +9,11 @@
 ### This Whiteboard Solution has been co-developed by Channelize.io & Agora.io
 
 <table align="center" style="border-collapse:collapse;" rules=none>
-<td align="center" style="border: none;">
+<td align="center" >
  <a href='https://channelize.io/' target="_blank" rel="noopener noreferrer">
     <img src='src/assets/Logo-Channelize.png' width="300"/>
 </td>
-<td align="center" style="border:none;" >
+<td align="center" >
  <a href='https://www.agora.io/' target="_blank" rel="noopener noreferrer" >
     <img src='src/assets/agoralightblue-1.png' width="300"/>
 </td>
