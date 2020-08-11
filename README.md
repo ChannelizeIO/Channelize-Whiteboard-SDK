@@ -3,7 +3,8 @@
 <a href='https://channelize.io/'>
 <img src='src/assets/Logo-Channelize.png' width='800'>
 </a>
-
+<br>
+<br>
 <a href='https://www.agora.io/'>
 <img src='src/assets/agoralightblue-1.png' width='800'>
 </a>
