@@ -1,6 +1,6 @@
 ﻿
 <div align="center">
-<img src='src/assets/Channelize-logo.png' height="300"/>
+<img src='src/assets/Channelize-logo.png' height="280"/>
 <h1>Channelize Whiteboard</h1>
 </div>
 <h3>Modern JavaScript based Whiteboard for Collaboration in Online Education.</h3>
