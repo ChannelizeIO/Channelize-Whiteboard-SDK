@@ -118,6 +118,25 @@ function HomePage() {
 
   return (
     <div className={`flex-container home-cover-web`}>
+      <div className="web-menu">
+        <div className="web-menu-container">
+          <span className="site-logo">
+          </span>
+          <div className="short-title">
+            <span className="title">{t('home.short_title.title')}</span>
+            <span className="subtitle">{t('home.short_title.subtitle')}</span>
+          </div>
+        </div>
+      </div>
+      <div className="card-container">
+      <div className="card-info">
+        <div className="card-info-block">
+        <span className="card-title">
+          <h3>Modern JavaScript based Whiteboard for Collaboration in Online Education</h3>
+          <p>Channelize Whiteboard is a leading open source whiteboard solution that powers innovation in Tele-education by adding engagement in online learning. It is rich in features, compatible with diverse frameworks, and easy to integrate and extend.</p>
+        </span>
+        </div>
+      </div>
       <div className="custom-card">
         <div className="flex-item cover">
             <div className={`cover-placeholder-web ${t('home.cover_class')}`}></div>
@@ -174,6 +193,7 @@ function HomePage() {
             <Button name={t('home.room_join')} onClick={handleSubmit}/>
           </div>
         </div>
+      </div>
       </div>
     </div>
   )

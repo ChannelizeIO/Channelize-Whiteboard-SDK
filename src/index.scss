@@ -49,17 +49,74 @@ body {
   justify-content: center;
   align-items: center;
 }
-
+.card-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  margin: 0 auto;
+  border-radius: 15px;
+  .card-info {
+      padding: 100px 15px 100px 50px;
+      box-sizing: border-box;
+      min-height: 500px;
+      max-height: 500px;
+      position: relative;
+      text-align: left;
+      background-color: #fff;
+      margin-left: 15px;
+      border-radius: 15px 0 0 15px;
+    .card-title {
+        display: block;
+        margin: 0 auto;
+        width: 100%;
+      h3 {
+        font-size: 24px;
+        line-height: 30px;
+        white-space: pre-wrap;
+        margin: 0 auto;
+        color: #5a5a5a;
+      }
+      p {
+        font-size: 18px;
+        line-height: 30px;
+        color: #242424;
+        font-weight: 400;
+      }
+    }
+  }
+}
+.card-container .card-info::before {
+  width: 150px;
+  height: 150px;
+  border-radius: 100%;
+  position: absolute;
+  content: "";
+  background-color: #52B670;
+  top: -20px;
+  left: -50px;
+  opacity: 0.1;
+}
+.card-container .card-info::after {
+  width: 150px;
+  height: 150px;
+  border-radius: 100%;
+  position: absolute;
+  content: "";
+  background-color: #52B670;
+  bottom: -20px;
+  right: -50px;
+  opacity: 0.1;
+}
 .custom-card {
   position: relative;
-  background: white;
-  box-shadow: 0px 6px 18px 0px rgba(0,0,0,0.2);
   border-radius: 8px;
   display: flex;
-  max-width: 700px;
+  max-width: 760px;
   max-height: 500px;
-  min-width: 700px;
+  min-width: 760px;
   min-height: 500px;
+  margin: 0 auto;
   box-sizing: content-box;
   .card-menu {
     display: flex;
@@ -83,13 +140,14 @@ body {
   position: relative;
   z-index: 2;
   .title {
-    font-size: 24px;
-    line-height: 29px;
-    color: #000;
+    font-size: 32px;
+    line-height: 36px;
+    font-weight: 400;
+    color: #3C578C;
   }
   .subtitle {
-    font-size: 14px;
-    line-height: 16px;
+    font-size: 11px;
+    line-height: 15px;
     color: #666;
   }
   .build-version {
@@ -108,9 +166,8 @@ body {
 
 .cover {
   max-width: 350px;
-  min-width: 350px;
-  background: #F5F7F8;
-  border-radius:8px 0px 0px 8px;
+  min-width: 400px;
+  background-image: linear-gradient(180deg, #2665AF, #83C1FC);
   position: relative;
 
   .build-version {
@@ -121,35 +178,25 @@ body {
     color: #666;
   }
 
-  .cover-placeholder-web {
-    border-top-left-radius: 8px;
-    border-bottom-left-radius: 8px;
-  }
-
   .cover-en {
     display: block;
     background-repeat: no-repeat;
     height: 500px;
-    width: 350px;
+    width: 400px;
     background-size: contain;
     position: absolute;
-    background-image: url("./assets/cover-us.png");
+    background-image: url("./assets/m3.png");
   }
 
   .cover-cn {
     display: block;
     background-repeat: no-repeat;
     height: 500px;
-    width: 350px;
+    width: 400px;
     background-size: contain;
     position: absolute;
     background-image: url("./assets/cover-cn.png");
   }
-}
-
-.cover #local {
-  border-bottom-left-radius: 8px;
-  border-top-left-radius: 8px;
 }
 
 .align-center {
@@ -185,6 +232,9 @@ body {
   position: relative;
   max-width: 350px;
   min-width: 350px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 0 15px;
+  background-color: #fff;
+  border-radius: 0 15px 15px 0;
 }
 
 .position-top {
@@ -291,21 +341,30 @@ body {
 }
 
 .home-cover-web {
-  background: #EEF1F3;
+  background: #fff;
   display: flex;
   flex-direction: column;
   position: relative;
   .web-menu {
     display: block;
     width: 100%;
-    position: absolute;
-    top: 40px;
     .web-menu-container {
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-start;
       align-items: center;
-      min-width: 700px;
-      margin: 0 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 10px;
+      box-sizing: border-box;
+      position: relative;
+      .site-logo {
+        background-image: url(./assets/site-logo.png);
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        width: 100px;
+        height: 100px;
+      }
       .short-title {
         top: 0px;
         left: 0px;

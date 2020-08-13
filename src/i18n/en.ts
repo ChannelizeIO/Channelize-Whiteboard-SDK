@@ -80,7 +80,7 @@ const en = {
     'room_join': 'Join',
     'short_title': {
       'title': 'Channelize Whiteboard',
-      'subtitle': 'Powered by agora.io, a leading online learning engagement platform',
+      'subtitle': 'Powered by Channelize.io & Agora.io',
     },
     'name_too_long': 'name too long, should <= 20 characters',
     '1v1': 'One to One Classroom',

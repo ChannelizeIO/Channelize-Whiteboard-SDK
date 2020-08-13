@@ -412,6 +412,15 @@
       justify-content: center;
       align-items: center;
     }
+    svg {
+      color: #294385;
+      line-height: normal;
+      font-size: 14px;
+      margin: 0 10px;
+      cursor: pointer;
+      width: 21px;
+      height: 21px;
+    }
   }
 }
 
@@ -456,6 +465,8 @@
       box-sizing: border-box;
       justify-content: center;
       align-items: center;
+      color: #fff;
+      padding: 7px;
     }
 
     .active {
@@ -836,24 +847,25 @@ div#remove_page:after{
 
 .FullScreen {
   position: fixed;
-  bottom: 20px;
+  bottom: 15px;
   right: 30px;
-  width: 21px;
-  height: 21px;
-  background-image: url('../assets/full_screen_icon.png');
-  background-size: 21px;
+  width: 42px !important;
+  height: 42px !important;
+  background-size: contain;
+  color: #294385;
   cursor: pointer;
 }
 
 .NormalScreen {
   position: fixed;
-  bottom: 20px;
+  bottom: 15px;
   right: 30px;
-  width: 21px;
-  height: 21px;
-  background-image: url('../assets/minimize_screen.png');
-  background-size: 21px;
+  width: 42px !important;
+  height: 42px !important;
+  background-size: contain;
+  color: #294385;
   cursor: pointer;
+
 }
 
 
