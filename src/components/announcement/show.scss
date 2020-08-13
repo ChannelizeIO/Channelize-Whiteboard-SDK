@@ -7,10 +7,13 @@
   box-shadow: 0 4px 8px 0 grey;
   text-align: center;
   word-break: break-all;
+}
+
+.announcement-show h3, .announcement-show div {
   padding: 5px;
   box-sizing: border-box;
 }
-  
+
   .text-box {
     padding: 1px;
     color:green;

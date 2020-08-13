@@ -124,7 +124,6 @@ function HomePage() {
           </span>
           <div className="short-title">
             <span className="title">{t('home.short_title.title')}</span>
-            <span className="subtitle">{t('home.short_title.subtitle')}</span>
           </div>
         </div>
       </div>
