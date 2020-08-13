@@ -162,14 +162,11 @@ export default function CreateAnnouncement(props) {
       setErr(false);
     }
     catch (err) {
-      
       setErr(true);
       setFile([]);
-      setRequire({ announcementSizeError: 'It seems that you are uploading or sending text more than 32KB, Please upload image or send less than 32KB. If you want to send larger image then you can use the link of the image and that can be sent through the text announcement ' });
+      setRequire({ announcementSizeError: 'The uploaded file size should not exceed 32KB.' });
 
     }
-
-
   }
   const deleteAnnouncement = async () => {
     const announcement = {
@@ -208,7 +205,7 @@ export default function CreateAnnouncement(props) {
         <DialogTitle id="max-width-dialog-title">Create Announcement</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            You can create text or image announcement type. Select to create one.
+          Select the announcement type.
           </DialogContentText>
           <form className={classes.form} noValidate>
             <FormControl className={classes.formControl}>
