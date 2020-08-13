@@ -1,16 +1,24 @@
-﻿# Co-Developed by
+﻿
+<div align="center">
+<img src='src/assets/Channelize-logo.png' height="280"/>
+<h1>Channelize Whiteboard</h1>
+</div>
+<h3>Modern JavaScript based Whiteboard for Collaboration in Online Education.</h3>
+<p>Channelize Whiteboard is a leading open source whiteboard solution that powers innovation in Tele-education by adding engagement in online learning. It is rich in features, compatible with diverse frameworks, and easy to integrate and extend.</p>
 
-<p align="center">
-<a href='https://channelize.io/'>
-<img src='src/assets/Logo-Channelize.png' width='400' left='50'/>
-</a>
-</p>
-<h1></h1>
-<p align="center">
-<a href='https://www.agora.io/'>
-<img src='src/assets/agoralightblue-1.png' width='400'/>
-</a>
-</p>
+### This Whiteboard Solution has been co-developed by Channelize.io & Agora.io
+
+<table align="center" border="0" cellpadding="0" cellspacing="0">
+<td align="center" >
+ <a href='https://channelize.io/' target="_blank" rel="noopener noreferrer">
+    <img src='src/assets/Logo-Channelize.png' width="300"/>
+</td>
+<td align="center" >
+ <a href='https://www.agora.io/' target="_blank" rel="noopener noreferrer" >
+    <img src='src/assets/agoralightblue-1.png' width="300"/>
+</td>
+</table>
+
 
 # About the project
 
@@ -33,11 +41,11 @@ In Small Classroom and Large Hall:
 - Teacher can raise a poll (Question) with four options and students can choose one of the four options.
 
 ### Demo
-   - To explore more about demo, [Click here](https://whiteboard-demo.channelize.io/).
+   - To check demo, [Click here](https://whiteboard-demo.channelize.io/).
 
 ### Functions (Only works in Web)
 
-- Interactive Whiteboard: Using PDF.js For Whiteboard annotations and Agora RTM SDK to reflect white board annotations changes to students. Whiteboard currently provides the following tools:
+- Interactive Whiteboard: Using PDF.js for Whiteboard annotations and Agora RTM SDK to reflect white board annotations changes to students. Whiteboard currently provides the following tools:
     1. Pencil
     2. Shapes: Circle, Square, Rectangle, Oval, Line
     3. Text Annotations
@@ -47,7 +55,8 @@ In Small Classroom and Large Hall:
     7. Highlighter (Teacher can highlight text in uploaded .pdf file)
 
 - Full Screen mode: Both teacher and students can use full screen mode independently.
-- Uploading file: Teachers can upload PPT,WORD,PDF,JPG,PNG files which will be broadcasted to   the attendees / Students. Teachers can then annotate these files.
+- Uploading file: Teachers can upload PPT, WORD, PDF, JPG, PNG files which will be broadcasted to the attendees / Students. Teachers can then annotate these files.
+
 - Bonus features:
     1. Announcements: Teacher can do announcements in text and image forms.
     2. Polls: Teachers can raise a poll (question) with four options and students can choose one of the four options as an answer.
@@ -82,14 +91,14 @@ Channelize Whiteboard will work on all Desktop & Laptop browsers. On Mobile & Ta
 
 
    #### Set up File Converter API 
-   For File uploading, we need to setup back-end API server which converts the WORD,PDF,JPG,PNG to PDF format using Unoconv and LibreOffice and upload it to AWS S3.
+   For File uploading, we need to set up back-end API server which converts the WORD, PDF, JPG, PNG to PDF format using Unoconv and LibreOffice and upload it to AWS S3.
    for File-Convert Setup  [Click here](https://github.com/ChannelizeIO/Channelize-Whiteboard-SDK/tree/Node-File-Convertor-API) .
 
    ## Preparations
-   - Set up your AWS S3 bucket . For details, see [S3 setup](https://docs.aws.amazon.com/quickstarts/latest/s3backup/step-1-create-bucket.html).
+   - **Set up your AWS S3 bucket . For details, see [S3 setup](https://docs.aws.amazon.com/quickstarts/latest/s3backup/step-1-create-bucket.html).**
 
 
-   - Rename `.env.example` to `.env.local` and configure the following parameters:
+   - **Rename `.env.example` to `.env.local` and configure the following parameters:**
 
    - **(Required) Agora App ID** 
    ```bash
@@ -97,13 +106,13 @@ Channelize Whiteboard will work on all Desktop & Laptop browsers. On Mobile & Ta
    REACT_APP_AGORA_APP_ID=agora appId
    REACT_APP_AGORA_LOG=true
    ```
-   - **File converter api url**
+   - **File converter API URL**
    ```bash
    REACT_APP_LIBRE_BACKEND_URL=file_converter_api_url
    ```
 
-   - **AWS S3 configurations for whiteboard courseware**
-      **You can look and change according to your requirements into toolelements.js file in location src/components/whiteboard/toolelements.js**
+   - **AWS S3 configurations for Whiteboard.**&nbsp;
+     Please make changes in the toolelements.js file at:&nbsp; src/components/whiteboard/toolelements.js
 
    ```bash
    # your AWS S3 bucket name
@@ -126,21 +135,19 @@ Channelize Whiteboard will work on all Desktop & Laptop browsers. On Mobile & Ta
    ```
 
    ## Tech Stack
-   * [npm][node],[JavaScript][js] — core platform and dev tools
+   * [npm][node],&nbsp; [JavaScript][js] — core platform and dev tools
    * Install Node.js LTS
 
    ### Core SDKs
    - agora-rtm-sdk (agora rtm web sdk)
    - aws-sdk (amazon web services - S3)
 
-
    ### Frontend tech utilities
-   - typescript
-   - react 
+   - Typescript
+   - React
    - Javascript
 
-
-   ### for Whiteboard annotation 
+   ### For Whiteboard Annotation
    - pdfJs
 
 
@@ -152,6 +159,6 @@ Channelize Whiteboard will work on all Desktop & Laptop browsers. On Mobile & Ta
    2. Locally run the Web demo
       npm run dev
 
-   3. to build the project
+   3. To build the project
       npm run build
    ```
