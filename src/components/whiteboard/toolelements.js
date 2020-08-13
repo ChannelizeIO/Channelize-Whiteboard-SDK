@@ -8,7 +8,6 @@ import ColorizeIcon from '@material-ui/icons/Colorize';
 import CropDinIcon from '@material-ui/icons/CropDin';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import TextFieldsIcon from '@material-ui/icons/TextFields';
-import ClearAllIcon from '@material-ui/icons/ClearAll';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FormatColorTextIcon from '@material-ui/icons/FormatColorText';
 import PublishIcon from '@material-ui/icons/Publish';
