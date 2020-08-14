@@ -233,30 +233,36 @@ export default function Control({
       <div className="controls">
         { role === 'teacher' ?
           <>
-             <Tooltip title="First Canvas">
+             <div className="control-button">
               <FirstPageIcon onClick={() => toggleFirstLast('first', setCanvasNumber, fileState.pdfFiles,  fileState.setTotalPages)}>
               </FirstPageIcon>
-              </Tooltip>
-              <Tooltip  title="Prev Canvas" >
+              <span className="tooltiptext">First Canvas</span>
+              </div>
+
+             <div className="control-button">
               <ArrowBackIosIcon  onClick={() => togglePrev(setCanvasNumber, fileState.pdfFiles, fileState.setTotalPages)}/>
-              </Tooltip>
+              <span className="tooltiptext">Previous Canvas</span>
+              </div>
             <div className="current_page">
               <span>{currentCanvasNumber}/{totalCanvas}</span>
             </div>
-            <Tooltip title="Next Canvas">
+            <div className="control-button">
               <ArrowForwardIosIcon  onClick={() => toggleNext(setCanvasNumber, fileState.pdfFiles, fileState.setTotalPages)} />
-            </Tooltip >
+              <span className="tooltiptext">Next Canvas</span>
+            </div>
 
-            <Tooltip title="Last Canvas">
+            <div className="control-button">
               <LastPageIcon  onClick={() => toggleFirstLast('last', setCanvasNumber, fileState.pdfFiles, fileState.setTotalPages)}/>
-            </Tooltip>
+              <span className="tooltiptext">Last Canvas</span>
+            </div>
 
-            <Tooltip title="Add Canvas">
+            <div className="control-button">
               <AddCircleOutlineIcon id="add_page"  onClick={() => fileState.fileDispatch({type: 'add-page'})}/>
-            </Tooltip>
+              <span className="tooltiptext">Add Canvas</span>
+            </div>
             {
                 fileState.pdfFiles.length > 1 ?
-                <Tooltip title="Remove Canvas">
+                <div className="control-button">
                   <RemoveCircleOutlineOutlinedIcon 
                   id="remove_page" 
                   onClick={
@@ -266,7 +272,8 @@ export default function Control({
                   }
                   }
                   />
-                </Tooltip> : null
+                  <span className="tooltiptext">Remove Canvas</span>
+                </div> : null
               }
 
             <div className="menu-split" style={{ marginLeft: '7px', marginRight: '7px' }}></div>

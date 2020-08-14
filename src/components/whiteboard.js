@@ -360,15 +360,17 @@ const Whiteboard = () => {
         <h3>Page {currentPage}/{totalPage}</h3>
         </span> : null
       }
-      {
+       {
         !fullScreen ?
-        <Tooltip title = 'Full Screen'>
+        <>
           <FullscreenOutlinedIcon onClick={handleFullScreen} className='FullScreen'/>
-        </Tooltip>
+              <span className="tooltiptext">Full Screen</span>
+        </>
         :
-        <Tooltip title = 'Exit Full Screen'>
+        <>
           <FullscreenExitOutlinedIcon onClick = {handleFullScreen} className='NormalScreen'/>
-        </Tooltip>
+              <span className="tooltiptext">Exit Full Screen</span>
+        </>
       }
     </>
   );

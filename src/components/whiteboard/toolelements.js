@@ -190,28 +190,25 @@ const Toolelements = () => {
       <div className="menu">
         <div className="nav annotation-toolbar">
         <div>
-            <Tooltip title="Cursor">
             <NearMeIcon
             data-annotation-type="cursor"
             className="icon items"
             />
-            </Tooltip>
+            <span className="tooltiptext">Cursor</span>
           </div>
           <div>
-            <Tooltip title='Pencil' >
               <CreateIcon
               data-annotation-type="draw"
               className="icon items"
               />
-            </Tooltip>
+              <span className="tooltiptext">Pencil</span>
           </div>
           <div onClick={displayColorPicker}>
-            <Tooltip title="Pencil Color & Thickness" >
             <ColorizeIcon
               data-annotation-type="color"
               className="icon items color_pick"
             />
-            </Tooltip>
+            <span className="tooltiptext">Pencil Color & Thickness</span>
           </div>
           <div
             className="sub-menu nav-colopiker nav-pen"
@@ -393,72 +390,68 @@ const Toolelements = () => {
 
           <div>
             <i
-              title="Line"
               data-annotation-type="line"
               className="icon items line"
             />
+            <span className="tooltiptext">Line</span>
           </div>
           <div>
-            <Tooltip  title="Rectangle">
               <CropDinIcon
                data-annotation-type="area"
                className="icon items"
               />
-            </Tooltip>
+              <span className="tooltiptext">Rectangle</span>
           </div>
           <div>
-          <Tooltip title="Ellipse">
               <RadioButtonUncheckedIcon 
                data-annotation-type="ellipse"
                className="icon items"
               />
-            </Tooltip>
+              <span className="tooltiptext">Ellipse</span>
           </div>
           <div>
-          <Tooltip  title="Text">
               <TextFieldsIcon
                data-annotation-type="text"
                className="icon items"
               />
-            </Tooltip>
+              <span className="tooltiptext">Text</span>
           </div>
           <div>
-            <i
-              title="Eraser"
-              data-annotation-type="eraser"
-              className="icon items eraser"
-            />
+              <i
+                data-annotation-type="eraser"
+                className="icon items eraser"
+              />
+              <span className="tooltiptext">Eraser</span>
           </div>
           <div onClick={handleClearClick}>
-          <Tooltip title="Clear All">
               <DeleteIcon
                data-annotation-type="clear"
                className="icon items"
               />
-            </Tooltip>
+              <span className="tooltiptext">Clear All</span>
           </div>
           {
-            isPdf ? <Tooltip title="Highlight Text">
-              <FormatColorTextIcon
-                data-annotation-type="highlight"
-                className="icon items"
-                style = {{display: 'block'}}
-              />
-            </Tooltip> :
-             <Tooltip title="Highlight Text">
-             <FormatColorTextIcon
-               data-annotation-type="highlight"
-               className="icon items"
-               style = {{display: 'none'}}
-             />
-           </Tooltip>
-
+            isPdf ?<>
+            <FormatColorTextIcon
+              data-annotation-type="highlight"
+              className="icon items"
+              style = {{display: 'block'}}
+            />
+            <span className="tooltiptext">Highlight Text</span>
+            </> :
+           <>
+           <FormatColorTextIcon
+             data-annotation-type="highlight"
+             className="icon items"
+             style = {{display: 'none'}}
+           />
+           <span className="tooltiptext">Highlight Text</span>
+          </>
           }
           <div>
-            <Tooltip title="Upload">
               <PublishIcon onClick = {handleFileUpload} className="icon items upload"
                />
-            </Tooltip>
+               <span className="tooltiptext">Upload</span>
             <input type="file" id="fileUpload" ref={inputFileRef} onChange={handleUpload}
             style={{display: 'none'}}
             />
