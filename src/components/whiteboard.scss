@@ -423,6 +423,18 @@
     }
   }
 }
+.control-button {
+  position: relative;
+}
+.control-button span.tooltiptext {
+  top: -35px;
+  left: 0;
+  min-width: 100px;
+}
+.media-board .controls svg:hover ~ span.tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
 
 .media-board {
   flex: 1;
@@ -475,6 +487,35 @@
     }
   }
 
+}
+.media-board .menu .annotation-toolbar > div {
+  position: relative;
+}
+.media-board .menu .items:hover ~ span.tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+span.tooltiptext {
+  visibility: hidden;
+  min-width: 100px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s;
+  box-sizing: border-box;
+  font-size: 13px;
+  top: 5px;
+  left: 50px;
+}
+span.tooltiptext.screen-share {
+  left: auto;
+  right: 0;
+  top: 26px;
 }
 
 .notification {
@@ -843,6 +884,28 @@ div#remove_page:after{
 .PageDetail h3 {
   margin: 0;
   font-size: 14px;
+}
+.FullScreen ~ span.tooltiptext {
+  position: fixed;
+  bottom: 50px;
+  top: auto;
+  right: 30px;
+  left: auto;
+}
+.NormalScreen ~ span.tooltiptext {
+  position: fixed;
+  bottom: 50px;
+  top: auto;
+  right: 30px;
+  left: auto;
+}
+.NormalScreen:hover ~ span.tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+.FullScreen:hover ~ span.tooltiptext {
+  visibility: visible;
+  opacity: 1;
 }
 
 .FullScreen {
