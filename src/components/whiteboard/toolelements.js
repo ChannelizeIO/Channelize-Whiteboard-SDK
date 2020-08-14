@@ -189,21 +189,21 @@ const Toolelements = () => {
     <>
       <div className="menu">
         <div className="nav annotation-toolbar">
-        <div>
+        <div className="menu-mat-icons">
             <NearMeIcon
             data-annotation-type="cursor"
             className="icon items"
             />
             <span className="tooltiptext">Cursor</span>
           </div>
-          <div>
+          <div className="menu-mat-icons">
               <CreateIcon
               data-annotation-type="draw"
               className="icon items"
               />
               <span className="tooltiptext">Pencil</span>
           </div>
-          <div onClick={displayColorPicker}>
+          <div onClick={displayColorPicker} className="menu-mat-icons">
             <ColorizeIcon
               data-annotation-type="color"
               className="icon items color_pick"
@@ -388,42 +388,42 @@ const Toolelements = () => {
             </div>
           </div>
 
-          <div>
+          <div className="menu-mat-icons">
             <i
               data-annotation-type="line"
               className="icon items line"
             />
             <span className="tooltiptext">Line</span>
           </div>
-          <div>
+          <div className="menu-mat-icons">
               <CropDinIcon
                data-annotation-type="area"
                className="icon items"
               />
               <span className="tooltiptext">Rectangle</span>
           </div>
-          <div>
+          <div className="menu-mat-icons">
               <RadioButtonUncheckedIcon 
                data-annotation-type="ellipse"
                className="icon items"
               />
               <span className="tooltiptext">Ellipse</span>
           </div>
-          <div>
+          <div className="menu-mat-icons">
               <TextFieldsIcon
                data-annotation-type="text"
                className="icon items"
               />
               <span className="tooltiptext">Text</span>
           </div>
-          <div>
+          <div className="menu-mat-icons">
               <i
                 data-annotation-type="eraser"
                 className="icon items eraser"
               />
               <span className="tooltiptext">Eraser</span>
           </div>
-          <div onClick={handleClearClick}>
+          <div onClick={handleClearClick} className="menu-mat-icons">
               <DeleteIcon
                data-annotation-type="clear"
                className="icon items"
@@ -448,7 +448,7 @@ const Toolelements = () => {
            <span className="tooltiptext">Highlight Text</span>
           </>
           }
-          <div>
+          <div className="menu-mat-icons">
               <PublishIcon onClick = {handleFileUpload} className="icon items upload"
                />
                <span className="tooltiptext">Upload</span>
