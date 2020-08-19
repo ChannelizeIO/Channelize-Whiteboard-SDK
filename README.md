@@ -100,7 +100,9 @@ Channelize Whiteboard will work on all Desktop & Laptop browsers. On Mobile & Ta
 
    - **Rename `.env.example` to `.env.local` and configure the following parameters:**
 
-   - **If you want to rename title from Channelize Whiteboard to [Your_title]. Please make changes in src/i18n/en.ts .**
+   - **If you want to change title from Channelize Whiteboard to [Your_title]. Please make changes in src/i18n/en.ts and public/index.html .**
+
+   - **If you want to change favicon icon. Please replace favicon.png in public folder**
 
    - **(Required) Agora App ID** 
    ```bash
