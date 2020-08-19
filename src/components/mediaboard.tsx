@@ -8,6 +8,8 @@ import { globalStore } from '../stores/global';
 import { t } from '../i18n';
 import Toolelements from './whiteboard/toolelements';
 import { sendToRemote } from './whiteboard';
+import LocalStoreAdapter from '../utils/PdfAnnotate/adapter/LocalStoreAdapter';
+
 
 interface MediaBoardProps {
   handleClick?: (type: string) => void
@@ -34,6 +36,20 @@ const fileReducer = (state: any, action: any) => {
     case 'remove-page':
       let id = document.getElementsByClassName('pdfViewer active')[0].id.replace('viewerContainer','');
 
+       // Removing from local storage
+       let LocalStore  = new LocalStoreAdapter();
+
+       let annotationLayers = document.querySelectorAll(
+         "div.pdfViewer.active svg.customAnnotationLayer"
+       );
+       annotationLayers.forEach(function (item) {
+         item.innerHTML = "";
+       });
+
+      LocalStore.resetAnnotation(
+       document!.querySelector("div.pdfViewer.active svg.customAnnotationLayer")!.getAttribute("data-pdf-annotate-document")
+      )
+ 
       if(id !== '1') {
         let pageId = document.getElementById(`viewerContainer${id}`)!.getElementsByTagName('svg')[0].getAttribute('data-pdf-annotate-document');
         let updatedFiles = state.filter(function (value: any, index: any) {

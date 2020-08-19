@@ -74,8 +74,4 @@ export default {
 	},
 
 	ArrayStoreAdapter,
-
-	start(args) {
-		return init(args);
-	}
 };
