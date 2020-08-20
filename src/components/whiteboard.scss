@@ -600,13 +600,21 @@ div.media-board{
 // }
 .sub-menu.nav-colopiker.nav-pen {
   position: absolute;
-  left: 65px;
-  bottom: 127px;
+  left: 0;
+  bottom: 215px;
   border: 1px solid #ddd;
   background: #fafafa;
 }
 .sub-menu.nav-colopiker.nav-pen .rangeslider-box label {
   font-size: 14px;
+}
+.sub-menu.nav-colopiker-thickness.nav-pen {
+  position: absolute;
+  left: 63px;
+  background-color: #fafafa;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 10px 10px;
+  top: 0;
 }
 
 // .classroom.big-class .room-container .sub-menu.nav-colopiker.nav-pen {
