@@ -1,13 +1,13 @@
 {
-  "name": "agora-edu-web",
-  "version": "5.1.1",
+  "name": "Channelize Whiteboard",
+  "version": "1.0.0",
   "private": true,
   "homepage": ".",
   "main": "./src/index.tsx",
   "dmg": {
     "compression": "store",
     "npmRebuild": false,
-    "title": "agora_edu",
+    "title": "Channelize Whiteboard",
     "contents": [
       {
         "x": 130,
