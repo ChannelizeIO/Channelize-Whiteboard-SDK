@@ -64,11 +64,11 @@ In Small Classroom and Large Hall:
 
 ### Some Upcoming Features
 
-  1. Multiple annotators.
-  2. Downloading annotated files.
-  3. Support for other pub/sub services.
-  4. Improvement in annotations in Mobile & Tablet browsers.
-
+   1. Class recording feature
+   2. Downloading annotated files.
+   3. Support for other pub/sub services.
+   4. Improvement in annotations in Mobile & Tablet browsers.
+   5. Some UI and user experience improvements
 
 ### Compatibility
 

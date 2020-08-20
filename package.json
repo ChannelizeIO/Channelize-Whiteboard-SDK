@@ -1,5 +1,5 @@
 {
-  "name": "Channelize Whiteboard",
+  "name": "Channelize-Whiteboard",
   "version": "1.0.0",
   "private": true,
   "homepage": ".",
@@ -25,8 +25,8 @@
     "extraMetadata": {
       "main": "build/index.js"
     },
-    "productName": "AgoraEducation",
-    "appId": "io.agora.education",
+    "productName": "Channelize Whiteboard",
+    "appId": "io.channelize.whiteboard",
     "files": [
       "build/**/*"
     ],
@@ -37,12 +37,8 @@
       ],
       "icon": "icons/favicon.png",
       "entitlements": "entitlements.mac.plist",
-      "category": "io.agora.Education",
-      "hardenedRuntime": true,
-      "extendInfo": {
-        "NSMicrophoneUsageDescription": "AgoraEdu Classroom acquire your microphone permission",
-        "NSCameraUsageDescription": "AgoraEdu Classroom acquire your camera permission"
-      }
+      "category": "io.channelize.whiteboard",
+      "hardenedRuntime": true
     },
     "win": {
       "icon": "icons/favicon.png",
@@ -133,7 +129,7 @@
     "cpx": "^1.5.0",
     "customize-cra": "^0.8.0",
     "devtron": "^1.4.0",
-    "react-app-rewired": "^2.1.4",
+    "react-app-rewired": "^2.1.6",
     "react-use": "^13.24.0",
     "source-map-support": "^0.5.16",
     "wait-on": "^3.3.0"

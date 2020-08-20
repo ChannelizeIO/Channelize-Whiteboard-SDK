@@ -396,7 +396,6 @@ const Toolelements = () => {
                   onChange={(e) => changeThickness(e.target.value)}
                 />
               </div>{" "}
-              <span id="penThickness" className="text-size slider-val"></span>
             </div>
             </div>
           </div>
@@ -437,7 +436,6 @@ const Toolelements = () => {
               <i
                 data-annotation-type="eraser"
                 className= { tooltype === 'eraser' ? 'icon items eraser active' : 'icon items eraser'}
-                title="Eraser"
                 onClick = {handleToolbarClick}
               />
               <span className="tooltiptext">Eraser</span>
