@@ -22,6 +22,7 @@ export default function renderEllipse(a) {
 
   setAttributes(rect, {
     stroke: normalizeColor(a.color || '#f00'),
+    strokeWidth: a.width || 1 ,
     fill: 'none'
   });
 

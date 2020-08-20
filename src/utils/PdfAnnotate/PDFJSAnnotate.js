@@ -3,7 +3,6 @@ import LocalStoreAdapter from './adapter/LocalStoreAdapter';
 import ArrayStoreAdapter from './adapter/ArrayStoreAdapter';
 import render from './render';
 import UI from './UI';
-import init from './init';
  
 export default {
 	/**

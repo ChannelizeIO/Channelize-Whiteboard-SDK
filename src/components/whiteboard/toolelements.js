@@ -13,39 +13,51 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import FormatColorTextIcon from '@material-ui/icons/FormatColorText';
 import PublishIcon from '@material-ui/icons/Publish';
 import UI from "../../utils/PdfAnnotate/UI";
+import { SketchPicker } from 'react-color'; 
+
 
 const Toolelements = () => {
   const [value, setValue] = useState(1);
   const [isPdf, showHighLight] = useState(false);
   let [tooltype, setToolType] = useState('cursor');
-  let [textSize, setTextSize] = useState(10);
-  let [textColor, setTextColor] = useState('#fffb00');
-  let [penThickness, setPenThickness] = useState(1);
-  let [penColor, setPenColor] = useState('#ff0000');
+  let [Thickness, changeThickness] = useState(1);
+  let [Color, changeColor] = useState('#ff0000');
   let [colorPicker, setColorPicker] = useState(false);
+  let [sizePicker, setSizePicker] = useState(false);
 
   var RENDER_OPTIONS = {
 		documentId: 'default'
   };
 
   useEffect(() => {
-    UI.setPen(penThickness, penColor);
-    localStorage.setItem(RENDER_OPTIONS.documentId + '/pen/color', penColor);
-  },[penColor]);
 
-  useEffect(() => {
-    UI.setPen(penThickness, penColor);
-    localStorage.setItem(RENDER_OPTIONS.documentId + '/pen/size', penThickness);
-  },[penThickness]);
+    //set for pen
+    UI.setPen(Thickness, Color);
+    localStorage.setItem(RENDER_OPTIONS.documentId + '/pen/color', Color);
+    localStorage.setItem(RENDER_OPTIONS.documentId + '/pen/size', Thickness);
 
+    // set for Text
+    UI.setText(Thickness, Color);
+    localStorage.setItem(RENDER_OPTIONS.documentId + '/text/size', Thickness);
+    localStorage.setItem(RENDER_OPTIONS.documentId + '/text/color', Color);
 
-  useEffect(() => {
+    // set for line
+    UI.setLine(Thickness, Color);
+    localStorage.setItem(RENDER_OPTIONS.documentId + '/line/size', Thickness);
+    localStorage.setItem(RENDER_OPTIONS.documentId + '/line/color', Color);
 
-    UI.setText(textSize, textColor);
-    localStorage.setItem(RENDER_OPTIONS.documentId + '/text/size', textSize);
-    localStorage.setItem(RENDER_OPTIONS.documentId + '/text/color', textColor);
+    //set for ellipse
+    UI.setEllipse(Thickness, Color)
+    localStorage.setItem(RENDER_OPTIONS.documentId + '/ellipse/size', Thickness);
+    localStorage.setItem(RENDER_OPTIONS.documentId + '/ellipse/color', Color);
 
-  },[]);
+    //set for Rectangle
+    UI.setRect(Thickness, Color);
+    localStorage.setItem(RENDER_OPTIONS.documentId + '/rect/size', Thickness);
+    localStorage.setItem(RENDER_OPTIONS.documentId + '/rect/color', Color);
+
+  },[Color, Thickness]);
+
 
   useEffect(() => {
  
@@ -86,12 +98,23 @@ const Toolelements = () => {
           UI.disableEdit();
           UI.enableRect(tooltype);
           break;
-      }
+          default:
+            UI.disableEdit();
+            UI.disablePen();
+            UI.disableEraser();
+            UI.disableText();
+            UI.disableLine();
+            UI.disableEllipse();
+            UI.disableRect();      
+          }
   },[tooltype])
   const handleToolbarClick  = (e) => {
       const type = e.currentTarget.getAttribute('data-annotation-type');
       if(colorPicker) {
         setColorPicker(false)
+      }
+      if(sizePicker) {
+        setSizePicker(false)
       }
     if(type === tooltype) {
       return;
@@ -153,12 +176,23 @@ const Toolelements = () => {
     }
   };
   const displayColorPicker = () => {
-    if(colorPicker) {
-      setColorPicker(false);
-    } else {
+
+    if(colorPicker) setColorPicker(false);
+    else {
+      setToolType('')
+      setSizePicker(false);
       setColorPicker(true);
     }
-  };
+ }
+
+ const displaySizePicker = () =>  {
+  if(sizePicker) setSizePicker(false);
+  else {
+    setToolType('')
+    setColorPicker(false);
+    setSizePicker(true);
+  }
+ }
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -323,179 +357,31 @@ const Toolelements = () => {
               data-annotation-type="color"
               className= {colorPicker ? 'icon items color_pick active' : 'icon items color_pick'}
             />
-            <span className="tooltiptext">Pencil Color & Thickness</span>
+            <span className="tooltiptext">Pencil Color</span>
           </div>
           <div
             className="sub-menu nav-colopiker nav-pen"
             style={ colorPicker ? { display: "block" } : {display: "none"}}
           >
-            <ul>
-              <li>
-                <label className="piker-container black">
-                  {" "}
-                  <input
-                    type="radio"
-                    name="pen-color"
-                    value="#000000"
-                    data-value="black"
-                    onClick={(e) => setPenColor(e.target.value)}
-                  />
-                  <span
-                    className="checkmark"
-                    style={{ backgroundColor: "#000" }}
-                  ></span>
-                </label>{" "}
-              </li>
-              <li>
-                <label className="piker-container grey">
-                  {" "}
-                  <input
-                    type="radio"
-                    name="pen-color"
-                    value="#9c9c9c"
-                    data-value="grey"
-                    onClick={(e) => setPenColor(e.target.value)}
-                  />
-                  <span
-                    className="checkmark"
-                    style={{ backgroundColor: "#9c9c9c" }}
-                  ></span>
-                </label>
-              </li>
-              <li>
-                <label className="piker-container white">
-                  {" "}
-                  <input
-                    type="radio"
-                    name="pen-color"
-                    value="#f2edfd"
-                    data-value="white"
-                    onClick={(e) => setPenColor(e.target.value)}
-                  />
-                  <span
-                    className="checkmark"
-                    style={{
-                      backgroundColor: "#fff",
-                      border: "1px solid #eee",
-                    }}
-                  ></span>
-                </label>{" "}
-              </li>
-              <li>
-                <label className="piker-container red">
-                  {" "}
-                  <input
-                    type="radio"
-                    name="pen-color"
-                    value="#ff0000"
-                    data-value="red"
-                    onClick={(e) => setPenColor(e.target.value)}
-
-                  />
-                  <span
-                    className="checkmark"
-                    style={{ backgroundColor: "red" }}
-                  ></span>
-                </label>{" "}
-              </li>
-              <li>
-                <label className="piker-container pink">
-                  {" "}
-                  <input
-                    type="radio"
-                    name="pen-color"
-                    value="#f06291"
-                    data-value="pink"
-                    onClick={(e) => setPenColor(e.target.value)}
-                  />
-                  <span
-                    className="checkmark"
-                    style={{ backgroundColor: "#f06291" }}
-                  ></span>
-                </label>
-              </li>
-              <li>
-                <label className="piker-container purple">
-                  {" "}
-                  <input
-                    type="radio"
-                    name="pen-color"
-                    value="#8f3e97"
-                    data-value="purple"
-                    onClick={(e) => setPenColor(e.target.value)}
-                  />
-                  <span
-                    className="checkmark"
-                    style={{ backgroundColor: "#8f3e97" }}
-                  ></span>
-                </label>
-              </li>
-              <li>
-                <label className="piker-container blue">
-                  {" "}
-                  <input
-                    type="radio"
-                    name="pen-color"
-                    value="#2083c5"
-                    data-value="blue"
-                    onClick={(e) => setPenColor(e.target.value)}
-                  />
-                  <span
-                    className="checkmark"
-                    style={{ backgroundColor: "#2083c5" }}
-                  ></span>
-                </label>
-              </li>
-              <li>
-                <label className="piker-container green">
-                  {" "}
-                  <input
-                    type="radio"
-                    name="pen-color"
-                    value="#007a3b"
-                    data-value="green"
-                    onClick={(e) => setPenColor(e.target.value)}
-                  />
-                  <span
-                    className="checkmark"
-                    style={{ backgroundColor: "#007a3b" }}
-                  ></span>
-                </label>
-              </li>
-              <li>
-                <label className="piker-container yellow">
-                  {" "}
-                  <input
-                    type="radio"
-                    name="pen-color"
-                    value="#ffcd45"
-                    data-value="yellow"
-                    onClick={(e) => setPenColor(e.target.value)}
-                  />{" "}
-                  <span
-                    className="checkmark"
-                    style={{ backgroundColor: "#ffcd45" }}
-                  ></span>{" "}
-                </label>
-              </li>
-              <li>
-                <label className="piker-container orange">
-                  {" "}
-                  <input
-                    type="radio"
-                    name="pen-color"
-                    value="#ff8d00"
-                    data-value="orange"
-                    onClick={(e) => setPenColor(e.target.value)}
-                  />
-                  <span
-                    className="checkmark"
-                    style={{ backgroundColor: "#ff8d00" }}
-                  ></span>
-                </label>
-              </li>
-            </ul>
-            <div className="rangeslider-box">
+            <SketchPicker
+            color={ Color }
+            onChangeComplete={ (color) => {
+              changeColor(color.hex)
+            } }
+            />
+            </div>
+            <div onClick={displaySizePicker} className="menu-mat-icons">
+            <ColorizeIcon
+              data-annotation-type="size"
+              className= {sizePicker ? 'icon items size_pick active' : 'icon items size_pick'}
+            />
+            <span className="tooltiptext">Thickness</span>
+          </div>
+          <div
+            className="sub-menu nav-colopiker nav-pen"
+            style={ sizePicker ? { display: "block" } : {display: "none"}}
+          >
+          <div className="rangeslider-box">
               {" "}
               <label>Thickness</label>
               <div className="slider">
@@ -504,15 +390,15 @@ const Toolelements = () => {
                   type="range"
                   min="1"
                   max="10"
-                  value={penThickness}
+                  value={Thickness}
                   className="slider-color"
                   id="penThicknessRange"
-                  onChange={(e) => setPenThickness(e.target.value)}
+                  onChange={(e) => changeThickness(e.target.value)}
                 />
               </div>{" "}
               <span id="penThickness" className="text-size slider-val"></span>
             </div>
-          </div>
+            </div>
 
           <div className="menu-mat-icons">
             <i
