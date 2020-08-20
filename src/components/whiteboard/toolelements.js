@@ -13,7 +13,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import FormatColorTextIcon from '@material-ui/icons/FormatColorText';
 import PublishIcon from '@material-ui/icons/Publish';
 import UI from "../../utils/PdfAnnotate/UI";
-import { SketchPicker } from 'react-color'; 
+import { SketchPicker } from 'react-color';
+import LineWeightIcon from '@material-ui/icons/LineWeight';
 
 
 const Toolelements = () => {
@@ -358,7 +359,6 @@ const Toolelements = () => {
               className= {colorPicker ? 'icon items color_pick active' : 'icon items color_pick'}
             />
             <span className="tooltiptext">Pencil Color</span>
-          </div>
           <div
             className="sub-menu nav-colopiker nav-pen"
             style={ colorPicker ? { display: "block" } : {display: "none"}}
@@ -370,15 +370,15 @@ const Toolelements = () => {
             } }
             />
             </div>
+          </div>
             <div onClick={displaySizePicker} className="menu-mat-icons">
-            <ColorizeIcon
+            <LineWeightIcon
               data-annotation-type="size"
               className= {sizePicker ? 'icon items size_pick active' : 'icon items size_pick'}
             />
             <span className="tooltiptext">Thickness</span>
-          </div>
           <div
-            className="sub-menu nav-colopiker nav-pen"
+            className="sub-menu nav-colopiker-thickness nav-pen"
             style={ sizePicker ? { display: "block" } : {display: "none"}}
           >
           <div className="rangeslider-box">
@@ -399,6 +399,7 @@ const Toolelements = () => {
               <span id="penThickness" className="text-size slider-val"></span>
             </div>
             </div>
+          </div>
 
           <div className="menu-mat-icons">
             <i
