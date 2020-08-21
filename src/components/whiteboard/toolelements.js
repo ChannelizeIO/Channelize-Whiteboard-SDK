@@ -21,8 +21,8 @@ const Toolelements = () => {
   const [value, setValue] = useState(1);
   const [isPdf, showHighLight] = useState(false);
   let [tooltype, setToolType] = useState('cursor');
-  let [Thickness, changeThickness] = useState(1);
-  let [Color, changeColor] = useState('#ff0000');
+  let [thickness, changeThickness] = useState(1);
+  let [color, changeColor] = useState('#ff0000');
   let [colorPicker, setColorPicker] = useState(false);
   let [sizePicker, setSizePicker] = useState(false);
 
@@ -33,31 +33,31 @@ const Toolelements = () => {
   useEffect(() => {
 
     //set for pen
-    UI.setPen(Thickness, Color);
-    localStorage.setItem(RENDER_OPTIONS.documentId + '/pen/color', Color);
-    localStorage.setItem(RENDER_OPTIONS.documentId + '/pen/size', Thickness);
+    UI.setPen(thickness, color);
+    localStorage.setItem(RENDER_OPTIONS.documentId + '/pen/color', color);
+    localStorage.setItem(RENDER_OPTIONS.documentId + '/pen/size', thickness);
 
     // set for Text
-    UI.setText(Thickness, Color);
-    localStorage.setItem(RENDER_OPTIONS.documentId + '/text/size', Thickness);
-    localStorage.setItem(RENDER_OPTIONS.documentId + '/text/color', Color);
+    UI.setText(thickness, color);
+    localStorage.setItem(RENDER_OPTIONS.documentId + '/text/size', thickness);
+    localStorage.setItem(RENDER_OPTIONS.documentId + '/text/color', color);
 
     // set for line
-    UI.setLine(Thickness, Color);
-    localStorage.setItem(RENDER_OPTIONS.documentId + '/line/size', Thickness);
-    localStorage.setItem(RENDER_OPTIONS.documentId + '/line/color', Color);
+    UI.setLine(thickness, color);
+    localStorage.setItem(RENDER_OPTIONS.documentId + '/line/size', thickness);
+    localStorage.setItem(RENDER_OPTIONS.documentId + '/line/color', color);
 
     //set for ellipse
-    UI.setEllipse(Thickness, Color)
-    localStorage.setItem(RENDER_OPTIONS.documentId + '/ellipse/size', Thickness);
-    localStorage.setItem(RENDER_OPTIONS.documentId + '/ellipse/color', Color);
+    UI.setEllipse(thickness, color)
+    localStorage.setItem(RENDER_OPTIONS.documentId + '/ellipse/size', thickness);
+    localStorage.setItem(RENDER_OPTIONS.documentId + '/ellipse/color', color);
 
     //set for Rectangle
-    UI.setRect(Thickness, Color);
-    localStorage.setItem(RENDER_OPTIONS.documentId + '/rect/size', Thickness);
-    localStorage.setItem(RENDER_OPTIONS.documentId + '/rect/color', Color);
+    UI.setRect(thickness, color);
+    localStorage.setItem(RENDER_OPTIONS.documentId + '/rect/size', thickness);
+    localStorage.setItem(RENDER_OPTIONS.documentId + '/rect/color', color);
 
-  },[Color, Thickness]);
+  },[color, thickness]);
 
 
   useEffect(() => {
@@ -364,7 +364,7 @@ const Toolelements = () => {
             style={ colorPicker ? { display: "block" } : {display: "none"}}
           >
             <SketchPicker
-            color={ Color }
+            color={ color }
             onChangeComplete={ (color) => {
               changeColor(color.hex)
             } }
@@ -390,7 +390,7 @@ const Toolelements = () => {
                   type="range"
                   min="1"
                   max="10"
-                  value={Thickness}
+                  value={thickness}
                   className="slider-color"
                   id="penThicknessRange"
                   onChange={(e) => changeThickness(e.target.value)}

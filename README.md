@@ -67,14 +67,12 @@ In Small Classroom and Large Hall:
    1. Class recording feature
    2. Downloading annotated files.
    3. Support for other pub/sub services.
-   4. Improvement in annotations in Mobile & Tablet browsers.
-   5. Some UI and user experience improvements
+   4. Support for annotations in Mobile & Tablet browsers.
+   5. Some UI and user experience improvements.
 
 ### Compatibility
 
 Channelize Whiteboard will work on all Desktop & Laptop browsers. On Mobile & Tablet browsers, currently the UI of annotations is not coming fine.
-
-
 
 # Get started
 
