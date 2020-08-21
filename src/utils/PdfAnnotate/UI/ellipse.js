@@ -16,6 +16,8 @@ let _type;
 let overlay;
 let originY;
 let originX;
+let _ellipseColor;
+let _ellipseSize;
 
 
 /**
@@ -82,7 +84,7 @@ function handleDocumentMouseup(e) {
       cY: (parseInt(overlay.style.top, 10) + (ry)),
       rX: rx,
       rY: ry
-    });
+    },_ellipseColor,_ellipseSize);
 
     overlay.parentNode.removeChild(overlay);
     overlay = null;
@@ -117,7 +119,7 @@ function handleDocumentKeyup(e) {
  * @param {Array} rects The rects to use for annotation
  * @param {String} color The color of the rects
  */
-function saveEllipse(ellipse, color) {
+function saveEllipse(ellipse, color, size) {
   let svg = findSVGAtPoint(ellipse.cX - ellipse.rX, ellipse.cY- ellipse.rY);
   let node;
   let annotation;
@@ -132,6 +134,8 @@ function saveEllipse(ellipse, color) {
   // Initialize the annotation
   annotation = scaleDown(svg, ellipse);
   annotation = {...annotation, type:'ellipse'};
+  annotation.color = color;
+  annotation.width = size;
   // Short circuit if no rectangles exist
   if (!annotation) {
     return;
@@ -145,6 +149,17 @@ function saveEllipse(ellipse, color) {
           .then((annotation) => {
             appendChild(svg, annotation);
           });
+}
+
+/**
+ * Set the attributes of the ellipse.
+ *
+ * @param {Number} ellipseSize The size of the lines drawn by the ellipse
+ * @param {String} ellipseColor The color of the ellipse
+ */
+export function setEllipse(ellipseSize = 1, ellipseColor = '000000') {
+  _ellipseSize = parseInt(ellipseSize, 10);
+  _ellipseColor = ellipseColor;
 }
 
 /**

@@ -1,3 +1,4 @@
+/* eslint-disable default-case */
 import React, { useState, useContext, useEffect, useRef } from "react";
 import AWS from "aws-sdk";
 import { fileContext } from "../mediaboard";
@@ -11,10 +12,150 @@ import TextFieldsIcon from '@material-ui/icons/TextFields';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FormatColorTextIcon from '@material-ui/icons/FormatColorText';
 import PublishIcon from '@material-ui/icons/Publish';
-import { Tooltip } from "@material-ui/core";
+import UI from "../../utils/PdfAnnotate/UI";
+import { SketchPicker } from 'react-color';
+import LineWeightIcon from '@material-ui/icons/LineWeight';
+
+
 const Toolelements = () => {
   const [value, setValue] = useState(1);
   const [isPdf, showHighLight] = useState(false);
+  let [tooltype, setToolType] = useState('cursor');
+  let [thickness, changeThickness] = useState(1);
+  let [color, changeColor] = useState('#ff0000');
+  let [colorPicker, setColorPicker] = useState(false);
+  let [sizePicker, setSizePicker] = useState(false);
+
+  var RENDER_OPTIONS = {
+		documentId: 'default'
+  };
+
+  useEffect(() => {
+
+    //set for pen
+    UI.setPen(thickness, color);
+    localStorage.setItem(RENDER_OPTIONS.documentId + '/pen/color', color);
+    localStorage.setItem(RENDER_OPTIONS.documentId + '/pen/size', thickness);
+
+    // set for Text
+    UI.setText(thickness, color);
+    localStorage.setItem(RENDER_OPTIONS.documentId + '/text/size', thickness);
+    localStorage.setItem(RENDER_OPTIONS.documentId + '/text/color', color);
+
+    // set for line
+    UI.setLine(thickness, color);
+    localStorage.setItem(RENDER_OPTIONS.documentId + '/line/size', thickness);
+    localStorage.setItem(RENDER_OPTIONS.documentId + '/line/color', color);
+
+    //set for ellipse
+    UI.setEllipse(thickness, color)
+    localStorage.setItem(RENDER_OPTIONS.documentId + '/ellipse/size', thickness);
+    localStorage.setItem(RENDER_OPTIONS.documentId + '/ellipse/color', color);
+
+    //set for Rectangle
+    UI.setRect(thickness, color);
+    localStorage.setItem(RENDER_OPTIONS.documentId + '/rect/size', thickness);
+    localStorage.setItem(RENDER_OPTIONS.documentId + '/rect/color', color);
+
+  },[color, thickness]);
+
+
+  useEffect(() => {
+ 
+    switch (tooltype) {
+        case 'color':
+          break;
+        case 'cursor':
+          UI.enableEdit();
+          break;
+        case 'draw':
+          UI.disableEdit();
+          UI.enablePen();
+          break;
+        case 'eraser':
+          UI.disableEdit();
+          UI.enableEraser();
+          break;
+        case 'text':
+          UI.disableEdit();
+          UI.enableText();
+          break;
+        case 'line':
+          UI.disableEdit();
+          UI.enableLine();
+          break;
+        case 'point':
+          UI.disableEdit();
+          UI.enablePoint();
+          break;
+        case 'ellipse':
+          UI.disableEdit();
+          UI.enableEllipse();
+          break;
+        case 'area':
+        case 'highlight':
+        case 'underline':
+        case 'strikeout':
+          UI.disableEdit();
+          UI.enableRect(tooltype);
+          break;
+          default:
+            UI.disableEdit();
+            UI.disablePen();
+            UI.disableEraser();
+            UI.disableText();
+            UI.disableLine();
+            UI.disableEllipse();
+            UI.disableRect();      
+          }
+  },[tooltype])
+  const handleToolbarClick  = (e) => {
+      const type = e.currentTarget.getAttribute('data-annotation-type');
+      if(colorPicker) {
+        setColorPicker(false)
+      }
+      if(sizePicker) {
+        setSizePicker(false)
+      }
+    if(type === tooltype) {
+      return;
+    } else {
+      switch (tooltype) {
+            case 'cursor':
+              UI.disableEdit();
+              break;
+            case 'draw':
+              UI.disablePen();
+              break;
+            case 'eraser':
+              UI.disableEraser();
+              break;
+            case 'text':
+              UI.disableText();
+              break;
+            case 'line':
+              UI.disableLine();
+              break;
+            case 'point':
+              UI.disablePoint();
+              break;
+            case 'ellipse':
+              UI.disableEllipse();
+              break;
+            case 'area':
+            case 'highlight':
+            case 'strikeout':
+            case 'underline':
+              UI.disableRect();
+              break;
+            case 'color':
+             document.getElementsByClassName('.nav-colopiker').style.display = 'none'
+          }
+          setToolType(type);
+    }
+
+  }
+
 
   const handleClearClick = (e) => {
     if (
@@ -36,16 +177,23 @@ const Toolelements = () => {
     }
   };
   const displayColorPicker = () => {
-    if (
-      document.querySelector(".nav-colopiker").style &&
-      document.querySelector(".nav-colopiker").style.display == "none"
-    ) {
-      document.querySelector(".nav-colopiker").style.display = "block";
-    } else {
-      document.querySelector(".nav-colopiker").style.display = "none";
-      document.querySelector(".color_pick").classList.remove("active");
+
+    if(colorPicker) setColorPicker(false);
+    else {
+      setToolType('')
+      setSizePicker(false);
+      setColorPicker(true);
     }
-  };
+ }
+
+ const displaySizePicker = () =>  {
+  if(sizePicker) setSizePicker(false);
+  else {
+    setToolType('')
+    setColorPicker(false);
+    setSizePicker(true);
+  }
+ }
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -192,184 +340,48 @@ const Toolelements = () => {
         <div className="menu-mat-icons">
             <NearMeIcon
             data-annotation-type="cursor"
-            className="icon items"
+            className= { tooltype === 'cursor' ? 'icon items active' : 'icon items'}
+            onClick = {handleToolbarClick}
             />
             <span className="tooltiptext">Cursor</span>
           </div>
           <div className="menu-mat-icons">
               <CreateIcon
               data-annotation-type="draw"
-              className="icon items"
+              className= { tooltype === 'draw' ? 'icon items active' : 'icon items'}
+              onClick = {handleToolbarClick}
               />
               <span className="tooltiptext">Pencil</span>
           </div>
           <div onClick={displayColorPicker} className="menu-mat-icons">
             <ColorizeIcon
               data-annotation-type="color"
-              className="icon items color_pick"
+              className= {colorPicker ? 'icon items color_pick active' : 'icon items color_pick'}
             />
-            <span className="tooltiptext">Pencil Color & Thickness</span>
-          </div>
+            <span className="tooltiptext">Pencil Color</span>
           <div
             className="sub-menu nav-colopiker nav-pen"
-            style={{ display: "none" }}
+            style={ colorPicker ? { display: "block" } : {display: "none"}}
           >
-            <ul>
-              <li>
-                <label className="piker-container black">
-                  {" "}
-                  <input
-                    type="radio"
-                    name="pen-color"
-                    value="#000000"
-                    data-value="black"
-                  />
-                  <span
-                    className="checkmark"
-                    style={{ backgroundColor: "#000" }}
-                  ></span>
-                </label>{" "}
-              </li>
-              <li>
-                <label className="piker-container grey">
-                  {" "}
-                  <input
-                    type="radio"
-                    name="pen-color"
-                    value="#9c9c9c"
-                    data-value="grey"
-                  />
-                  <span
-                    className="checkmark"
-                    style={{ backgroundColor: "#9c9c9c" }}
-                  ></span>
-                </label>
-              </li>
-              <li>
-                <label className="piker-container white">
-                  {" "}
-                  <input
-                    type="radio"
-                    name="pen-color"
-                    value="#f2edfd"
-                    data-value="white"
-                  />
-                  <span
-                    className="checkmark"
-                    style={{
-                      backgroundColor: "#fff",
-                      border: "1px solid #eee",
-                    }}
-                  ></span>
-                </label>{" "}
-              </li>
-              <li>
-                <label className="piker-container red">
-                  {" "}
-                  <input
-                    type="radio"
-                    name="pen-color"
-                    value="#ff0000"
-                    data-value="red"
-                  />
-                  <span
-                    className="checkmark"
-                    style={{ backgroundColor: "red" }}
-                  ></span>
-                </label>{" "}
-              </li>
-              <li>
-                <label className="piker-container pink">
-                  {" "}
-                  <input
-                    type="radio"
-                    name="pen-color"
-                    value="#f06291"
-                    data-value="pink"
-                  />
-                  <span
-                    className="checkmark"
-                    style={{ backgroundColor: "#f06291" }}
-                  ></span>
-                </label>
-              </li>
-              <li>
-                <label className="piker-container purple">
-                  {" "}
-                  <input
-                    type="radio"
-                    name="pen-color"
-                    value="#8f3e97"
-                    data-value="purple"
-                  />
-                  <span
-                    className="checkmark"
-                    style={{ backgroundColor: "#8f3e97" }}
-                  ></span>
-                </label>
-              </li>
-              <li>
-                <label className="piker-container blue">
-                  {" "}
-                  <input
-                    type="radio"
-                    name="pen-color"
-                    value="#2083c5"
-                    data-value="blue"
-                  />
-                  <span
-                    className="checkmark"
-                    style={{ backgroundColor: "#2083c5" }}
-                  ></span>
-                </label>
-              </li>
-              <li>
-                <label className="piker-container green">
-                  {" "}
-                  <input
-                    type="radio"
-                    name="pen-color"
-                    value="#007a3b"
-                    data-value="green"
-                  />
-                  <span
-                    className="checkmark"
-                    style={{ backgroundColor: "#007a3b" }}
-                  ></span>
-                </label>
-              </li>
-              <li>
-                <label className="piker-container yellow">
-                  {" "}
-                  <input
-                    type="radio"
-                    name="pen-color"
-                    value="#ffcd45"
-                    data-value="yellow"
-                  />{" "}
-                  <span
-                    className="checkmark"
-                    style={{ backgroundColor: "#ffcd45" }}
-                  ></span>{" "}
-                </label>
-              </li>
-              <li>
-                <label className="piker-container orange">
-                  {" "}
-                  <input
-                    type="radio"
-                    name="pen-color"
-                    value="#ff8d00"
-                    data-value="orange"
-                  />
-                  <span
-                    className="checkmark"
-                    style={{ backgroundColor: "#ff8d00" }}
-                  ></span>
-                </label>
-              </li>
-            </ul>
-            <div className="rangeslider-box">
+            <SketchPicker
+            color={ color }
+            onChangeComplete={ (color) => {
+              changeColor(color.hex)
+            } }
+            />
+            </div>
+          </div>
+            <div onClick={displaySizePicker} className="menu-mat-icons">
+            <LineWeightIcon
+              data-annotation-type="size"
+              className= {sizePicker ? 'icon items size_pick active' : 'icon items size_pick'}
+            />
+            <span className="tooltiptext">Thickness</span>
+          <div
+            className="sub-menu nav-colopiker-thickness nav-pen"
+            style={ sizePicker ? { display: "block" } : {display: "none"}}
+          >
+          <div className="rangeslider-box">
               {" "}
               <label>Thickness</label>
               <div className="slider">
@@ -378,55 +390,60 @@ const Toolelements = () => {
                   type="range"
                   min="1"
                   max="10"
-                  value={value}
+                  value={thickness}
                   className="slider-color"
                   id="penThicknessRange"
-                  onChange={handleChange}
+                  onChange={(e) => changeThickness(e.target.value)}
                 />
               </div>{" "}
-              <span id="penThickness" className="text-size slider-val"></span>
+            </div>
             </div>
           </div>
 
           <div className="menu-mat-icons">
             <i
               data-annotation-type="line"
-              className="icon items line"
+              className= { tooltype === 'line' ? 'icon items line active' : 'icon items line'}
+              onClick = {handleToolbarClick}
             />
             <span className="tooltiptext">Line</span>
           </div>
           <div className="menu-mat-icons">
               <CropDinIcon
                data-annotation-type="area"
-               className="icon items"
+               className= { tooltype === 'area' ? 'icon items active' : 'icon items'}
+               onClick = {handleToolbarClick}
               />
               <span className="tooltiptext">Rectangle</span>
           </div>
           <div className="menu-mat-icons">
               <RadioButtonUncheckedIcon 
                data-annotation-type="ellipse"
-               className="icon items"
+               className= { tooltype === 'ellipse' ? 'icon items active' : 'icon items'}
+               onClick = {handleToolbarClick}
               />
               <span className="tooltiptext">Ellipse</span>
           </div>
           <div className="menu-mat-icons">
               <TextFieldsIcon
                data-annotation-type="text"
-               className="icon items"
+               className= { tooltype === 'text' ? 'icon items active' : 'icon items'}
+               onClick = {handleToolbarClick}
               />
               <span className="tooltiptext">Text</span>
           </div>
           <div className="menu-mat-icons">
               <i
                 data-annotation-type="eraser"
-                className="icon items eraser"
+                className= { tooltype === 'eraser' ? 'icon items eraser active' : 'icon items eraser'}
+                onClick = {handleToolbarClick}
               />
               <span className="tooltiptext">Eraser</span>
           </div>
           <div onClick={handleClearClick} className="menu-mat-icons">
               <DeleteIcon
                data-annotation-type="clear"
-               className="icon items"
+               className= { tooltype === 'clear' ? 'icon items active' : 'icon items'}
               />
               <span className="tooltiptext">Clear All</span>
           </div>
@@ -434,16 +451,18 @@ const Toolelements = () => {
             isPdf ?<>
             <FormatColorTextIcon
               data-annotation-type="highlight"
-              className="icon items"
+              className= { tooltype === 'highlight' ? 'icon items active' : 'icon items'}
               style = {{display: 'block'}}
+              onClick = {handleToolbarClick}
             />
             <span className="tooltiptext">Highlight Text</span>
             </> :
            <>
            <FormatColorTextIcon
              data-annotation-type="highlight"
-             className="icon items"
-             style = {{display: 'none'}}
+             className= { tooltype === 'highlight' ? 'icon items active' : 'icon items'}
+               style = {{display: 'none'}}
+               onClick = {handleToolbarClick}
            />
            <span className="tooltiptext">Highlight Text</span>
           </>

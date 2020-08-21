@@ -9,7 +9,6 @@ import { toggleNext, togglePrev, toggleFirstLast } from "./whiteboard/control";
 import FullscreenOutlinedIcon from '@material-ui/icons/FullscreenOutlined';
 import FullscreenExitOutlinedIcon from '@material-ui/icons/FullscreenExitOutlined';
 import { t } from '../i18n';
-import { Tooltip } from "@material-ui/core";
 
 (typeof window !== "undefined"
   ? window
@@ -113,11 +112,7 @@ const Whiteboard = () => {
       .then((pdf) => {
         if(check) {
           alert(t('toast.upload_file'));
-         // globalStore.showToast({
-         //   message: t('toast.upload_file'),
-         //   type: 'notice'
-         // });
-         hideLoader();
+          hideLoader();
        }
         fileState.setTotalPages(pdf.numPages)
         RENDER_OPTIONS.pdfDocument = pdf;
@@ -131,7 +126,6 @@ const Whiteboard = () => {
       });
 
     PDFJSAnnotate.setStoreAdapter(new PDFJSAnnotate.LocalStoreAdapter());
-    PDFJSAnnotate.start(PDFJSAnnotate);
   };
   useEffect(() => {
     if (roomStore._state.me.role === "teacher") {

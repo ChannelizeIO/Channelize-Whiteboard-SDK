@@ -17,6 +17,8 @@ let overlay;
 let originY;
 let originX;
 let _highlightColor = 'yellow';
+let _rectSize;
+let _rectColor;
 
 let isEnablePointerEvents = false;
 function checkForPointerEvents() {
@@ -173,7 +175,7 @@ function saveRect(type, rects, color) {
   }
 
   let boundingRect = svg.getBoundingClientRect();
-  console.log(boundingRect);
+
   if (!color) {
     if (type === 'highlight') {
       color = _highlightColor;
@@ -220,6 +222,8 @@ function saveRect(type, rects, color) {
     annotation.y = rect.y;
     annotation.width = rect.width;
     annotation.height = rect.height;
+    annotation.color = _rectColor;
+    annotation.size = _rectSize;
   }
 
   let {documentId, pageNumber} = getMetadata(svg);
@@ -239,6 +243,18 @@ function saveRect(type, rects, color) {
 export function setHighlightColor(highlightColor = 'ffcd45') {
   _highlightColor = highlightColor;
 }
+
+/**
+ * Set the attributes of the rectangle.
+ *
+ * @param {Number} rectSize The size of the lines drawn by the ellipse
+ * @param {String} rectColor The color of the ellipse
+ */
+export function setRect(rectSize = 1, rectColor = '000000') {
+  _rectSize = parseInt(rectSize, 10);
+  _rectColor = rectColor;
+}
+
 /**
  * Enable rect behavior
  */

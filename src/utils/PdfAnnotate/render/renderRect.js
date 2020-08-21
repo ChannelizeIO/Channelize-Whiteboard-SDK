@@ -25,6 +25,7 @@ export default function renderRect(a) {
     let rect = createRect(a);
     setAttributes(rect, {
       stroke: normalizeColor(a.color || '#f00'),
+      strokeWidth: a.size || 1 ,
       fill: 'none'
     });
 

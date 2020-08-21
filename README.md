@@ -64,17 +64,15 @@ In Small Classroom and Large Hall:
 
 ### Some Upcoming Features
 
-  1. Multiple annotators.
-  2. Downloading annotated files.
-  3. Support for other pub/sub services.
-  4. Improvement in annotations in Mobile & Tablet browsers.
-
+   1. Class recording feature
+   2. Downloading annotated files.
+   3. Support for other pub/sub services.
+   4. Support for annotations in Mobile & Tablet browsers.
+   5. Some UI and user experience improvements.
 
 ### Compatibility
 
 Channelize Whiteboard will work on all Desktop & Laptop browsers. On Mobile & Tablet browsers, currently the UI of annotations is not coming fine.
-
-
 
 # Get started
 
@@ -99,6 +97,10 @@ Channelize Whiteboard will work on all Desktop & Laptop browsers. On Mobile & Ta
 
 
    - **Rename `.env.example` to `.env.local` and configure the following parameters:**
+
+   - **If you want to change title from Channelize Whiteboard to [Your_title]. Please make changes in src/i18n/en.ts and public/index.html .**
+
+   - **If you want to change favicon icon. Please replace favicon.png in public folder**
 
    - **(Required) Agora App ID** 
    ```bash
