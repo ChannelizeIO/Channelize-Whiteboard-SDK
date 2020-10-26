@@ -54,9 +54,10 @@ export function renderPage(pageNumber, renderOptions) {
 		pdfDocument.getPage(pageNumber),
 		PDFJSAnnotate.getAnnotations(documentId, pageNumber)
 	]).then(([ pdfPage, annotations ]) => {
-		if(!document.getElementById(`${count}`)) 
+		if(!document.getElementById(`${count}`))
 			return;
 		let page = document.getElementById(`${count}`).querySelector(`#pageContainer${pageNumber}`);
+		console.log(page);
 		let svg = page.querySelector('.customAnnotationLayer');
 		let canvas = page.querySelector('.canvasWrapper canvas');
 		let canvasContext = canvas.getContext('2d', { alpha: false });
@@ -133,9 +134,10 @@ function scalePage(pageNumber, viewport, context, count) {
 	canvas.height = roundToDivide(viewport.height * outputScale.sy, sfy[0]);
 	canvas.style.width = roundToDivide(viewport.width, sfx[1]) + 'px';
 	canvas.style.height = roundToDivide(viewport.height, sfx[1]) + 'px';
-	svg.setAttribute('width', viewport.width);
+	//svg.setAttribute('width', viewport.width);
+	svg.setAttribute('width', '100%');
 	svg.setAttribute('height', viewport.height);
-	svg.style.width = `${viewport.width}px`;
+	//svg.style.width = `${viewport.width}px`;
 	svg.style.height = `${viewport.height}px`;
 	page.style.width = `${viewport.width}px`;
 	page.style.height = `${viewport.height}px`;

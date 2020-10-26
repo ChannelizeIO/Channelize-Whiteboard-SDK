@@ -1,5 +1,5 @@
 /* eslint-disable default-case */
-import React, { useState, useContext, useEffect, useRef } from "react";
+import React, { useState, useContext, useEffect, useRef, useMemo } from "react";
 import AWS from "aws-sdk";
 import { fileContext } from "../mediaboard";
 import PDFJSAnnotate from "../../utils/PdfAnnotate/PDFJSAnnotate";
@@ -15,7 +15,11 @@ import PublishIcon from '@material-ui/icons/Publish';
 import UI from "../../utils/PdfAnnotate/UI";
 import { SketchPicker } from 'react-color';
 import LineWeightIcon from '@material-ui/icons/LineWeight';
-
+import PersonIcon from '@material-ui/icons/Person';
+import { roomStore } from '../../stores/room';
+import { useLocation } from 'react-router';
+import { async } from "rxjs/internal/scheduler/async";
+import { blue } from '@material-ui/core/colors';
 
 const Toolelements = () => {
   const [value, setValue] = useState(1);
@@ -26,9 +30,20 @@ const Toolelements = () => {
   let [colorPicker, setColorPicker] = useState(false);
   let [sizePicker, setSizePicker] = useState(false);
 
+  const location = useLocation();
+
   var RENDER_OPTIONS = {
 		documentId: 'default'
   };
+
+  const showTool = useMemo(() => {
+    if (roomStore._state.course.allowAnnotation 
+      && roomStore._state.me.role === 'teacher' 
+      && (location.pathname.match(/big-class/) || location.pathname.match(/small-class/))) {
+      return true
+    }
+    return false;
+  }, [location.pathname, roomStore._state.me.role,roomStore._state.course.allowAnnotation]);
 
   useEffect(() => {
 
@@ -263,7 +278,8 @@ const Toolelements = () => {
           hideLoader();
         }
       }
-    } catch (e) { }
+    } catch (e) {
+     }
   };
 
   const checkFileSize = (size) => {
@@ -283,8 +299,9 @@ const Toolelements = () => {
         ContentType: "application/pdf",
       },
       function (err, data) {
+
         if (err) {
-          alert('Failed to upload !!!!');
+          alert('Failed to upload !!!!', err);
         }
         hideLoader();
         fileState.fileDispatch({ type: "upload-file", fileId: data.Location });
@@ -327,11 +344,19 @@ const Toolelements = () => {
       });
   }
 
+
   const inputFileRef = useRef(null);
 
   const handleFileUpload = () => {
     /*Collecting node-element and performing click*/
     inputFileRef.current.click();
+  }
+
+  const ExitGrantWhiteboard =  async() => {
+
+    const peeerId = roomStore._state.course.linkId;
+    await roomStore.mute(`${peeerId}`, 'grantBoard');
+    await roomStore.updateCourseLinkUid(0)
   }
   return (
     <>
@@ -475,6 +500,14 @@ const Toolelements = () => {
             style={{display: 'none'}}
             />
           </div>
+          {
+            showTool ?
+            <>
+            <PersonIcon style={{ color: blue[300] }} onClick = {ExitGrantWhiteboard} className = 'icon items' />
+            <span className="tooltiptext">cancel annotation</span>
+            </>
+            : null
+          }
         </div>
       </div>
     </>

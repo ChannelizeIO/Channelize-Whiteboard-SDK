@@ -223,6 +223,12 @@ export default class AgoraRTMClient {
     return results;
   }
 
+  async queryOnlineStatusById(id: string[]) {
+    let result: any;
+    result = await this._client.queryPeersOnlineStatus(id);
+    return Object.keys(result).find(key => result[key] === true);
+  }
+
   async getChannelAttributeBy(channelName: string) {
     let json = await this._client.getChannelAttributes(channelName);
     const accounts = [];

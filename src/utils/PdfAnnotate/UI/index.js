@@ -6,7 +6,7 @@ import { disableEllipse, enableEllipse, setEllipse } from './ellipse';
 import { disableEraser, enableEraser, setEraser } from './eraser';
 import { disablePoint, enablePoint } from './point';
 import { disableRect, enableRect, setHighlightColor, setRect } from './rect';
-import { disableText, enableText, setText } from './text';
+import { disableText, enableText, setText, closeInput } from './text';
 import { createPage, renderPage } from './page';
 
 export default {
@@ -18,6 +18,6 @@ export default {
   disablePoint, enablePoint,
   disableEllipse, enableEllipse, setEllipse,
   disableRect, enableRect, setHighlightColor, setRect,
-  disableText, enableText, setText,
+  disableText, enableText, setText, closeInput,
   createPage, renderPage
 };

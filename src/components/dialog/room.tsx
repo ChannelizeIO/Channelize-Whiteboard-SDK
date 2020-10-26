@@ -76,12 +76,14 @@ const DialogContainer = () => {
     }
     else if (type === 'apply') {
       roomStore.rtmClient.sendPeerMessage(
-        `${roomStore.applyUid}`, {cmd: RoomMessage.rejectCoVideo}
+        `${roomStore.applyUid}`, {cmd: RoomMessage.muteBoard}
       ).then(() => {
         globalStore.removeDialog();
+        globalStore.removeNotice();
       }).catch(console.warn);
     }
   }
+
 
   const onConfirm = (type: string) => {
     if (type === 'exitRoom') {
@@ -95,17 +97,13 @@ const DialogContainer = () => {
     }
     else if (type === 'apply') {
       Promise.all([
-        roomStore.rtmClient.sendPeerMessage(
-          `${roomStore.applyUid}`, {cmd: RoomMessage.acceptCoVideo}
-        ),
+        roomStore.unmute(`${roomStore.applyUid}`, 'grantBoard'),
         roomStore.updateCourseLinkUid(roomStore.applyUid)
       ]).then(() => {
-        
         globalStore.removeNotice();
         globalStore.removeDialog();
       }).catch(console.warn);
     }
-
     return;
   }
  

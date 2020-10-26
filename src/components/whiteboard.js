@@ -110,9 +110,10 @@ const Whiteboard = () => {
     };
     PDFJS.getDocument(RENDER_OPTIONS.documentId).promise
       .then((pdf) => {
-        if(check) {
-          alert(t('toast.upload_file'));
-          hideLoader();
+        if(check && Boolean(roomStore.uploadBy)) {
+         alert(t('toast.upload_file'));
+         hideLoader();
+         roomStore.setUploadByme(0);
        }
         fileState.setTotalPages(pdf.numPages)
         RENDER_OPTIONS.pdfDocument = pdf;
@@ -128,12 +129,12 @@ const Whiteboard = () => {
     PDFJSAnnotate.setStoreAdapter(new PDFJSAnnotate.LocalStoreAdapter());
   };
   useEffect(() => {
-    if (roomStore._state.me.role === "teacher") {
       PDFJSAnnotate.getStoreAdapter().addEvent(
         "annotation:added",
         (fingerprint, annotation) => {
+          const uid  = roomStore._state.me.uid;
           arrayStoreAdapter.addAnnotation(fingerprint, annotation);
-          sendToRemote(annotation, fingerprint, "annotation-added", "");
+          sendToRemote(annotation, fingerprint, "annotation-added", uid);
         }
       );
       PDFJSAnnotate.getStoreAdapter().addEvent(
@@ -155,8 +156,9 @@ const Whiteboard = () => {
       PDFJSAnnotate.getStoreAdapter().addEvent(
         "annotation:removed",
         (fingerprint, annotationId) => {
+          const uid  = roomStore._state.me.uid;
           arrayStoreAdapter.deleteAnnotation(fingerprint, annotationId).then((annotations) => {
-          sendToRemote(annotations, fingerprint, "annotation-removed", "");
+          sendToRemote(annotations, fingerprint, "annotation-removed", uid);
           });
         }
       );
@@ -167,15 +169,14 @@ const Whiteboard = () => {
           sendToRemote("", fingerprint, "annotation-reset", "");
         }
       );
-    }
   }, []);
 
   useEffect(() => {
 
     try {
     if (
-      roomStore._state.annotatePdf.annotations &&
-      roomStore._state.me.role != "teacher"
+      roomStore._state.annotatePdf.annotations 
+      // roomStore._state.me.role != "teacher"
     ) {
       let annotate = roomStore._state.annotatePdf;
       let annotations = annotate.annotations;
@@ -185,7 +186,8 @@ const Whiteboard = () => {
         svg = document.querySelector(
           `[data-pdf-annotate-document="${annotations.documentId}"][data-pdf-annotate-page="${pageNumber}"]`
         );
-      if (roomStore._state.annotatePdf.status === "annotation-added") {
+      if (roomStore._state.annotatePdf.status === "annotation-added" &&
+      roomStore._state.annotatePdf.annotationId !== roomStore._state.me.uid) {
         arrayStoreAdapter
           .addAnnotation(annotations.documentId, annotations.annotations)
           .then(() => {
@@ -223,8 +225,8 @@ const Whiteboard = () => {
                 });
               });
           });
-      } else if (roomStore._state.annotatePdf.status === "annotation-removed") {
-
+      } else if (roomStore._state.annotatePdf.status === "annotation-removed"  &&
+      roomStore._state.annotatePdf.annotationId !== roomStore._state.me.uid ) {
         PDFJSAnnotate.getStoreAdapter().resetAnnotation(
           annotations.documentId,
           true
@@ -271,12 +273,17 @@ const Whiteboard = () => {
             item.innerHTML = "";
           });
         });
-      } else if (roomStore._state.annotatePdf.status === "add-page") {
+      } else if (roomStore._state.annotatePdf.status === "add-page" && roomStore._state.me.role !== "teacher") {
         fileState.fileDispatch({
           type: "remote-add-page",
           fileId: annotations.documentId,
         });
-      } else if (roomStore._state.annotatePdf.status === "remove-page") {
+      } else if (roomStore._state.annotatePdf.status === "add-uploaded-page" && !Boolean(roomStore.uploadBy)) {
+        fileState.fileDispatch({
+          type: "remote-add-page",
+          fileId: annotations.documentId,
+        });
+      } else if (roomStore._state.annotatePdf.status === "remove-page" && roomStore._state.me.role !== "teacher") {
         arrayStoreAdapter.resetAnnotation(
           roomStore._state.annotatePdf.annotationId
         );
@@ -290,13 +297,13 @@ const Whiteboard = () => {
           type: "remote-remove-page",
           fileId: annotations.documentId,
         });
-      } else if (roomStore._state.annotatePdf.status === "next-page") {
+      } else if (roomStore._state.annotatePdf.status === "next-page" && roomStore._state.me.role !== "teacher") {
         toggleNext();
-      } else if (roomStore._state.annotatePdf.status === "prev-page") {
+      } else if (roomStore._state.annotatePdf.status === "prev-page" && roomStore._state.me.role !== "teacher") {
         togglePrev();
-      } else if (roomStore._state.annotatePdf.status === "toggleFirstLast") {
+      } else if (roomStore._state.annotatePdf.status === "toggleFirstLast" && roomStore._state.me.role !== "teacher") {
         toggleFirstLast(roomStore._state.annotatePdf.annotationId);
-      } else if (roomStore._state.annotatePdf.status === "sync-scroll") {
+      } else if (roomStore._state.annotatePdf.status === "sync-scroll" && roomStore._state.me.role !== "teacher") {
         document.querySelector(".media-board").scrollTop =
           roomStore._state.annotatePdf.annotationId;
       }

@@ -9,6 +9,8 @@ import { t } from '../i18n';
 import Toolelements from './whiteboard/toolelements';
 import { sendToRemote } from './whiteboard';
 import LocalStoreAdapter from '../utils/PdfAnnotate/adapter/LocalStoreAdapter';
+import { RoomMessage } from '../utils/agora-rtm-client';
+import PDFJSAnnotate from '../utils/PdfAnnotate/PDFJSAnnotate';
 
 
 interface MediaBoardProps {
@@ -68,7 +70,8 @@ const fileReducer = (state: any, action: any) => {
       }
       return state;
     case 'upload-file':
-      sendToRemote("", action.fileId, "add-page", "");
+      sendToRemote("", action.fileId, "add-uploaded-page", "");
+      roomStore.setUploadByme(1);
       return [...state, action.fileId];
     case 'remote-add-page':
       return [...state, action.fileId];
@@ -97,9 +100,58 @@ const MediaBoard: React.FC<MediaBoardProps> = ({
         message: `${globalStore.state.notice.text}`,
       })
     }
-    if (handleClick) {
-      handleClick(type);
+
+    if (type === 'hands_up') {
+
+      if(roomStore.state.course.allowAnnotation) {
+        globalStore.showToast({
+          message: t('toast.teacher_already_acpt_whiteboard'),
+          type: 'notice'
+        });
+        return;
+      }
+
+      if (roomStore.state.course.teacherId) {
+        // rtmLock.current = true;
+        roomStore.rtmClient.sendPeerMessage(roomStore.state.course.teacherId,
+          { cmd: RoomMessage.unmuteBoard })
+          .then((result: any) => {
+            console.log("peerMessage result ", result);
+          })
+          .catch(console.warn)
+          .finally(() => {
+            globalStore.showToast({
+              message: t('toast.raised_hand'),
+              type: 'notice'
+            });
+            // rtmLock.current = false;
+          })
+      } else {
+        globalStore.showToast({
+          message: t('toast.interact_not_allowed'),
+          type: 'notice'
+        });
+      }
     }
+
+    if (type === 'hands_up_end') {
+      if (roomStore.state.course.teacherId) {
+       // rtmLock.current = true;
+        roomStore.rtmClient.sendPeerMessage(roomStore.state.course.teacherId,
+          { cmd: RoomMessage.muteBoard })
+          .then((result: any) => {
+            console.log("peerMessage result ", result);
+          })
+          .catch(console.warn)
+          .finally(() => {
+           // rtmLock.current = false;
+          })
+      }
+    }
+
+    // if (handleClick) {
+    //   handleClick(type);
+    // }
   }
 
   const isHost = useMemo(() => {
@@ -146,6 +198,21 @@ const MediaBoard: React.FC<MediaBoardProps> = ({
   useEffect(() => {
     setCurrentPage(1);
   },[pdfFiles]);
+
+  useEffect(() => {
+    if(!Boolean(me.grantBoard)) {
+      let { UI } = PDFJSAnnotate;
+      UI.disableEdit();
+      UI.disablePen();
+      UI.disableEraser();
+      UI.disableText();
+      UI.closeInput();
+      UI.disableLine();
+      UI.disablePoint();
+      UI.disableEllipse();
+      UI.disableRect();
+      }    
+  },[me.grantBoard])
 
   function getMostVisibleElement(selector: any) : any {
     let clientRect = null;
@@ -222,7 +289,7 @@ const MediaBoard: React.FC<MediaBoardProps> = ({
       }
       <div className="layer">
         <>
-          {me.role === 'teacher' ? <fileContext.Provider value={{pdfFiles: pdfFiles, fileDispatch: dispatch}}><Toolelements /></fileContext.Provider> : null}
+          {me.role === 'teacher' ||  Boolean(me.grantBoard) ? <fileContext.Provider value={{pdfFiles: pdfFiles, fileDispatch: dispatch}}><Toolelements /></fileContext.Provider> : null}
         </>
         {children ? children : null}
       </div>

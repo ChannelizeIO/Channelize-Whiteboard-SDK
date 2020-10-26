@@ -104,17 +104,30 @@ export const RootProvider: React.FC<any> = ({children}) => {
       }).catch(console.warn);
     });
     rtmClient.on("AttributesUpdated", (attributes: object) => {
+      console.log('AttributesUpdated###', attributes);
       roomStore.updateRoomAttrs(attributes)
     });
     rtmClient.on("MemberJoined", (memberId: string) => {
+      globalStore.showToast({
+        type: 'rtmClient',
+        message: t('toast.user_joined'),
+      });
     });
-    rtmClient.on("MemberLeft", (memberId: string) => {
-      if (roomStore.state.applyUid === +memberId) {
-        roomStore.updateCourseLinkUid(0)
+
+    rtmClient.on("MemberLeft", async (memberId: string) => {
+      if (roomStore.state.applyUid === +memberId && roomState.me.role === 'teacher') {
+      roomStore.updateCourseLinkUid(0)
         .then(() => {
+          roomStore.updateMe({
+            allowAnnotation: 0
+          });
           globalStore.removeNotice();
         }).catch(console.warn);
       }
+      globalStore.showToast({
+        type: 'rtmClient',
+        message: t('toast.user_leave'),
+      });
     });
     rtmClient.on("MemberCountUpdated", (count: number) => {
       !ref.current && roomStore.updateMemberCount(count);

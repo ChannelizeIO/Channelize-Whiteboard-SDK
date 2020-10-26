@@ -1,6 +1,7 @@
 const BUILD_VERSION = process.env.REACT_APP_VERSION as string;
 const build_version = BUILD_VERSION ? BUILD_VERSION : '1.0.0';
 
+
 const en = {
   'return': {
     'home': 'Back To Home',
@@ -35,17 +36,27 @@ const en = {
     'teacher_exists': 'Teacher already exists, Please waiting for 30s or reopen new class',
     'student_over_limit': 'Student have reached upper limit, , Please waiting for 30s or rejoin new class',
     'teacher_and_student_over_limit': 'The number of students and teacher have reached upper limit',
-    'teacher_accept_whiteboard': 'Teacher already grant your whiteboard',
-    'teacher_cancel_whiteboard': 'Teacher already cancel your whiteboard',
-    'teacher_accept_co_video': 'Teacher already accept co-video',
-    'teacher_reject_co_video': 'Teacher already rejected co-video',
-    'teacher_cancel_co_video': 'Teacher already canceled co-video',
+    'teacher_accept_whiteboard': 'Teacher grant your whiteboard',
+    'teacher_cancel_whiteboard': 'Teacher cancel your whiteboard',
+    'teacher_accept_co_video': 'Teacher  accept co-video',
+    'teacher_reject_co_video': 'Teacher  rejected co-video',
+    'teacher_cancel_co_video': 'Teacher  canceled co-video',
     'student_cancel_co_video': 'Student canceled co-video',
+    'teacher_already_acpt_whiteboard': 'Teacher already grant whiteboard',
     'add_page': 'New canvas added!',
     'remove_page': 'Current canvas removed!',
     'toggle_page': 'Canvas changed!',
-    'upload_file': 'File has been uploaded successfully!'
+    'upload_file': 'File has been uploaded successfully!',
+    'one_allowed_annotation': 'Only one student allowed to annotate at a time',
+    'student_not_joined': 'Student not joined yet',
+    'interact_not_allowed': 'You are not allowed to interact until Teacher joins the class',
+    'student_joined': 'student joined',
+    'student_leave': 'student leaved',
+    'user_joined': 'user joined',
+    'user_leave': 'user leave',
+    'raised_hand': 'You have raised hand',
   },
+
   'notice': {
     'student_interactive_apply': `"{reason}" wants to interact with you`
   },

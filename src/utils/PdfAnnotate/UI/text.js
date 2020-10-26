@@ -286,7 +286,7 @@ function saveText(hasClose = true) {
 /**
  * Close the input
  */
-function closeInput() {
+export function closeInput() {
   if (input) {
     input.removeEventListener('blur', handleInputBlur);
     input.removeEventListener('keyup', handleInputKeyup);

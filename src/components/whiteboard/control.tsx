@@ -1,4 +1,4 @@
-import React, { useMemo, useContext, useEffect, useState } from 'react';
+import React, { useMemo, useContext, useEffect, useState, useRef } from 'react';
 import Icon from '../icon';
 import PollCard from '../../components/poll/index'
 import usePollData from '../../hooks/use-poll-data';
@@ -14,7 +14,18 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import LastPageIcon from '@material-ui/icons/LastPage';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import RemoveCircleOutlineOutlinedIcon from '@material-ui/icons/RemoveCircleOutlineOutlined';
-import { Tooltip } from '@material-ui/core';
+import { jsPDF } from 'jspdf';
+import html2canvas from 'html2canvas';
+import CreateIcon from '@material-ui/icons/Create';
+import CreateOutlinedIcon from '@material-ui/icons/CreateOutlined';
+import { green } from '@material-ui/core/colors';
+import Button from '@material-ui/core/Button';
+import RecordRTCPromisesHandler from 'recordrtc';
+import { async } from 'rxjs/internal/scheduler/async';
+import GetAppIcon from '@material-ui/icons/GetApp';
+import StopIcon from '@material-ui/icons/Stop';
+import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
+
 
 interface ControlItemProps {
   name: string
@@ -179,10 +190,13 @@ export default function Control({
 }: ControlProps) {
   const location = useLocation();
   const {createPollFlag, pollView, handlePollTool, endPoll } = usePollData();
-
+  const roomType =  roomStore.state.course.roomType;
   // to get total number of canvas
   const [totalCanvas, setCanvasCount] = useState(1);
-
+  // screen recording
+  const [isRecording, setRecording] = useState(false);
+  let recorder  = useRef<any>();
+  let desktopStream = useRef<any>();
   // to get current canvas number
   const [currentCanvasNumber, setCanvasNumber ] = useState(1);
   const showCreate: boolean = useMemo(() => {
@@ -218,7 +232,173 @@ export default function Control({
     setCanvasCount(fileState.pdfFiles.length)
    }, [fileState.pdfFiles.length])
 
+   const activediv = async (value: string) => {
 
+    const active = document.getElementsByClassName('pdfViewer');
+ 
+     if(value == 'active') {
+       for(let i=0;i<active.length;i++) {
+         active[i].classList.add('active');
+       }
+     } else  if(value == 'deactive'){
+       for(let i=0;i<active.length;i++) {
+         if(i+1 == currentCanvasNumber) {
+           continue;
+         }
+         active[i].classList.remove('active');
+       }
+     }
+    } 
+
+   const printDocument = async () => {
+   
+    await activediv('active')
+ 
+    const input =  document.getElementById('main-container')?.childElementCount;
+    let pdf = new jsPDF('l', 'mm', 'a0');
+    let pdfSize = 0;
+    for(let i=1;i<=input!; i++) {
+
+      const d = document.querySelector('#viewerContainer'+i) as HTMLElement;
+
+     if(d) {
+      pdfSize = pdfSize + 1;
+      const canvas = await html2canvas(d);
+      const imgData =  canvas.toDataURL('image/jpeg');
+      pdf.setFontSize(40);
+      pdf.text(`Page Number: ${i}`, 12, 12);
+      pdf.addImage(imgData, 'JPEG', -50, 0, canvas.width-100, canvas.height-100);
+      pdf.addPage();
+     }
+    }
+    if(pdfSize <= input! ) {
+      pdf.deletePage(pdfSize + 1);
+    } 
+    pdf.save("testdownload.pdf");
+    await activediv('deactive');
+
+  }
+
+  const showTool: boolean = useMemo(() => {
+    if (role === 'student' && (location.pathname.match(/big-class/) || location.pathname.match(/small-class/))) {
+      return true
+    }
+    return false;
+  }, [location.pathname, role]);
+
+  function getRandomString() {
+    if (window.crypto && window.crypto.getRandomValues && navigator.userAgent.indexOf('Safari') === -1) {
+        var a = window.crypto.getRandomValues(new Uint32Array(3)),
+            token = '';
+        for (var i = 0, l = a.length; i < l; i++) {
+            token += a[i].toString(36);
+        }
+        return token;
+    } else {
+        return (Math.random() * new Date().getTime()).toString(36).replace(/\./g, '');
+    }
+}
+
+  function getFileName(fileExtension: any) {
+    var d = new Date();
+    var year = d.getFullYear();
+    var month = d.getMonth();
+    var date = d.getDate();
+    return 'RecordRTC-' + year + month + date + '-' + getRandomString() + '.' + fileExtension;
+}
+
+ 
+  const stopRecording = async () => {
+    recorder.current.stopRecording(function() {
+      setRecording(false);
+      let blob = recorder.current.getBlob();
+      var file = new File([blob], getFileName('mp4'), {
+            type: 'video/mp4'
+        });
+      RecordRTCPromisesHandler.invokeSaveAsDialog(file, getFileName('mp4'));
+      let tracks = desktopStream.current.getTracks();
+      tracks.forEach((track: any) => track.stop());
+      globalStore.showToast({
+        type: 'notice-board',
+        message: t('toast.stop_recording')
+      });
+  });
+  }
+ 
+
+  const handleScreenRecording =  async() => {
+    if(isRecording) {
+      stopRecording();   
+    } else {   
+      let displaymediastreamconstraints = {
+        video: {
+          displaySurface: 'browser'
+        },
+        audio: true,
+    };
+    
+        const mediaDevices = navigator.mediaDevices as any;
+        desktopStream.current = await mediaDevices.getDisplayMedia(displaymediastreamconstraints);
+        const tracks = [
+          ...desktopStream.current.getVideoTracks(),
+        ];
+        
+         let stream = new MediaStream(tracks);
+         recorder.current = new RecordRTCPromisesHandler(stream, {
+              type: 'video'
+          });
+          
+        recorder.current.startRecording();
+        setRecording(true);
+
+        desktopStream.current.getVideoTracks()[0].onended = function () {
+         stopRecording();
+        };
+
+        globalStore.showToast({
+          type: 'notice-board',
+          message: t('toast.start_recording')
+        });
+    }
+  }
+
+
+  const allowToAnnotate = async () => {
+    const annotationAllow = roomStore._state.course.allowAnnotation;
+    const student = roomStore._state.users;
+    let uids: string[] = [];
+    student.forEach((x) => {
+      console.log(x);
+        if(x.role == 'student') {
+          uids.push(x.uid);
+        }
+    });
+    
+    if(uids.length === 0) {
+      globalStore.showToast({
+        message: t('toast.student_not_joined'),
+        type: 'notice'
+      });
+      return;
+    }
+
+    let uid = await roomStore.rtmClient.queryOnlineStatusById(uids);
+    console.log(uid);
+    if(uid === undefined) {
+      globalStore.showToast({
+        message: t('toast.student_not_joined'),
+        type: 'notice'
+      });
+      return;
+    }
+    if(Boolean(annotationAllow)) {
+     await roomStore.mute(uid, 'grantBoard');
+     await roomStore.setApplyUid('0');
+    } else {
+    await roomStore.unmute(uid, 'grantBoard');
+    await roomStore.setApplyUid(uid);
+    }
+  }
 
   return (
     <>
@@ -229,7 +409,7 @@ export default function Control({
             onClick={onClick} />
         : null}
       </div>
-      {(role === 'teacher') ?
+      {(role === 'teacher') || showTool ?
       <div className="controls">
         { role === 'teacher' ?
           <>
@@ -275,10 +455,45 @@ export default function Control({
                   <span className="tooltiptext">Remove Canvas</span>
                 </div> : null
               }
-
+            <div className='control-button'>
+            <GetAppIcon onClick={printDocument} />  
+            <span className="tooltiptext">Download canvas</span>
+            </div> 
             <div className="menu-split" style={{ marginLeft: '7px', marginRight: '7px' }}></div>
           </> : null
         }
+        {
+          role === 'teacher' && isRecording ?
+          <div className="control-button">
+          <StopIcon onClick = {handleScreenRecording} />
+              <span className="tooltiptext">Stop recording</span>
+          </div>
+          :
+          <div className="control-button">
+          <FiberManualRecordIcon onClick = {handleScreenRecording} />
+              <span className="tooltiptext">Start recording</span>
+          </div>
+        }
+         <div className="menu-split" style={{ marginLeft: '7px', marginRight: '7px' }}></div>
+
+         {
+        role === 'teacher' && roomType === 0 ?
+        (
+          <>
+          {
+            !roomStore._state.course.allowAnnotation ?
+            <div className="control-button">
+            <CreateOutlinedIcon  onClick = {allowToAnnotate} />
+            <span className="tooltiptext">Allow annotation</span>
+            </div> :
+            <div className="control-button">
+            <CreateIcon style={{ color: green[500] }} onClick = {allowToAnnotate}/>
+            <span className="tooltiptext">Deny annotation</span>
+            </div>  
+          }
+          </>        
+        )  : null
+      }
         {role === 'teacher' ?
          showCreate ?
          <>
@@ -289,6 +504,17 @@ export default function Control({
          />
          </> : null
          : null }
+
+        {role === 'student' ?
+          <>
+            <ControlItem
+              name={isHost ? 'hands_up_end' : 'hands_up'}
+              onClick={onClick}
+              text={''}
+            />
+          </>
+         :null}
+
       </div> : null}
     </div>
     <PollCard

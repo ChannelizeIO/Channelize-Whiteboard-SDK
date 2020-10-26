@@ -75,6 +75,7 @@ export interface ClassState {
   linkId: number
   lockBoard: number
   courseState: number
+  allowAnnotation: number
 }
 
 export type SessionInfo = {
@@ -188,6 +189,7 @@ export class RoomStore {
       roomName: '',
       roomType: 0,
       lockBoard: 0,
+      allowAnnotation: 0,
     },
     poll: {
       totalValue:'',
@@ -226,6 +228,8 @@ export class RoomStore {
 
   public windowId: number = 0;
 
+  private uploadByMe: number = 0;
+
   public rtmClient: AgoraRTMClient;
 
   constructor() {
@@ -242,11 +246,16 @@ export class RoomStore {
       ...this.defaultState,
     }
     this.applyLock = 0;
+    this.uploadByMe = 0;
     this.subject.next(this.state);
   }
 
   get applyUid() {
     return this.applyLock;
+  }
+
+  get uploadBy() {
+    return this.uploadByMe;
   }
 
   subscribe(updateState: any) {
@@ -297,6 +306,7 @@ export class RoomStore {
     }
     this.commit(this.state);
   }
+
   async handlePeerMessage(cmd: RoomMessage, peerId: string) {
     if (!peerId) return console.warn('state is not assigned');
     const myUid = this.state.me.uid;
@@ -322,15 +332,17 @@ export class RoomStore {
       }
       return;
     }
+    
 
     // when i m teacher & received student message
     if (this.isTeacher(myUid) && this.isStudent(peerId)) {
       switch (cmd) {
-        case RoomMessage.applyCoVideo: {
+        case RoomMessage.unmuteBoard: {
           // WARN: LOCK
-          if (this.state.course.linkId) {
+          if (this.state.course.linkId && roomStore.state.course.allowAnnotation) {
             return console.warn('already received apply id: ', this.applyLock);
           }
+      
           const applyUser = roomStore.state.users.get(`${peerId}`);
           if (applyUser) {
             this.applyLock = +peerId;
@@ -347,12 +359,13 @@ export class RoomStore {
           }
           return;
         }
-        case RoomMessage.cancelCoVideo: {
+
+        case RoomMessage.muteBoard: {
           // WARN: LOCK
           if (this.state.course.linkId && `${this.state.course.linkId}` === peerId) {
             roomStore.updateCourseLinkUid(0).then(() => {
+              this.setAllowAnnotation(0);
             }).catch(console.warn);
-
             globalStore.showToast({
               type: 'co-video',
               message: t('toast.student_cancel_co_video')
@@ -366,11 +379,16 @@ export class RoomStore {
     }
   }
 
+  async setUploadByme(num: number) {
+    this.uploadByMe = num;
+  }
+
   async mute(uid: string, type: string) {
     const me = this.state.me;
      if (me.role === 'teacher') {
       if (type === 'grantBoard') {
         await this.rtmClient.sendPeerMessage(`${uid}`, { cmd: RoomMessage.muteBoard });
+        this.updateMe({allowAnnotation: 0});
       }
     }
   }
@@ -381,6 +399,7 @@ export class RoomStore {
     if (me.role === 'teacher') {
       if (type === 'grantBoard') {
         await this.rtmClient.sendPeerMessage(`${uid}`, { cmd: RoomMessage.unmuteBoard });
+        this.updateMe({allowAnnotation: 1});
       }
     }
   }
@@ -406,7 +425,7 @@ export class RoomStore {
       result = pass === false ? canJoin(argsJoin) : { permitted: true, reason: '' };
       if (result.permitted) {
         let res = await this.rtmClient.join(rid);
-        const grantBoard = role === 'teacher' ? 1 : 0;
+        const grantBoard = role === 'teacher' ? 1 : payload.grantBoard;
         await this.updateMe({ ...payload, grantBoard });
         this.state = {
           ...this.state,
@@ -594,6 +613,7 @@ export class RoomStore {
   private compositeCourse(params: Partial<ClassState>): ClassState {
     console.log("compositeCourse: ", params);
     const newCourse = { ...this.state.course };
+    console.log('newCourse', newCourse)
     for (const prop in params) {
       if (newCourse.hasOwnProperty(prop) && params.hasOwnProperty(prop)) {
         set(newCourse, prop, get(params, prop, ''));
@@ -621,8 +641,8 @@ export class RoomStore {
     if (me.role === 'teacher') {
       newChannelAttrs.lock_board = course.lockBoard;
       newChannelAttrs.class_state = course.courseState;
+      newChannelAttrs.grant_board = course.allowAnnotation
     }
-
     return newChannelAttrs;
   }
 
@@ -641,6 +661,7 @@ export class RoomStore {
     }
 
     const channelAttrs = this.exactChannelAttrsBy(newMe, newCourse);
+    
     this.state = {
       ...this.state,
       me: {
@@ -666,6 +687,7 @@ export class RoomStore {
       lock_board: 0,
       grant_board: 0,
     }
+
 
     const AgoraUserKeys: string[] = [
       'uid',
@@ -752,7 +774,8 @@ export class RoomStore {
       linkId: room.link_uid,
       boardId: room.whiteboard_uid,
       courseState: room.class_state,
-      lockBoard: room.lock_board
+      lockBoard: room.lock_board,
+      allowAnnotation: room.grant_board,
     };
 
     const me = this.state.me;
@@ -779,6 +802,25 @@ export class RoomStore {
         ...this.state.course,
         ...newCourse
       }
+    }
+    this.commit(this.state);
+  }
+
+  setAllowAnnotation(allowAnnotation: number) {
+    this.state = {
+      ...this.state,
+      course: {
+        ...this.state.course,
+        allowAnnotation: allowAnnotation,
+      }
+    }
+    this.commit(this.state);
+  }
+
+  async setApplyUid(uid: string) {
+    this.state = {
+      ...this.state,
+      applyUid: +uid,
     }
     this.commit(this.state);
   }
