@@ -55,6 +55,7 @@ const en = {
     'user_joined': 'user joined',
     'user_leave': 'user leave',
     'raised_hand': 'You have raised hand',
+    'cursor_not_allow': 'You can not use cursor on remote annotation'
   },
 
   'notice': {

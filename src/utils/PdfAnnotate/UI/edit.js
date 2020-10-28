@@ -2,6 +2,9 @@ import PDFJSAnnotate from '../PDFJSAnnotate';
 import initColorPicker from '../utils/ColorPicker';
 import appendChild from '../render/appendChild';
 import normalizeColor from '../utils/normalizeColor';
+import { globalStore } from '../../../stores/global';
+import { t } from '../../../i18n';
+
 import {
   addEventListener,
   removeEventListener
@@ -35,8 +38,13 @@ function createEditOverlay(target) {
   let { documentId } = getMetadata(findSVGContainer(target));
   PDFJSAnnotate.getStoreAdapter().getAnnotation(documentId, annotationId).then((annotation) => {
     if (!annotation) {
+      globalStore.showToast({
+        message: t('toast.cursor_not_allow'),
+        type: 'notice'
+      });
       return;
     }
+
     overlay = document.createElement('div');
     let anchor = document.createElement('a');
     let svg = findSVGContainer(target);
