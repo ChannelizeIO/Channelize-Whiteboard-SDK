@@ -1,5 +1,5 @@
 import PDFJSAnnotate from '../PDFJSAnnotate';
-import { TextLayerBuilder } from 'pdfjs-dist/web/pdf_viewer';
+import { renderTextLayer } from 'pdfjs-dist/build/pdf.js';
 import 'pdfjs-dist/web/pdf_viewer.css';
 import renderScreenReaderHints from '../a11y/renderScreenReaderHints';
 
@@ -75,16 +75,14 @@ export function renderPage(pageNumber, renderOptions) {
 				return pdfPage.getTextContent({ normalizeWhitespace: true }).then((textContent) => {
 					return new Promise((resolve, reject) => {
 						// Render text layer for a11y of text content
-						let textLayer = page.querySelector(`.textLayer`);
-						console.log(textLayer);
-						// let textLayerFactory = new PDFJS.DefaultTextLayerFactory();
-						let textLayerBuilder = new TextLayerBuilder({
-							textLayerDiv: textLayer,
-							pageIndex: pageNumber - 1,
-							viewport
-						});
-						textLayerBuilder.setTextContent(textContent);
-						textLayerBuilder.render();
+						let textLayerDiv = page.querySelector(`.textLayer`);
+						var textLayer =  renderTextLayer({
+							textContent: textContent,
+							container: textLayerDiv,
+							viewport: viewport
+						  });
+						// textLayerBuilder.setTextContent(textContent);
+						textLayer._render();
 
 						// Enable a11y for annotations
 						// Timeout is needed to wait for `textLayerBuilder.render`
