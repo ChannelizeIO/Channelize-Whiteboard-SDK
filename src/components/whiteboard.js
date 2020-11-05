@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import PDFJS from "pdfjs-dist/build/pdf";
+import PDFJS,{getDocument} from "pdfjs-dist/build/pdf";
 import PDFJSAnnotate from "../utils/PdfAnnotate/PDFJSAnnotate";
 import 'pdfjs-dist/web/pdf_viewer.css';
 import "./whiteboard.scss";
@@ -108,7 +108,7 @@ const Whiteboard = () => {
       rotate: 0,
       count: elementId,
     };
-    PDFJS.getDocument(RENDER_OPTIONS.documentId).promise
+    getDocument(RENDER_OPTIONS.documentId).promise
       .then((pdf) => {
         if(check) {
           alert(t('toast.upload_file'));
