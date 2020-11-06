@@ -1,5 +1,5 @@
 import PDFJSAnnotate from '../PDFJSAnnotate';
-import { TextLayerBuilder } from 'pdfjs-dist/web/pdf_viewer';
+import { renderTextLayer } from 'pdfjs-dist/build/pdf.js';
 import 'pdfjs-dist/web/pdf_viewer.css';
 import renderScreenReaderHints from '../a11y/renderScreenReaderHints';
 
@@ -53,8 +53,8 @@ export function renderPage(pageNumber, renderOptions) {
 	return Promise.all([
 		pdfDocument.getPage(pageNumber),
 		PDFJSAnnotate.getAnnotations(documentId, pageNumber)
-	]).then(([ pdfPage, annotations ]) => {
-		if(!document.getElementById(`${count}`)) 
+	]).then(([pdfPage, annotations]) => {
+		if (!document.getElementById(`${count}`))
 			return;
 		let page = document.getElementById(`${count}`).querySelector(`#pageContainer${pageNumber}`);
 		let svg = page.querySelector('.customAnnotationLayer');
@@ -74,17 +74,13 @@ export function renderPage(pageNumber, renderOptions) {
 				return pdfPage.getTextContent({ normalizeWhitespace: true }).then((textContent) => {
 					return new Promise((resolve, reject) => {
 						// Render text layer for a11y of text content
-						let textLayer = page.querySelector(`.textLayer`);
-						console.log(textLayer);
-						// let textLayerFactory = new PDFJS.DefaultTextLayerFactory();
-						let textLayerBuilder = new TextLayerBuilder({
-							textLayerDiv: textLayer,
-							pageIndex: pageNumber - 1,
-							viewport
+						let textLayerDiv = page.querySelector(`.textLayer`);
+						var textLayer = renderTextLayer({
+							textContent: textContent,
+							container: textLayerDiv,
+							viewport: viewport
 						});
-						textLayerBuilder.setTextContent(textContent);
-						textLayerBuilder.render();
-
+						textLayer._render();
 						// Enable a11y for annotations
 						// Timeout is needed to wait for `textLayerBuilder.render`
 						setTimeout(() => {
@@ -102,7 +98,7 @@ export function renderPage(pageNumber, renderOptions) {
 				// Indicate that the page was loaded
 				page.setAttribute('data-loaded', 'true');
 
-				return [ pdfPage, annotations ];
+				return [pdfPage, annotations];
 			});
 	});
 }
@@ -123,7 +119,7 @@ function scalePage(pageNumber, viewport, context, count) {
 	let wrapper = page.querySelector('.canvasWrapper');
 	let textLayer = page.querySelector('.textLayer');
 	let outputScale = getOutputScale(context);
-	let transform = !outputScale.scaled ? null : [ outputScale.sx, 0, 0, outputScale.sy, 0, 0 ];
+	let transform = !outputScale.scaled ? null : [outputScale.sx, 0, 0, outputScale.sy, 0, 0];
 	let sfx = approximateFraction(outputScale.sx);
 	let sfy = approximateFraction(outputScale.sy);
 
@@ -166,15 +162,15 @@ function scalePage(pageNumber, viewport, context, count) {
 function approximateFraction(x) {
 	// Fast path for int numbers or their inversions.
 	if (Math.floor(x) === x) {
-		return [ x, 1 ];
+		return [x, 1];
 	}
 
 	const xinv = 1 / x;
 	const limit = 8;
 	if (xinv > limit) {
-		return [ 1, limit ];
+		return [1, limit];
 	} else if (Math.floor(xinv) === xinv) {
-		return [ 1, xinv ];
+		return [1, xinv];
 	}
 
 	const x_ = x > 1 ? xinv : x;
@@ -204,9 +200,9 @@ function approximateFraction(x) {
 
 	// Select closest of neighbours to x.
 	if (x_ - a / b < c / d - x_) {
-		return x_ === x ? [ a, b ] : [ b, a ];
+		return x_ === x ? [a, b] : [b, a];
 	} else {
-		return x_ === x ? [ c, d ] : [ d, c ];
+		return x_ === x ? [c, d] : [d, c];
 	}
 }
 

@@ -448,7 +448,8 @@ const Toolelements = () => {
               <span className="tooltiptext">Clear All</span>
           </div>
           {
-            isPdf ?<>
+            isPdf ?
+            <div className='menu-mat-icons'>
             <FormatColorTextIcon
               data-annotation-type="highlight"
               className= { tooltype === 'highlight' ? 'icon items active' : 'icon items'}
@@ -456,7 +457,7 @@ const Toolelements = () => {
               onClick = {handleToolbarClick}
             />
             <span className="tooltiptext">Highlight Text</span>
-            </> :
+            </div> :
            <>
            <FormatColorTextIcon
              data-annotation-type="highlight"
