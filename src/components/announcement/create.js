@@ -169,6 +169,7 @@ export default function CreateAnnouncement(props) {
     }
   }
   const deleteAnnouncement = async () => {
+   try {
     const announcement = {
       type: "announcement_delete",
       aId: "",
@@ -187,7 +188,10 @@ export default function CreateAnnouncement(props) {
     setRequire({});
     setOpen(false);
     setErr(false);
-
+   } catch(err) {
+    setErr(true);
+    setFile([]);
+   }
   }
   return (
     <>

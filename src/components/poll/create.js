@@ -84,24 +84,26 @@ const PollCreate = props => {
         total:0
       }
 
-      await rtmClient.sendChannelMessage(JSON.stringify(poll));
-      const pollme = {
-        pollId: roomName + '_' + Date.now(),
-        teacher: me.account,
-        question: pollQuestion,
-        show:false,
-        options: optionArr,
-        total:1
-      }
-      roomStore.addPollData(pollme)
-      props.tool('switch_view', 'show');
-      props.tool('create_popup', false);
-      setRequired({})
-      setPollOptions([
-        {option: '', custom:false},
-        {option: '', custom:false}
-      ])
-      setPollQuestion('')
+      try {
+        await rtmClient.sendChannelMessage(JSON.stringify(poll));
+        const pollme = {
+          pollId: roomName + '_' + Date.now(),
+          teacher: me.account,
+          question: pollQuestion,
+          show:false,
+          options: optionArr,
+          total:1
+        }
+        roomStore.addPollData(pollme)
+        props.tool('switch_view', 'show');
+        props.tool('create_popup', false);
+        setRequired({})
+        setPollOptions([
+          {option: '', custom:false},
+          {option: '', custom:false}
+        ])
+        setPollQuestion('')
+      } catch(err) {}
 
     }
   

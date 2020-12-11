@@ -251,32 +251,31 @@ export default function Control({
   }
 
   const printDocument = async () => {
-
-    await activediv('active')
-
-    const input = document.getElementById('main-container')?.childElementCount;
-    let pdf = new jsPDF('l', 'mm', 'a0');
-    let pdfSize = 0;
-    for (let i = 1; i <= input!; i++) {
-
-      const d = document.querySelector('#viewerContainer' + i) as HTMLElement;
-
-      if (d) {
-        pdfSize = pdfSize + 1;
-        const canvas = await html2canvas(d);
-        const imgData = canvas.toDataURL('image/jpeg');
-        pdf.setFontSize(40);
-        pdf.text(`Page Number: ${i}`, 12, 12);
-        pdf.addImage(imgData, 'JPEG', -50, 0, canvas.width - 100, canvas.height - 100);
-        pdf.addPage();
-      }
-    }
-    if (pdfSize <= input!) {
-      pdf.deletePage(pdfSize + 1);
-    }
-    pdf.save("testdownload.pdf");
-    await activediv('deactive');
-
+      try {
+        await activediv('active')
+        const input = document.getElementById('main-container')?.childElementCount;
+        let pdf = new jsPDF('l', 'mm', 'a0');
+        let pdfSize = 0;
+        for (let i = 1; i <= input!; i++) {
+    
+          const d = document.querySelector('#viewerContainer' + i) as HTMLElement;
+    
+          if (d) {
+            pdfSize = pdfSize + 1;
+            const canvas = await html2canvas(d);
+            const imgData = canvas.toDataURL('image/jpeg');
+            pdf.setFontSize(40);
+            pdf.text(`Page Number: ${i}`, 12, 12);
+            pdf.addImage(imgData, 'JPEG', -50, 0, canvas.width - 100, canvas.height - 100);
+            pdf.addPage();
+          }
+        }
+        if (pdfSize <= input!) {
+          pdf.deletePage(pdfSize + 1);
+        }
+        pdf.save("testdownload.pdf");
+        await activediv('deactive');
+      } catch(err) {}
   }
 
   const showTool: boolean = useMemo(() => {
@@ -338,7 +337,9 @@ export default function Control({
       };
 
       const mediaDevices = navigator.mediaDevices as any;
-      desktopStream.current = await mediaDevices.getDisplayMedia(displaymediastreamconstraints);
+       
+      try {
+        desktopStream.current = await mediaDevices.getDisplayMedia(displaymediastreamconstraints);
       const tracks = [
         ...desktopStream.current.getVideoTracks(),
       ];
@@ -359,12 +360,15 @@ export default function Control({
         type: 'notice-board',
         message: t('toast.start_recording')
       });
+      } catch(err) {}
     }
   }
 
 
   const allowToAnnotate = async () => {
-    const annotationAllow = roomStore._state.course.allowAnnotation;
+    
+    try {
+      const annotationAllow = roomStore._state.course.allowAnnotation;
     const student = roomStore._state.users;
     let uids: string[] = [];
     student.forEach((x) => {
@@ -398,6 +402,7 @@ export default function Control({
       await roomStore.unmute(uid, 'grantBoard');
       await roomStore.setApplyUid(uid);
     }
+    } catch (err) {}
   }
 
   return (

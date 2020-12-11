@@ -17,9 +17,11 @@ export default function usePollData() {
 	};
 
 	const endPoll = async () => {
+		try {
 		await rtmClient.sendChannelMessage(JSON.stringify({ type: 'end_poll' }));
 		roomStore.endPoll();
 		switchPollView('create');
+		} catch(err) {}
 	};
 
 	return {

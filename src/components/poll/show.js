@@ -26,7 +26,9 @@ const PollShow = props =>  {
           type: 'poll_answer',
           answer: newPollAnswers
         }
-        await rtmClient.sendChannelMessage(JSON.stringify(answerSubmit));
+        
+        try {
+          await rtmClient.sendChannelMessage(JSON.stringify(answerSubmit));
         const pollOptions = roomState.poll.options
         let totalVotes = 0  
         pollOptions.map(answer => {
@@ -47,6 +49,7 @@ const PollShow = props =>  {
           }, 2000);
           return () => clearTimeout(timer); 
         }
+        } catch(err) {}
            
       }
  

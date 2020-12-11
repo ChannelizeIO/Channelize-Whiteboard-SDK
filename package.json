@@ -1,6 +1,6 @@
 {
   "name": "Channelize-Whiteboard",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "homepage": ".",
   "main": "./src/index.tsx",
@@ -84,7 +84,7 @@
     "moment": "^2.24.0",
     "node-ensure": "0.0.0",
     "node-sass": "^4.14.1",
-    "pdfjs-dist": "2.5.207",
+    "pdfjs-dist": "2.4.456",
     "react": "^16.10.2",
     "react-color": "2.17.3",
     "react-dom": "^16.10.2",

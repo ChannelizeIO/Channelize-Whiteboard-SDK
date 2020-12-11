@@ -1,14 +1,17 @@
 import React, { useEffect, useState, useContext } from "react";
-import PDFJS,{getDocument} from "pdfjs-dist/build/pdf";
+import { getDocument } from "pdfjs-dist/build/pdf";
 import PDFJSAnnotate from "../utils/PdfAnnotate/PDFJSAnnotate";
 import 'pdfjs-dist/web/pdf_viewer.css';
 import "./whiteboard.scss";
 import { roomStore } from "../stores/room";
 import { fileContext } from "./mediaboard";
 import { toggleNext, togglePrev, toggleFirstLast } from "./whiteboard/control";
+import FullScreen from './fullscreen/index';
+
 import FullscreenOutlinedIcon from '@material-ui/icons/FullscreenOutlined';
 import FullscreenExitOutlinedIcon from '@material-ui/icons/FullscreenExitOutlined';
 import { t } from '../i18n';
+
 
 (typeof window !== "undefined"
   ? window
@@ -32,8 +35,10 @@ export const sendToRemote = async (
     status: status,
     annotationId: annotationId,
   };
-  await rtmClient.sendChannelMessage(JSON.stringify(rendering));
-  roomStore.sendAnnotation(rendering);
+  try {
+    await rtmClient.sendChannelMessage(JSON.stringify(rendering));
+    roomStore.sendAnnotation(rendering);
+  } catch(err) {}
 };
 
 const Whiteboard = () => {
@@ -202,29 +207,29 @@ const Whiteboard = () => {
                   ),
                 ]).then(() => {
                 });
-              });
+            });
           });
-      } else if (roomStore._state.annotatePdf.status === "annotation-updated") {
-        arrayStoreAdapter
-          .editAnnotation(
-            annotations.documentId,
-            roomStore._state.annotatePdf.annotationId,
-            annotations.annotations
-          )
-          .then(() => {
-            arrayStoreAdapter
-              .getAnnotations(annotations.documentId, pageNumber)
-              .then((annotations) => {
-                return Promise.all([
-                  PDFJSAnnotate.render(
-                    svg,
-                    JSON.parse(svg.getAttribute("data-pdf-annotate-viewport")),
-                    annotations
-                  ),
-                ]).then(() => {
+        } else if (roomStore._state.annotatePdf.status === "annotation-updated") {
+          arrayStoreAdapter
+            .editAnnotation(
+              annotations.documentId,
+              roomStore._state.annotatePdf.annotationId,
+              annotations.annotations
+            )
+            .then(() => {
+              arrayStoreAdapter
+                .getAnnotations(annotations.documentId, pageNumber)
+                .then((annotations) => {
+                  return Promise.all([
+                    PDFJSAnnotate.render(
+                      svg,
+                      JSON.parse(svg.getAttribute("data-pdf-annotate-viewport")),
+                      annotations
+                    ),
+                  ]).then(() => {
+                  });
                 });
               });
-          });
       } else if (roomStore._state.annotatePdf.status === "annotation-removed"  &&
       roomStore._state.annotatePdf.annotationId !== roomStore._state.me.uid ) {
         PDFJSAnnotate.getStoreAdapter().resetAnnotation(
@@ -235,44 +240,44 @@ const Whiteboard = () => {
           let annotationLayers = document.querySelectorAll(
             `[data-pdf-annotate-document="${annotations.documentId}"]`
           );
-          annotationLayers.forEach(function (item) {
-            item.innerHTML = "";
-          });
-        }).then(() => {
-          annotations.annotations.forEach(element => {
-            arrayStoreAdapter
-          .addAnnotation(annotations.documentId, element)
-          .then(() => {
-            arrayStoreAdapter
-              .getAnnotations(annotations.documentId, element.page)
-              .then((annotations) => {
-                svg = document.querySelector(
-                  `[data-pdf-annotate-document="${annotations.documentId}"][data-pdf-annotate-page="${element.page}"]`)
-                return Promise.all([
-                  PDFJSAnnotate.render(
-                    svg,
-                    JSON.parse(svg.getAttribute("data-pdf-annotate-viewport")),
-                    annotations
-                  ),
-                ]).then(() => {
+            annotationLayers.forEach(function (item) {
+              item.innerHTML = "";
+            });
+          }).then(() => {
+            annotations.annotations.forEach(element => {
+              arrayStoreAdapter
+                .addAnnotation(annotations.documentId, element)
+                .then(() => {
+                  arrayStoreAdapter
+                    .getAnnotations(annotations.documentId, element.page)
+                    .then((annotations) => {
+                      svg = document.querySelector(
+                        `[data-pdf-annotate-document="${annotations.documentId}"][data-pdf-annotate-page="${element.page}"]`)
+                      return Promise.all([
+                        PDFJSAnnotate.render(
+                          svg,
+                          JSON.parse(svg.getAttribute("data-pdf-annotate-viewport")),
+                          annotations
+                        ),
+                      ]).then(() => {
+                      });
+                    });
                 });
-              });
+            });
           });
-          });
-        });
-      } else if (roomStore._state.annotatePdf.status === "annotation-reset") {
-        PDFJSAnnotate.getStoreAdapter().resetAnnotation(
-          annotations.documentId,
-          true
-        );
-        arrayStoreAdapter.resetAnnotation(annotations.documentId).then(() => {
-          let annotationLayers = document.querySelectorAll(
-            `[data-pdf-annotate-document="${annotations.documentId}"]`
+        } else if (roomStore._state.annotatePdf.status === "annotation-reset") {
+          PDFJSAnnotate.getStoreAdapter().resetAnnotation(
+            annotations.documentId,
+            true
           );
-          annotationLayers.forEach(function (item) {
-            item.innerHTML = "";
+          arrayStoreAdapter.resetAnnotation(annotations.documentId).then(() => {
+            let annotationLayers = document.querySelectorAll(
+              `[data-pdf-annotate-document="${annotations.documentId}"]`
+            );
+            annotationLayers.forEach(function (item) {
+              item.innerHTML = "";
+            });
           });
-        });
       } else if (roomStore._state.annotatePdf.status === "add-page" && roomStore._state.me.role !== "teacher") {
         fileState.fileDispatch({
           type: "remote-add-page",
@@ -308,44 +313,11 @@ const Whiteboard = () => {
           roomStore._state.annotatePdf.annotationId;
       }
     }
-  } catch (err) {
-    // silent screen sharing error
-  }
+    } catch (err) {
+      // silent screen sharing error
+    }
   }, [roomStore._state.annotatePdf.annotations]);
 
-
-  function handleFullscreenChange(event) {
-    if(!document.fullscreenElement) {
-      setFullScreen(false)
-    } else {
-      setFullScreen(true)
-    }
-  }
-
-
-  const handleFullScreen = () => {
-
-    const board = document.getElementById('Board');
-
-    // register listener to handle esc key and minimize
-     board.onfullscreenchange = handleFullscreenChange;
-
-     if (board.requestFullscreen && !fullScreen) {
-      board.requestFullscreen();
-    } else if (board.mozRequestFullScreen && !fullScreen) {
-       /* Firefox */
-      board.mozRequestFullScreen();
-    } else if (board.webkitRequestFullscreen && !fullScreen) {
-      /* Chrome, Safari and Opera */
-      board.onwebkitfullscreenchange = handleFullscreenChange;
-      board.webkitRequestFullscreen();
-    } else if (board.msRequestFullscreen && !fullScreen) {
-      /* IE/Edge */
-      board.msRequestFullscreen();
-    } else {
-      document.exitFullscreen();
-    }
-  }
 
   let currentPage = fileState.currentPage;
   let totalPage = fileState.totalPage;
@@ -353,26 +325,15 @@ const Whiteboard = () => {
   return (
     <>
       <div id="main-container">
-      {elements}
+        {elements}
       </div>
       {
         roomStore._state.me.role === "teacher" ?
-        <span className='PageDetail'>
-        <h3>Page {currentPage}/{totalPage}</h3>
-        </span> : null
+          <span className='PageDetail'>
+            <h3>Page {currentPage}/{totalPage}</h3>
+          </span> : null
       }
-       {
-        !fullScreen ?
-        <>
-          <FullscreenOutlinedIcon onClick={handleFullScreen} className='FullScreen'/>
-              <span className="tooltiptext">Full Screen</span>
-        </>
-        :
-        <>
-          <FullscreenExitOutlinedIcon onClick = {handleFullScreen} className='NormalScreen'/>
-              <span className="tooltiptext">Exit Full Screen</span>
-        </>
-      }
+        <FullScreen />
     </>
   );
 };

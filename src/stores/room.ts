@@ -386,9 +386,11 @@ export class RoomStore {
   async mute(uid: string, type: string) {
     const me = this.state.me;
      if (me.role === 'teacher') {
-      if (type === 'grantBoard') {
-        await this.rtmClient.sendPeerMessage(`${uid}`, { cmd: RoomMessage.muteBoard });
-        this.updateMe({allowAnnotation: 0});
+      if (type === 'grantBoard') { 
+        try {
+          await this.rtmClient.sendPeerMessage(`${uid}`, { cmd: RoomMessage.muteBoard });
+          this.updateMe({allowAnnotation: 0});
+        } catch(err) {}
       }
     }
   }
@@ -398,8 +400,10 @@ export class RoomStore {
 
     if (me.role === 'teacher') {
       if (type === 'grantBoard') {
+       try {
         await this.rtmClient.sendPeerMessage(`${uid}`, { cmd: RoomMessage.unmuteBoard });
         this.updateMe({allowAnnotation: 1});
+       } catch(err) {}
       }
     }
   }
@@ -412,7 +416,7 @@ export class RoomStore {
     try {
       const channelMemberCount = await this.rtmClient.getChannelMemberCount([rid]);
       const channelCount = channelMemberCount[rid];
-      let accounts = await this.rtmClient.getChannelAttributeBy(rid);
+      let accounts: any = await this.rtmClient.getChannelAttributeBy(rid);
       const onlineStatus = await this.rtmClient.queryOnlineStatusBy(accounts);
       console.log("onlineStatus", onlineStatus);
       const argsJoin = {
@@ -462,11 +466,13 @@ export class RoomStore {
   }
 
   async updateWhiteboardUid(boardId: string) {
-    let res = await this.updateMe({
-      boardId
-    });
-    console.log("[update whiteboard uuid] res", boardId);
-    return res;
+    try {
+      let res = await this.updateMe({
+        boardId
+      });
+      console.log("[update whiteboard uuid] res", boardId);
+      return res;
+    } catch(err) {}
   }
 
   updateVote(msg:number) {
@@ -675,8 +681,11 @@ export class RoomStore {
       }
     }
     this.commit(this.state);
-    let res = await this.rtmClient.updateChannelAttrsByKey(channelKey, channelAttrs);
-    return res;
+    
+    try {
+      let res = await this.rtmClient.updateChannelAttrsByKey(channelKey, channelAttrs);
+      return res;
+    } catch(err) {}
   }
 
   private exactChannelAttrsFrom(json: object) {

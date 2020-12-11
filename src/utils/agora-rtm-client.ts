@@ -173,13 +173,16 @@ export default class AgoraRTMClient {
     }
 
     console.log("[rtm-client] updateChannelAttrsByKey ", attrs, " key ", key, channelAttributes);
-    await this._client.addOrUpdateChannelAttributes(
-      this._currentChannelName,
-      channelAttributes,
-      {enableNotificationToChannelMembers: true});
+    try {
+      await this._client.addOrUpdateChannelAttributes(
+        this._currentChannelName,
+        channelAttributes,
+        {enableNotificationToChannelMembers: true});
+    } catch(err) {}
   }
 
   async deleteChannelAttributesByKey() {
+   try {
     if (!this._channelAttrsKey) return;
     await this._client.deleteChannelAttributesByKeys(
       this._currentChannelName,
@@ -188,6 +191,7 @@ export default class AgoraRTMClient {
     );
     this._channelAttrsKey = null;
     return;
+   } catch(err) {}
   }
 
   async getChannelAttrs (): Promise<string> {
@@ -200,6 +204,7 @@ export default class AgoraRTMClient {
   }
 
   async queryOnlineStatusBy(accounts: any[]) {
+   try {
     let results: any = {
       teacherCount: 0,
       totalCount: 0,
@@ -221,16 +226,20 @@ export default class AgoraRTMClient {
       }
     }
     return results;
+   } catch(err) {}
   }
 
   async queryOnlineStatusById(id: string[]) {
+   try {
     let result: any;
     result = await this._client.queryPeersOnlineStatus(id);
     return Object.keys(result).find(key => result[key] === true);
+   } catch(err) {}
   }
 
   async getChannelAttributeBy(channelName: string) {
-    let json = await this._client.getChannelAttributes(channelName);
+    try {
+      let json = await this._client.getChannelAttributes(channelName);
     const accounts = [];
     for (let key of Object.keys(json)) {
       if (key === 'teacher') {
@@ -249,12 +258,15 @@ export default class AgoraRTMClient {
       }
     }
     return accounts;
+    } catch (err) {}
   }
 
   async sendPeerMessage(peerId: string, body: MessageBody) {
     resolveMessage(peerId, body);
     console.log("[rtm-client] send peer message ", peerId, JSON.stringify(body));
-    let result = await this._client.sendMessageToPeer({text: JSON.stringify(body)}, peerId, {enableHistoricalMessaging: true});
+    try {
+      let result = await this._client.sendMessageToPeer({text: JSON.stringify(body)}, peerId, {enableHistoricalMessaging: true});
     return result.hasPeerReceived;
+    } catch (err) {}
   }
 }
