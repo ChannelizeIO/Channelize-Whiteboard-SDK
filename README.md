@@ -61,14 +61,30 @@ In Small Classroom and Large Hall:
     1. Announcements: Teacher can do announcements in text and image forms.
     2. Polls: Teachers can raise a poll (question) with four options and students can choose one of the four options as an answer.
 
+### New Features
 
+- Class recording feature
+    1. This feature allow teacher to record whiteboard.
+    2. Screen recording permission will be requred with selected browser screen for recording.
+
+- Downloading annotated files
+    1. Teacher can download annotated canvas as a single PDF file.
+
+- Students can annotate 
+    1. Teacher can grand students to use annotation tool.
+    2. Only one student will be granted annotation tool at a time.
+
+    3. For One-to-one classroom
+         - Teacher can allow students to annotate with button provided in control bar.
+   
+    4. For Small Classroom and Large Hall
+         - Student need to use raise hand for granting permission to use annotation tool.
+          
 ### Some Upcoming Features
 
-   1. Class recording feature
-   2. Downloading annotated files.
-   3. Support for other pub/sub services.
-   4. Support for annotations in Mobile & Tablet browsers.
-   5. Some UI and user experience improvements.
+   1. Support for other pub/sub services.
+   2. Support for annotations in Mobile & Tablet browsers.
+   3. Some UI and user experience improvements.
 
 ### Compatibility
 

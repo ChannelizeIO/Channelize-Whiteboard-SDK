@@ -200,6 +200,7 @@ const MediaBoard: React.FC<MediaBoardProps> = ({
   },[pdfFiles]);
 
   useEffect(() => {
+    // disable all pdf effect on grandboard false
     if(!Boolean(me.grantBoard)) {
       let { UI } = PDFJSAnnotate;
       UI.disableEdit();

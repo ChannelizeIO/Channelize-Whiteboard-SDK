@@ -8,6 +8,7 @@ export default function FullScreen() {
   // full screen boolean
   const [fullScreen, setFullScreen] = useState(false);
 
+  // enable disable full-screen
   function handleFullscreenChange() {
     if (!document.fullscreenElement) {
       setFullScreen(false)
@@ -19,7 +20,6 @@ export default function FullScreen() {
   const handleFullScreen = () => {
 
     const board = document.getElementById('Board');
-
 
     // register listener to handle esc key and minimize
 

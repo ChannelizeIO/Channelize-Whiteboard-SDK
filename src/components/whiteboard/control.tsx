@@ -232,15 +232,20 @@ export default function Control({
     setCanvasCount(fileState.pdfFiles.length)
   }, [fileState.pdfFiles.length])
 
+
+  // active and de-active every canvas div
   const activediv = async (value: string) => {
 
+    // get every canvas div
     const active = document.getElementsByClassName('pdfViewer');
 
     if (value == 'active') {
+      // loop through every canvas and add active class
       for (let i = 0; i < active.length; i++) {
         active[i].classList.add('active');
       }
     } else if (value == 'deactive') {
+      // loop through every canvas and remove active class
       for (let i = 0; i < active.length; i++) {
         if (i + 1 == currentCanvasNumber) {
           continue;
@@ -250,30 +255,44 @@ export default function Control({
     }
   }
 
+  // download anntated canvas as single .pdf file
   const printDocument = async () => {
       try {
+        // add active class to every canvas div
         await activediv('active')
+
+        // get number of canvas
         const input = document.getElementById('main-container')?.childElementCount;
         let pdf = new jsPDF('l', 'mm', 'a0');
         let pdfSize = 0;
+
+        // loop through every canvas
         for (let i = 1; i <= input!; i++) {
-    
+          
+          // get canvas
           const d = document.querySelector('#viewerContainer' + i) as HTMLElement;
     
           if (d) {
             pdfSize = pdfSize + 1;
             const canvas = await html2canvas(d);
+            // convert canvas to image
             const imgData = canvas.toDataURL('image/jpeg');
             pdf.setFontSize(40);
+            // add page number for pdf
             pdf.text(`Page Number: ${i}`, 12, 12);
             pdf.addImage(imgData, 'JPEG', -50, 0, canvas.width - 100, canvas.height - 100);
+            // add empty page for next iteration
             pdf.addPage();
           }
         }
+        // delete last page if empty
         if (pdfSize <= input!) {
           pdf.deletePage(pdfSize + 1);
         }
+        // save pdf
         pdf.save("testdownload.pdf");
+
+        // remove active class from canvas div
         await activediv('deactive');
       } catch(err) {}
   }
@@ -285,6 +304,8 @@ export default function Control({
     return false;
   }, [location.pathname, role]);
 
+
+  // get random string 
   function getRandomString() {
     if (window.crypto && window.crypto.getRandomValues && navigator.userAgent.indexOf('Safari') === -1) {
       var a = window.crypto.getRandomValues(new Uint32Array(3)),
@@ -298,6 +319,7 @@ export default function Control({
     }
   }
 
+  // file name for recorded file
   function getFileName(fileExtension: any) {
     var d = new Date();
     var year = d.getFullYear();
@@ -307,6 +329,7 @@ export default function Control({
   }
 
 
+  // stop recording
   const stopRecording = async () => {
     recorder.current.stopRecording(function () {
       setRecording(false);
@@ -314,8 +337,10 @@ export default function Control({
       var file = new File([blob], getFileName('mp4'), {
         type: 'video/mp4'
       });
+      // save recording as mp4
       RecordRTCPromisesHandler.invokeSaveAsDialog(file, getFileName('mp4'));
       let tracks = desktopStream.current.getTracks();
+      // stop screen recording track
       tracks.forEach((track: any) => track.stop());
       globalStore.showToast({
         type: 'notice-board',
@@ -325,6 +350,7 @@ export default function Control({
   }
 
 
+  // record screen 
   const handleScreenRecording = async () => {
     if (isRecording) {
       stopRecording();
@@ -339,6 +365,7 @@ export default function Control({
       const mediaDevices = navigator.mediaDevices as any;
        
       try {
+        // get screen stream
         desktopStream.current = await mediaDevices.getDisplayMedia(displaymediastreamconstraints);
       const tracks = [
         ...desktopStream.current.getVideoTracks(),
@@ -349,9 +376,11 @@ export default function Control({
         type: 'video'
       });
 
+      // start recording
       recorder.current.startRecording();
       setRecording(true);
 
+      // stop recording on stop screenshare lisnter
       desktopStream.current.getVideoTracks()[0].onended = function () {
         stopRecording();
       };
@@ -365,8 +394,8 @@ export default function Control({
   }
 
 
+  // allow student to annotate for single classroom
   const allowToAnnotate = async () => {
-    
     try {
       const annotationAllow = roomStore._state.course.allowAnnotation;
     const student = roomStore._state.users;
@@ -386,8 +415,8 @@ export default function Control({
       return;
     }
 
+    // check if student is online
     let uid = await roomStore.rtmClient.queryOnlineStatusById(uids);
-    console.log(uid);
     if (uid === undefined) {
       globalStore.showToast({
         message: t('toast.student_not_joined'),
@@ -395,6 +424,8 @@ export default function Control({
       });
       return;
     }
+
+    // allow or deny to annotate
     if (Boolean(annotationAllow)) {
       await roomStore.mute(uid, 'grantBoard');
       await roomStore.setApplyUid('0');
