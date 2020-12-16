@@ -7,11 +7,7 @@ import { roomStore } from "../stores/room";
 import { fileContext } from "./mediaboard";
 import { toggleNext, togglePrev, toggleFirstLast } from "./whiteboard/control";
 import FullScreen from './fullscreen/index';
-
-import FullscreenOutlinedIcon from '@material-ui/icons/FullscreenOutlined';
-import FullscreenExitOutlinedIcon from '@material-ui/icons/FullscreenExitOutlined';
 import { t } from '../i18n';
-
 
 (typeof window !== "undefined"
   ? window
