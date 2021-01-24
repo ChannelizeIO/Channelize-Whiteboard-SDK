@@ -153,7 +153,8 @@ export const RootProvider: React.FC<any> = ({children}) => {
           roomStore.addPollVotes(votes)
           break;
         case "end_poll":
-          roomStore.endPoll()
+          roomStore.endPoll();
+          localStorage.removeItem('react-polls');
            break;
         case "announcement_text":
           const announcementTxt = {

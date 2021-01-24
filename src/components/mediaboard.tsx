@@ -52,12 +52,17 @@ const fileReducer = (state: any, action: any) => {
        document!.querySelector("div.pdfViewer.active svg.customAnnotationLayer")!.getAttribute("data-pdf-annotate-document")
       )
  
-      if(id !== '1') {
+      if(id) {
         let pageId = document.getElementById(`viewerContainer${id}`)!.getElementsByTagName('svg')[0].getAttribute('data-pdf-annotate-document');
         let updatedFiles = state.filter(function (value: any, index: any) {
           return value != id;
         });
-        document.getElementsByClassName('pdfViewer active')[0].previousElementSibling?.classList.add('active');
+
+        if(document.getElementsByClassName('pdfViewer active')[0].previousElementSibling) {
+          document.getElementsByClassName('pdfViewer active')[0].previousElementSibling?.classList.add('active');
+        } else {
+          document.getElementsByClassName('pdfViewer active')[0].nextElementSibling?.classList.add('active');
+        }
 
         // show add button
         availableFiles = whiteBaordFiles.filter(function (obj) { return updatedFiles.indexOf(obj) == -1; });
@@ -76,7 +81,11 @@ const fileReducer = (state: any, action: any) => {
     case 'remote-add-page':
       return [...state, action.fileId];
     case 'remote-remove-page':
-      document.getElementsByClassName('pdfViewer active')[0].previousElementSibling?.classList.add('active');
+      if(document.getElementsByClassName('pdfViewer active')[0].previousElementSibling) {
+        document.getElementsByClassName('pdfViewer active')[0].previousElementSibling?.classList.add('active');
+      } else {
+        document.getElementsByClassName('pdfViewer active')[0].nextElementSibling?.classList.add('active');
+      }
       return action.fileId;
     default:
       return state;

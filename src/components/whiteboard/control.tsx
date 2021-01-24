@@ -263,6 +263,9 @@ export default function Control({
 
         // get number of canvas
         const input = document.getElementById('main-container')?.childElementCount;
+        const board = document.getElementById('Board')
+        board?.scrollTo(0,0);
+        window.scrollTo(0,0);
         let pdf = new jsPDF('l', 'mm', 'a0');
         let pdfSize = 0;
 
@@ -274,13 +277,17 @@ export default function Control({
     
           if (d) {
             pdfSize = pdfSize + 1;
-            const canvas = await html2canvas(d);
+            const canvas = await html2canvas(d,{
+              removeContainer: true,
+              x: 50,
+              height: 1000,
+            });
             // convert canvas to image
             const imgData = canvas.toDataURL('image/jpeg');
             pdf.setFontSize(40);
             // add page number for pdf
             pdf.text(`Page Number: ${i}`, 12, 12);
-            pdf.addImage(imgData, 'JPEG', -50, 0, canvas.width - 100, canvas.height - 100);
+            pdf.addImage(imgData, 'JPEG', 5, 15, canvas.width-150 , canvas.height-150);
             // add empty page for next iteration
             pdf.addPage();
           }
@@ -373,7 +380,8 @@ export default function Control({
 
       let stream = new MediaStream(tracks);
       recorder.current = new RecordRTCPromisesHandler(stream, {
-        type: 'video'
+        type: 'video',
+        mimeType: 'video/webm;codecs=vp8'
       });
 
       // start recording

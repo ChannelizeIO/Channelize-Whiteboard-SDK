@@ -9,7 +9,9 @@ export default function ({data, icon, disable, className, onClick, active,bubble
     return (
     <>
       <div className={`${iconClass} ${className} notification`}  onClick={onClick} data-name={dataName}>
-        <span className="badge">{bubbleCount}</span>
+      {
+         bubbleCount > 0 ?  <span className="badge">{bubbleCount}</span> : null
+       }
       </div>
     </>
     )

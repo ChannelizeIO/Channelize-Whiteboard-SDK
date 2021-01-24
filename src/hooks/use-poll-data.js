@@ -21,6 +21,7 @@ export default function usePollData() {
 		await rtmClient.sendChannelMessage(JSON.stringify({ type: 'end_poll' }));
 		roomStore.endPoll();
 		switchPollView('create');
+		localStorage.removeItem('react-polls');
 		} catch(err) {}
 	};
 
